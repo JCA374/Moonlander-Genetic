@@ -33,7 +33,8 @@ class GATrainer:
         save_dir="ga_models",
         log_interval=1,
         eval_interval=10,
-        checkpoint_interval=20
+        checkpoint_interval=20,
+        fitness_mode='balanced'
     ):
         """
         Initialize GA trainer.
@@ -49,6 +50,7 @@ class GATrainer:
             log_interval: Generations between logging
             eval_interval: Generations between detailed evaluation
             checkpoint_interval: Generations between checkpoints
+            fitness_mode: Fitness function mode (standard/balanced/speed/fuel)
         """
         self.controller_class = controller_class
         self.num_generations = num_generations
@@ -60,6 +62,7 @@ class GATrainer:
         self.log_interval = log_interval
         self.eval_interval = eval_interval
         self.checkpoint_interval = checkpoint_interval
+        self.fitness_mode = fitness_mode
 
         # Create save directory
         os.makedirs(save_dir, exist_ok=True)
@@ -92,6 +95,7 @@ class GATrainer:
         print(f"Episodes/eval:    {self.episodes_per_eval}")
         print(f"Sigma:            {self.sigma}")
         print(f"Parallel workers: {self.parallel_workers}")
+        print(f"Fitness mode:     {self.fitness_mode}")
         print(f"Save directory:   {self.save_dir}")
         print("="*70 + "\n")
 
@@ -123,7 +127,8 @@ class GATrainer:
                     candidates,
                     self.controller_class,
                     num_episodes=self.episodes_per_eval,
-                    num_workers=self.parallel_workers
+                    num_workers=self.parallel_workers,
+                    fitness_mode=self.fitness_mode
                 )
             else:
                 fitness_list, metrics_list = self._sequential_evaluate(candidates)
@@ -183,7 +188,7 @@ class GATrainer:
 
     def _sequential_evaluate(self, candidates):
         """Evaluate candidates sequentially."""
-        evaluator = GAEvaluator(num_episodes=self.episodes_per_eval, render=False)
+        evaluator = GAEvaluator(num_episodes=self.episodes_per_eval, render=False, fitness_mode=self.fitness_mode)
         fitness_list = []
         metrics_list = []
 
@@ -223,7 +228,7 @@ class GATrainer:
         controller.set_parameters(self.best_params_ever)
 
         # Evaluate with more episodes
-        evaluator = GAEvaluator(num_episodes=50, render=False)
+        evaluator = GAEvaluator(num_episodes=50, render=False, fitness_mode=self.fitness_mode)
         fitness, metrics = evaluator.evaluate_controller(controller, verbose=False)
         evaluator.close()
 
@@ -244,7 +249,7 @@ class GATrainer:
         controller.set_parameters(self.best_params_ever)
 
         # Evaluate
-        evaluator = GAEvaluator(num_episodes=100, render=False)
+        evaluator = GAEvaluator(num_episodes=100, render=False, fitness_mode=self.fitness_mode)
         fitness, metrics = evaluator.evaluate_controller(controller, verbose=False)
         evaluator.close()
 
@@ -308,6 +313,9 @@ def main():
     parser.add_argument('--log-interval', type=int, default=1, help='Generations between logs')
     parser.add_argument('--eval-interval', type=int, default=10, help='Generations between detailed evaluations')
     parser.add_argument('--checkpoint-interval', type=int, default=20, help='Generations between checkpoints')
+    parser.add_argument('--fitness-mode', type=str, default='balanced',
+                        choices=['standard', 'balanced', 'speed', 'fuel'],
+                        help='Fitness function: standard (original), balanced (speed+fuel), speed (fast), fuel (efficient)')
 
     args = parser.parse_args()
 
@@ -322,7 +330,8 @@ def main():
         save_dir=args.save_dir,
         log_interval=args.log_interval,
         eval_interval=args.eval_interval,
-        checkpoint_interval=args.checkpoint_interval
+        checkpoint_interval=args.checkpoint_interval,
+        fitness_mode=args.fitness_mode
     )
 
     # Run training

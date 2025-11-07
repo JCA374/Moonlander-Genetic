@@ -14,6 +14,18 @@ This repository implements a **Genetic Algorithm (GA)** approach to solving the 
 # Standard training (~20-40 minutes, 200 generations)
 python train_ga.py
 
+# Efficiency-optimized training (fast + fuel-efficient landings)
+python train_ga.py --fitness-mode balanced
+
+# Speed-optimized training (fastest possible landings)
+python train_ga.py --fitness-mode speed
+
+# Fuel-optimized training (minimal fuel usage)
+python train_ga.py --fitness-mode fuel
+
+# Original fitness function (for comparison)
+python train_ga.py --fitness-mode standard
+
 # Quick test (faster, for development)
 python train_ga.py --generations 50 --population 30 --episodes 5
 
@@ -93,10 +105,36 @@ CMA-ES is a state-of-the-art evolutionary algorithm that:
 4. **Adapts** the covariance matrix to learn problem structure
 5. **Repeats** until convergence or max generations
 
-**Fitness Function:**
-```python
-fitness = avg_reward + (landing_rate × 100)
-```
+### Fitness Optimization Modes
+
+The system supports multiple fitness modes to optimize for different objectives via the `--fitness-mode` flag:
+
+**1. Standard Mode** (`standard`):
+- Original fitness function
+- Formula: `fitness = avg_reward + (landing_rate × 100)`
+- Balances reward and landing success equally
+
+**2. Balanced Mode** (`balanced`) - **Default**:
+- Optimizes for landing success, speed, and fuel efficiency
+- Formula: `fitness = avg_reward + (landing_rate × 100) + (speed_bonus × landing_rate)`
+- Speed bonus: up to 30 points for fast landings (inversely proportional to episode length)
+- Only rewards speed when landing successfully
+
+**3. Speed Mode** (`speed`):
+- Prioritizes fastest possible landings
+- Formula: `fitness = avg_reward + (landing_rate × 150) + (speed_bonus × landing_rate)`
+- Speed bonus: up to 50 points for landings < 200 steps
+- Heavily penalizes slow landings
+
+**4. Fuel Mode** (`fuel`):
+- Emphasizes fuel efficiency (higher reward = less fuel used)
+- Formula: `fitness = avg_reward × 1.5 + (landing_rate × 100)`
+- Amplifies the reward component which includes fuel costs
+
+**Performance Benchmarks:**
+- **Fast landing**: < 200 steps (excellent)
+- **Medium landing**: 200-300 steps (good)
+- **Slow landing**: > 300 steps (needs improvement)
 
 This encourages both high episode rewards and successful landings.
 
