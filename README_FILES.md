@@ -2,16 +2,7 @@
 
 This document describes the purpose of each file in the repository.
 
-## Core Training Files (DQN)
-
-- **train.py** - Main DQN training script with reward shaping
-- **dqn_agent.py** - Double DQN agent with dueling architecture
-- **reward_shaper.py** - Sophisticated reward shaping system (10+ components)
-- **evaluator.py** - Evaluation functions for DQN training
-- **logger.py** - Training logging and diagnostics
-- **play_best.py** - Visualize trained DQN models
-
-## Genetic Algorithm Files (NEW)
+## Core Training Files
 
 - **train_ga.py** - Main GA training script using CMA-ES
 - **linear_controller.py** - Simple linear policy controller (36 params)
@@ -19,69 +10,78 @@ This document describes the purpose of each file in the repository.
 - **cma_es_optimizer.py** - CMA-ES optimizer with simple GA fallback
 - **play_ga.py** - Visualize trained GA controllers
 - **plot_ga_training.py** - Plot GA training progress
-- **compare_ga_dqn.py** - Compare GA vs DQN performance
 - **README_GA.md** - Complete GA documentation
 
-## Utility Files
+## Video Generation
 
-- **landing_analysis.py** - Analyze landing behavior and patterns
-- **individual_video_generator.py** - Generate videos of episodes
-- **merge_movies.py** - Merge multiple videos together
+- **videos/ga_progress_video.py** - Create training progression videos from GA checkpoints
+- **videos/merge_movies.py** - Merge multiple videos with custom text overlays
+- **videos/README.md** - Video generation documentation
 
 ## Test Files
 
 - **test_ga_components.py** - Unit tests for GA components (works without Box2D)
-- **tests/debug_analyzer.py** - Debug and diagnostic tools
-- **tests/speed_diagnostics.py** - Speed and performance diagnostics
+- **test_integration.py** - Integration test for full GA pipeline
 
 ## Configuration Files
 
 - **requirements.txt** - Python package dependencies
 - **.gitignore** - Git ignore patterns
+- **CLAUDE.md** - Claude Code guidance for this repository
 - **CLAUDE.local.md** - Local project notes (not in git)
 
 ## Directories
 
 - **old/** - Archived old versions (in .gitignore)
 - **videos/** - Generated videos (in .gitignore)
-- **publish/** - Published visualizations (dqn-visualization.html)
+- **publish/** - Published visualizations
 - **ga_models/** - Saved GA models (in .gitignore)
+- **tests/** - Test utilities
 - **__pycache__/** - Python cache (in .gitignore)
 
 ## Models and Outputs (Not in Git)
 
-- **moonlander_best.pth** - Best DQN model
-- **moonlander_improving_*.pth** - Improving DQN models
-- **moonlander_checkpoint_*.pth** - DQN checkpoints
 - **ga_models/ga_best.npy** - Best GA model
-- **ga_models/ga_checkpoint_*.npy** - GA checkpoints
+- **ga_models/ga_checkpoint_*.npy** - GA checkpoints (saved every 20 generations)
 - **ga_models/training_history.json** - GA training history
-- **logs/** - Training logs
 
 ## Quick Reference
 
-### To train with DQN:
+### To train:
 ```bash
-python train.py
-```
+# Standard training (~20-40 minutes)
+python train_ga.py
 
-### To train with GA:
-```bash
-python train_ga.py --generations 200
+# Quick test
+python train_ga.py --generations 50 --population 30 --episodes 5
+
+# With parallelization
+python train_ga.py --parallel 4
 ```
 
 ### To visualize trained models:
 ```bash
-python play_best.py                  # DQN model
-python play_ga.py                    # GA model
-```
+# Play episodes
+python play_ga.py --model ga_models/ga_best.npy --episodes 5
 
-### To compare approaches:
-```bash
-python compare_ga_dqn.py --episodes 100
+# Describe what was learned
+python play_ga.py --model ga_models/ga_best.npy --describe
+
+# Plot training progress
+python plot_ga_training.py
 ```
 
 ### To run tests:
 ```bash
 python test_ga_components.py         # GA component tests
+python test_integration.py           # Integration test
+```
+
+### To create progression videos:
+```bash
+# Create video showing training evolution
+cd videos
+python ga_progress_video.py
+
+# Output: videos/ga_progress/ga_progression_YYYYMMDD_HHMMSS.mp4
 ```
