@@ -15,7 +15,7 @@ class GAEvaluator:
     Evaluates controller fitness in the Lunar Lander environment.
     """
 
-    def __init__(self, num_episodes=10, max_steps=1000, render=False):
+    def __init__(self, num_episodes=10, max_steps=1000, render=False, fitness_mode='balanced'):
         """
         Initialize evaluator.
 
@@ -23,10 +23,16 @@ class GAEvaluator:
             num_episodes: Number of episodes to average over for fitness
             max_steps: Maximum steps per episode
             render: Whether to render the environment (for visualization)
+            fitness_mode: Fitness function mode:
+                - 'standard': reward + landing_rate*100 (original)
+                - 'balanced': Optimize for speed and fuel efficiency while landing
+                - 'speed': Prioritize fast landings
+                - 'fuel': Prioritize fuel efficiency
         """
         self.num_episodes = num_episodes
         self.max_steps = max_steps
         self.render = render
+        self.fitness_mode = fitness_mode
 
         # Create environment
         if render:
@@ -110,15 +116,43 @@ class GAEvaluator:
             'avg_length': np.mean(episode_lengths)
         }
 
-        # Compute composite fitness
-        # We want to maximize both reward and landing rate
-        # Landing rate is scaled by 100 to make it comparable to reward
-        fitness = avg_reward + (landing_rate * 100)
+        # Compute composite fitness based on mode
+        avg_length = metrics['avg_length']
 
-        # Alternative fitness functions (can experiment):
-        # fitness = avg_reward  # Reward only
-        # fitness = landing_rate * 200 + avg_reward * 0.5  # Prioritize landing
-        # fitness = avg_reward * (1 + landing_rate)  # Multiplicative bonus
+        if self.fitness_mode == 'standard':
+            # Original: just reward and landing rate
+            fitness = avg_reward + (landing_rate * 100)
+
+        elif self.fitness_mode == 'balanced':
+            # Balanced: Optimize for landing success, fuel efficiency, and speed
+            # Landing success is most important (100 points)
+            # Reward includes fuel efficiency
+            # Speed bonus for fast landings (up to 30 points for very fast)
+            speed_bonus = max(0, (1.0 - avg_length / self.max_steps) * 30)
+            # Only give speed bonus if actually landing successfully
+            speed_component = speed_bonus * landing_rate
+            fitness = avg_reward + (landing_rate * 100) + speed_component
+
+        elif self.fitness_mode == 'speed':
+            # Prioritize fast successful landings
+            # Heavy penalty for slow landings
+            speed_bonus = max(0, (1.0 - avg_length / self.max_steps) * 50)
+            speed_component = speed_bonus * landing_rate
+            fitness = avg_reward + (landing_rate * 150) + speed_component
+
+        elif self.fitness_mode == 'fuel':
+            # Prioritize fuel efficiency (higher reward = less fuel used)
+            # Emphasize the reward component more heavily
+            fitness = avg_reward * 1.5 + (landing_rate * 100)
+        else:
+            # Default to balanced
+            speed_bonus = max(0, (1.0 - avg_length / self.max_steps) * 30)
+            speed_component = speed_bonus * landing_rate
+            fitness = avg_reward + (landing_rate * 100) + speed_component
+
+        # Store fitness mode info in metrics
+        metrics['fitness_mode'] = self.fitness_mode
+        metrics['fitness'] = fitness
 
         return fitness, metrics
 
@@ -149,7 +183,7 @@ class GAEvaluator:
         self.env.close()
 
 
-def parallel_evaluate(parameters_list, controller_class, num_episodes=10, num_workers=4):
+def parallel_evaluate(parameters_list, controller_class, num_episodes=10, num_workers=4, fitness_mode='balanced'):
     """
     Evaluate multiple parameter sets in parallel.
 
@@ -158,6 +192,7 @@ def parallel_evaluate(parameters_list, controller_class, num_episodes=10, num_wo
         controller_class: Controller class
         num_episodes: Episodes per evaluation
         num_workers: Number of parallel workers
+        fitness_mode: Fitness function mode (standard/balanced/speed/fuel)
 
     Returns:
         fitness_list: List of fitness values
@@ -167,7 +202,7 @@ def parallel_evaluate(parameters_list, controller_class, num_episodes=10, num_wo
     import functools
 
     def evaluate_single(params):
-        evaluator = GAEvaluator(num_episodes=num_episodes, render=False)
+        evaluator = GAEvaluator(num_episodes=num_episodes, render=False, fitness_mode=fitness_mode)
         fitness, metrics = evaluator.evaluate_parameters(params, controller_class, verbose=False)
         evaluator.close()
         return fitness, metrics

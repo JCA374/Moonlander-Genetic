@@ -4,46 +4,51 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This repository implements two different approaches to solving the Lunar Lander environment:
-1. **DQN (Deep Q-Network)**: Neural network-based reinforcement learning (~17K parameters)
-2. **Genetic Algorithm (GA)**: CMA-ES evolution of a linear controller (36 parameters)
-
-Both approaches achieve similar performance but offer different tradeoffs in interpretability, sample efficiency, and computational requirements.
+This repository implements a **Genetic Algorithm (GA)** approach to solving the Lunar Lander environment using CMA-ES (Covariance Matrix Adaptation Evolution Strategy) to evolve a simple linear controller with only 36 parameters.
 
 ## Essential Commands
 
 ### Training
 
 ```bash
-# Train with DQN (deep reinforcement learning)
-python train.py
+# Standard training (~20-40 minutes, 200 generations)
+python train_ga.py
 
-# Train with GA (evolutionary approach)
-python train_ga.py --generations 200 --population 50 --episodes 10
+# Efficiency-optimized training (fast + fuel-efficient landings)
+python train_ga.py --fitness-mode balanced
 
-# Quick GA test (faster, for development)
+# Speed-optimized training (fastest possible landings)
+python train_ga.py --fitness-mode speed
+
+# Fuel-optimized training (minimal fuel usage)
+python train_ga.py --fitness-mode fuel
+
+# Original fitness function (for comparison)
+python train_ga.py --fitness-mode standard
+
+# Quick test (faster, for development)
 python train_ga.py --generations 50 --population 30 --episodes 5
 
-# GA with parallelization (faster on multi-core)
+# High performance with parallelization (faster on multi-core)
 python train_ga.py --parallel 4
+
+# Thorough training
+python train_ga.py --generations 500 --population 100 --episodes 20
 ```
 
 ### Evaluation and Visualization
 
 ```bash
-# Play trained DQN model
-python play_best.py
-
 # Play trained GA model
 python play_ga.py --model ga_models/ga_best.npy --episodes 5
 
-# Describe what GA controller learned (interpretability)
+# Describe what controller learned (interpretability!)
 python play_ga.py --model ga_models/ga_best.npy --describe
 
-# Compare DQN vs GA performance
-python compare_ga_dqn.py --episodes 100
+# Evaluate performance over many episodes
+python play_ga.py --model ga_models/ga_best.npy --evaluate 100 --no-render
 
-# Plot GA training progress
+# Plot training progress
 python plot_ga_training.py --history ga_models/training_history.json
 ```
 
@@ -61,41 +66,13 @@ python test_integration.py
 
 ### Core Components
 
-**DQN System** (`train.py`):
-- `dqn_agent.py`: Double DQN with dueling architecture (value + advantage streams)
-- `reward_shaper.py`: Sophisticated reward shaping with 10+ components (see below)
-- `evaluator.py`: Evaluation functions for training progress
-- `logger.py`: Training logging and diagnostics
-
 **GA System** (`train_ga.py`):
 - `linear_controller.py`: Simple 36-parameter linear policy (8 states → 4 actions)
 - `ga_evaluator.py`: Fitness evaluation (avg_reward + landing_rate × 100)
 - `cma_es_optimizer.py`: CMA-ES optimizer with simple GA fallback if `cma` package unavailable
-
-### Reward Shaping System
-
-The `reward_shaper.py` module is critical to DQN performance. It implements multiple reward components with ablation control flags:
-
-1. **Landing Zone Control** (`enable_landing_zone_control`): Prevents side engine overuse during final landing phase
-   - Detects when agent is in landing zone (altitude < 0.18, distance < 0.12, speed < 0.35)
-   - Applies progressive penalties to side engines as agent approaches landing
-   - Provides "settling bonus" for doing nothing when well-positioned
-
-2. **Oscillation Penalty** (`enable_oscillation_penalty`): Discourages horizontal oscillation/wobbling
-
-3. **Commitment Bonus** (`enable_commitment_bonus`): Rewards steady descent and penalizes unnecessary corrections
-
-4. **Speed Control** (`enable_speed_control`): Guides agent toward optimal descent/horizontal speeds
-
-5. **Engine Correction** (`enable_engine_correction`): Provides guidance on appropriate engine usage
-
-6. **Potential Guidance** (`enable_potential_guidance`): Potential-based shaping for approach to landing pad
-
-7. **Horizontal Precision** (`enable_horizontal_precision`): Enhanced horizontal positioning guidance
-
-**IMPORTANT**: The reward shaper maintains episode-specific state and MUST be reset at the start of each episode via `reset()` method.
-
-**Note from CLAUDE.local.md**: A `fuel_compensation` logic exists in the `shape_reward` method to provide small reward offset when engines are used, counteracting the built-in fuel penalty to prevent over-penalization of necessary engine usage.
+- `train_ga.py`: Main training loop with checkpointing and history tracking
+- `play_ga.py`: Visualization and evaluation
+- `plot_ga_training.py`: Training progress plotting
 
 ### Linear Controller Design
 
@@ -106,35 +83,73 @@ action = argmax(action_scores)
 ```
 
 Where:
-- State: 8-dimensional (x, y, vx, vy, angle, angular_velocity, leg1_contact, leg2_contact)
-- Weights: 8×4 matrix
-- Bias: 4-dimensional vector
-- Actions: [0=nothing, 1=left engine, 2=main engine, 3=right engine]
+- **State**: 8-dimensional (x, y, vx, vy, angle, angular_velocity, leg1_contact, leg2_contact)
+- **Weights**: 8×4 matrix (32 parameters)
+- **Bias**: 4-dimensional vector (4 parameters)
+- **Actions**: [0=nothing, 1=left engine, 2=main engine, 3=right engine]
+- **Total parameters**: 36
 
 This simplicity enables:
 - Direct inspection of learned weights
 - Understanding which state features drive which actions
 - Fast evaluation and parallel training
+- Interpretability - you can see exactly what the controller learned
 
-### Model Saving Logic
+### CMA-ES Optimization
 
-DQN uses sophisticated model evaluation logic (`improved_model_evaluation_logic` in `train.py:16`):
-- Primary: Landing rate improvement (most important)
-- Secondary: Score improvement with same landing rate
-- Special cases: Early training flexibility, milestone saves, perfect performance
-- Saves as "best" (true improvement) or "improving" (promising checkpoint)
+CMA-ES is a state-of-the-art evolutionary algorithm that:
+
+1. **Generates** a population of candidate solutions (parameter vectors)
+2. **Evaluates** each by running episodes in the environment
+3. **Updates** the search distribution based on fitness
+4. **Adapts** the covariance matrix to learn problem structure
+5. **Repeats** until convergence or max generations
+
+### Fitness Optimization Modes
+
+The system supports multiple fitness modes to optimize for different objectives via the `--fitness-mode` flag:
+
+**1. Standard Mode** (`standard`):
+- Original fitness function
+- Formula: `fitness = avg_reward + (landing_rate × 100)`
+- Balances reward and landing success equally
+
+**2. Balanced Mode** (`balanced`) - **Default**:
+- Optimizes for landing success, speed, and fuel efficiency
+- Formula: `fitness = avg_reward + (landing_rate × 100) + (speed_bonus × landing_rate)`
+- Speed bonus: up to 30 points for fast landings (inversely proportional to episode length)
+- Only rewards speed when landing successfully
+
+**3. Speed Mode** (`speed`):
+- Prioritizes fastest possible landings
+- Formula: `fitness = avg_reward + (landing_rate × 150) + (speed_bonus × landing_rate)`
+- Speed bonus: up to 50 points for landings < 200 steps
+- Heavily penalizes slow landings
+
+**4. Fuel Mode** (`fuel`):
+- Emphasizes fuel efficiency (higher reward = less fuel used)
+- Formula: `fitness = avg_reward × 1.5 + (landing_rate × 100)`
+- Amplifies the reward component which includes fuel costs
+
+**Performance Benchmarks:**
+- **Fast landing**: < 200 steps (excellent)
+- **Medium landing**: 200-300 steps (good)
+- **Slow landing**: > 300 steps (needs improvement)
+
+This encourages both high episode rewards and successful landings.
+
+### Model Saving
+
+Training saves:
+- `ga_best.npy`: Best controller found (updated whenever fitness improves)
+- `ga_checkpoint_{generation:04d}.npy`: Checkpoints every 20 generations (configurable)
+- `training_history.json`: Complete training history for plotting
 
 ## Dependencies
 
 ```bash
 # Core requirements
-pip install gymnasium[classic_control]==0.29.1
-pip install torch==2.1.0
-pip install numpy==1.24.3
-pip install matplotlib==3.7.2
-
-# For full environment support (Box2D physics)
-pip install gymnasium[box2d]
+pip install -r requirements.txt
 
 # Optional: For optimal CMA-ES performance
 pip install cma
@@ -146,25 +161,69 @@ pip install cma
 - `ga_models/`: Saved GA models and training history (gitignored)
 - `videos/`: Generated episode videos (gitignored)
 - `old/`: Archived code (gitignored)
-- `publish/`: Published visualizations (e.g., dqn-visualization.html)
-- `tests/`: Debug and diagnostic tools (debug_analyzer.py, speed_diagnostics.py)
+- `tests/`: Test files (test_ga_components.py works without Box2D)
+- `publish/`: Published visualizations
 
 ## Development Notes
 
-### When modifying reward shaping:
-1. Understand the 7 different reward components and their flags
-2. Test with ablation studies by disabling specific components
-3. Always call `reward_shaper.reset()` at episode start
-4. Be aware of the fuel_compensation logic to avoid over-penalizing engine use
-
 ### When working with GA:
-1. CMA-ES requires `cma` package for best performance, but has fallback
-2. Parallel evaluation (`--parallel N`) provides near-linear speedup on multi-core CPUs
-3. Fitness function combines reward and landing success: `fitness = avg_reward + (landing_rate × 100)`
-4. Use `--describe` flag to interpret learned controller weights
 
-### When debugging training:
-1. Use `debug_model_saving()` in train.py:81 to understand why models are/aren't saved
-2. Check logger.py for training diagnostics
-3. GA training history saved to JSON for easy plotting
-4. Tests work without Box2D by using mock environments
+1. **CMA-ES Package**: Requires `cma` package for best performance, but has fallback to simple GA if not installed
+
+2. **Parallel Evaluation**: Use `--parallel N` for near-linear speedup on multi-core CPUs
+   ```bash
+   python train_ga.py --parallel 4  # 4x speedup on 4+ core CPU
+   ```
+
+3. **Fitness Function**: Combines reward and landing success in `ga_evaluator.py:evaluate_controller()`
+   ```python
+   fitness = avg_reward + (landing_rate × 100)
+   ```
+   Can be customized to prioritize different objectives.
+
+4. **Interpretability**: Use `--describe` flag to understand learned weights
+   ```bash
+   python play_ga.py --model ga_models/ga_best.npy --describe
+   ```
+   This shows which state features most influence each action.
+
+5. **Hyperparameters** (in `train_ga.py`):
+   - `--generations`: Number of evolution cycles (default: 200)
+   - `--population`: Population size (default: 50)
+   - `--episodes`: Episodes per fitness evaluation (default: 10)
+   - `--sigma`: Initial step size (default: 0.5)
+   - `--parallel`: Number of parallel workers (default: 1)
+
+### Expected Training Results
+
+With standard settings (200 generations, population 50):
+- **Generation 0:** ~-200 fitness, 0-10% landing rate (random)
+- **Generation 50:** ~50-100 fitness, 20-40% landing rate
+- **Generation 100:** ~150-200 fitness, 50-70% landing rate
+- **Generation 200:** ~200-250 fitness, 70-90% landing rate
+
+Best controllers can achieve:
+- **Fitness:** 250-300
+- **Landing Rate:** 80-95%
+- **Average Reward:** 180-220
+
+### Debugging Training
+
+If no improvement:
+- Try increasing sigma: `--sigma 1.0`
+- Increase population: `--population 100`
+- More episodes per eval: `--episodes 20`
+
+If training too slow:
+- Reduce episodes: `--episodes 5`
+- Smaller population: `--population 30`
+- Use parallelization: `--parallel 4`
+
+### Advantages of GA Approach
+
+1. **Simplicity**: Much simpler than deep RL (no replay buffer, target networks, etc.)
+2. **Interpretability**: Can inspect and understand learned weights
+3. **Robustness**: Less sensitive to hyperparameters
+4. **Parallelization**: Easy to distribute across CPU cores
+5. **No gradients**: Works with any controller structure
+6. **Small model**: Only 36 parameters vs thousands in neural networks
