@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moonlander-Genetic</title>
+<meta name="description" content="Evolving a 36-parameter lunar lander pilot with CMA-ES, a genetic algorithm. Explainer video, how it works, and code.">
+<meta property="og:title" content="Moonlander-Genetic">
+<meta property="og:description" content="Landing on the Moon with 36 numbers: a linear controller evolved with CMA-ES.">
+<meta property="og:image" content="img/poster.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%230b1020'/%3E%3Cpath d='M10 20h12l-2-7h-8z' fill='%23ffb840'/%3E%3Cpath d='M11 20l-3 5M21 20l3 5' stroke='%23ffb840' stroke-width='2'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #f7f8fb;
+    --surface: #ffffff;
+    --surface-2: #eef1f7;
+    --text: #141a2e;
+    --muted: #5a6582;
+    --line: #dde2ee;
+    --accent: #b86e00;
+    --accent-bg: #fff3dc;
+    --blue: #2f6fd6;
+    --green: #1d8f55;
+    --code-bg: #0f1530;
+    --code-text: #e8ecf5;
+    --shadow: 0 1px 2px rgba(20, 26, 46, .06), 0 8px 24px rgba(20, 26, 46, .06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0b1020;
+      --surface: #131a33;
+      --surface-2: #19223f;
+      --text: #e8ecf5;
+      --muted: #97a3c2;
+      --line: #26304f;
+      --accent: #ffb840;
+      --accent-bg: #2a2410;
+      --blue: #60a8ff;
+      --green: #54d48c;
+      --code-bg: #070b18;
+      --shadow: none;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0b1020;
+    --surface: #131a33;
+    --surface-2: #19223f;
+    --text: #e8ecf5;
+    --muted: #97a3c2;
+    --line: #26304f;
+    --accent: #ffb840;
+    --accent-bg: #2a2410;
+    --blue: #60a8ff;
+    --green: #54d48c;
+    --code-bg: #070b18;
+    --shadow: none;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 17px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  a { color: var(--blue); }
+  img, video { max-width: 100%; height: auto; display: block; }
+  code, pre { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+  :not(pre) > code {
+    background: var(--surface-2);
+    padding: .1em .35em;
+    border-radius: 4px;
+    font-size: .92em;
+  }
+
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+
+  header.top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 0;
+  }
+  .brand { font-weight: 700; letter-spacing: -.01em; text-decoration: none; color: var(--text); }
+  .brand span { color: var(--accent); }
+  .top nav { display: flex; gap: 18px; align-items: center; font-size: 15px; }
+  .top nav a { color: var(--muted); text-decoration: none; }
+  .top nav a:hover { color: var(--text); }
+  .theme-btn {
+    display: inline-grid; place-items: center;
+    border: 1px solid var(--line); background: var(--surface); color: var(--text);
+    border-radius: 8px; padding: 4px 10px; font: inherit; font-size: 14px; cursor: pointer;
+  }
+
+  .hero { padding: 28px 0 8px; }
+  .hero h1 {
+    font-size: clamp(34px, 6vw, 56px); line-height: 1.08; margin: 0 0 14px;
+    letter-spacing: -.02em;
+  }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero p.lede { font-size: clamp(17px, 2.2vw, 20px); color: var(--muted); max-width: 720px; margin: 0 0 26px; }
+
+  .video-card {
+    border-radius: 14px; overflow: hidden; background: #000;
+    box-shadow: var(--shadow); border: 1px solid var(--line);
+  }
+  .video-card video { width: 100%; height: auto; aspect-ratio: 16 / 9; }
+  .video-note { color: var(--muted); font-size: 14px; margin: 10px 2px 0; }
+
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    margin: 34px 0 10px;
+  }
+  .stat {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+    padding: 16px 18px; box-shadow: var(--shadow);
+  }
+  .stat b { display: block; font-size: 30px; line-height: 1.1; letter-spacing: -.02em; }
+  .stat span { color: var(--muted); font-size: 14px; }
+  .stat:nth-child(1) b { color: var(--green); }
+  .stat:nth-child(2) b { color: var(--accent); }
+  .stat:nth-child(3) b { color: var(--blue); }
+
+  section { padding: 46px 0 6px; }
+  section h2 {
+    font-size: clamp(25px, 3.4vw, 32px); letter-spacing: -.015em; margin: 0 0 8px;
+  }
+  section h2 .num { color: var(--accent); margin-right: 8px; }
+  section > .wrap > p.intro { color: var(--muted); max-width: 760px; margin-top: 0; }
+
+  .split {
+    display: grid; grid-template-columns: 1.05fr 1fr; gap: 28px; align-items: center;
+    margin-top: 18px;
+  }
+  .split.flip > :first-child { order: 2; }
+  .shot {
+    border-radius: 12px; overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow);
+  }
+  .split p { margin: 0 0 12px; }
+  .split ul, .split ol { margin: 0 0 12px; padding-left: 20px; }
+  .split li { margin-bottom: 6px; }
+
+  pre {
+    background: var(--code-bg); color: var(--code-text);
+    border-radius: 10px; padding: 14px 16px; overflow-x: auto;
+    font-size: 14.5px; line-height: 1.55; margin: 0 0 14px;
+  }
+  pre .c { color: #8b97b8; }
+  pre .k { color: #ffb840; }
+  pre .g { color: #54d48c; }
+  pre .b { color: #60a8ff; }
+
+  .loop {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 22px 0 6px;
+    counter-reset: step;
+  }
+  .loop div {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px;
+    position: relative; box-shadow: var(--shadow);
+  }
+  .loop div::before {
+    counter-increment: step; content: counter(step);
+    display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%;
+    background: var(--accent-bg); color: var(--accent); font-weight: 700; font-size: 14px;
+    margin-bottom: 8px;
+  }
+  .loop b { display: block; margin-bottom: 2px; }
+  .loop span { color: var(--muted); font-size: 15px; }
+
+  table {
+    border-collapse: collapse; width: 100%; font-size: 15px; margin: 8px 0 14px;
+    background: var(--surface); border-radius: 10px; overflow: hidden;
+  }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--surface-2); font-weight: 600; }
+  tr:last-child td { border-bottom: 0; }
+  .table-scroll { overflow-x: auto; }
+
+  .callout {
+    background: var(--accent-bg); border-left: 4px solid var(--accent);
+    border-radius: 8px; padding: 12px 16px; margin: 16px 0;
+  }
+
+  footer {
+    margin-top: 60px; padding: 26px 0 40px; border-top: 1px solid var(--line);
+    color: var(--muted); font-size: 14px;
+  }
+
+  @media (max-width: 760px) {
+    .split, .split.flip { grid-template-columns: 1fr; }
+    .split.flip > :first-child { order: 0; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .loop { grid-template-columns: 1fr 1fr; }
+    .top nav a.hide-sm { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#">Moonlander<span>-Genetic</span></a>
+    <nav>
+      <a class="hide-sm" href="#controller">Controller</a>
+      <a class="hide-sm" href="#cmaes">CMA-ES</a>
+      <a class="hide-sm" href="#results">Results</a>
+      <a href="https://github.com/JCA374/Moonlander-Genetic">GitHub</a>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Toggle color theme"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.5a6.5 6.5 0 0 1 0 13z" fill="currentColor"/></svg></button>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <h1>Landing on the Moon with <em>36 numbers</em></h1>
+    <p class="lede">A genetic algorithm (CMA-ES) evolves a tiny linear controller that lands Gymnasium's
+      LunarLander. It uses no neural network and no gradients, just a population of pilots that gets better
+      every generation.</p>
+
+    <div class="video-card">
+      <video controls preload="metadata" poster="img/poster.jpg" playsinline>
+        <source src="explainer.mp4" type="video/mp4">
+        Your browser can't play this video. <a href="explainer.mp4">Download it instead</a>.
+      </video>
+    </div>
+    <p class="video-note">2:45 explainer with on-screen captions. Every frame was rendered from this
+      repository's code and the trained model.</p>
+
+    <div class="stats">
+      <div class="stat"><b>99%</b><span>landing rate on 100 unseen episodes</span></div>
+      <div class="stat"><b>275</b><span>average episode reward (≥ 200 counts as solved)</span></div>
+      <div class="stat"><b>232</b><span>steps per landing, about 4.6 s of flight</span></div>
+      <div class="stat"><b>36</b><span>parameters in the whole pilot</span></div>
+    </div>
+  </div>
+</div>
+
+<section id="problem">
+  <div class="wrap">
+    <h2><span class="num">1</span>The problem</h2>
+    <p class="intro">The lander starts high above the surface with a random push. It has to touch down
+      softly between the two flags. Gravity pulls it down, and every engine burn costs fuel.</p>
+    <div class="table-scroll">
+      <table>
+        <tr><th>The lander observes 8 numbers…</th><th>…and picks one of 4 actions</th></tr>
+        <tr><td>x, y position · horizontal &amp; vertical velocity · angle · angular velocity · left / right leg contact</td>
+            <td>0 do nothing · 1 fire left engine · 2 fire main engine · 3 fire right engine</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="controller">
+  <div class="wrap">
+    <h2><span class="num">2</span>The controller: one matrix multiplication</h2>
+    <div class="split">
+      <div class="shot"><img src="img/controller.jpg" alt="Live view of the controller: state bars, the 8×4 weight matrix and the four action scores" loading="lazy" width="1280" height="720"></div>
+      <div>
+        <pre><span class="b">scores</span> = state @ W + b   <span class="c"># W: 8×4, b: 4</span>
+<span class="k">action</span> = argmax(scores)</pre>
+        <p>Each of the 8 inputs <em>votes</em> for each of the 4 actions through one weight. The action with the
+          highest total fires. That makes 8 × 4 weights + 4 biases = <strong>36 parameters</strong>.</p>
+        <p>This is <code>linear_controller.py</code>. The policy itself is a few lines of code. All the
+          intelligence lives in the 36 numbers, and finding good values for them is the genetic algorithm's job.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ga">
+  <div class="wrap">
+    <h2><span class="num">3</span>Evolution: a population of pilots</h2>
+    <div class="split flip">
+      <div class="shot"><img src="img/population.jpg" alt="Grid of 18 random controllers from generation 0; the best half are highlighted" loading="lazy" width="1280" height="720"></div>
+      <div>
+        <p>Training never computes a gradient. Each generation it:</p>
+        <ol>
+          <li><strong>Samples</strong> 50 candidate controllers, each a vector of 36 numbers.</li>
+          <li><strong>Evaluates</strong> each by flying 10 episodes and computing a fitness score.</li>
+          <li><strong>Selects</strong> the best half.</li>
+          <li><strong>Updates</strong> where the next generation is sampled from.</li>
+        </ol>
+        <p>At generation 0 every pilot is random and they all crash, though some crash less badly than
+          others. That ranking is all the algorithm needs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cmaes">
+  <div class="wrap">
+    <h2><span class="num">4</span>Inside CMA-ES</h2>
+    <p class="intro"><strong>C</strong>ovariance <strong>M</strong>atrix <strong>A</strong>daptation
+      <strong>E</strong>volution <strong>S</strong>trategy is a modern evolutionary algorithm. Instead of
+      crossover and bit-flips, it keeps a <em>search distribution</em> (a Gaussian cloud) over the
+      36-dimensional parameter space and keeps reshaping it.</p>
+    <div class="split">
+      <div class="shot"><img src="img/cmaes.jpg" alt="CMA-ES on a 2-D toy landscape: candidates, selected best half, mean trail and covariance ellipse" loading="lazy" width="1280" height="720"></div>
+      <div>
+        <ul>
+          <li><strong>Mean</strong>: moves toward the best-ranked candidates (weighted by rank).</li>
+          <li><strong>Covariance</strong>: stretches along directions that kept producing improvements, so the
+            cloud learns the <em>shape</em> of the landscape, such as a long diagonal valley.</li>
+          <li><strong>Step size σ</strong>: grows while progress is steady and shrinks near an optimum.</li>
+        </ul>
+        <div class="callout">The picture is a 2-D toy problem so you can see the cloud. On the real task the same
+          thing happens in 36 dimensions. <code>cma_es_optimizer.py</code> wraps the
+          <a href="https://github.com/CMA-ES/pycma"><code>cma</code></a> package and falls back to a simple GA if
+          it isn't installed.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="fitness">
+  <div class="wrap">
+    <h2><span class="num">5</span>Fitness: what "good" means</h2>
+    <pre><span class="k">fitness</span> = <span class="b">average_reward</span>
+        + <span class="g">100 × landing_rate</span>
+        + <span class="k">30 × (1 − avg_steps / 1000) × landing_rate</span>   <span class="c"># speed bonus, only when landing</span></pre>
+    <p>The environment's reward already penalises fuel and crashes and rewards soft touchdowns. The extra terms
+      make landing the overriding goal and then favour quick landings. This is the default
+      <code>balanced</code> mode. <code>--fitness-mode</code> also offers <code>standard</code>,
+      <code>speed</code> and <code>fuel</code>.</p>
+  </div>
+</section>
+
+<section id="results">
+  <div class="wrap">
+    <h2><span class="num">6</span>Results</h2>
+    <div class="split">
+      <div class="shot"><img src="img/training.jpg" alt="Training curves: best fitness, population mean fitness and landing rate over 200 generations" loading="lazy" width="1280" height="720"></div>
+      <div>
+        <p>200 generations × 50 pilots × 10 episodes (100,000 episodes in total) took about
+          <strong>6 minutes</strong> on an 8-core CPU (<code>--parallel 8</code>).</p>
+        <p>Within roughly 40 generations the best pilots go from crashing to landing. By the end, the
+          population average (blue) is close to the best, so nearly every sampled pilot can land.</p>
+      </div>
+    </div>
+    <div class="split flip">
+      <div class="shot"><img src="img/evolution.jpg" alt="The same landing scenario flown by controllers from generation 0, 10, 30, 60, 100 and the final best" loading="lazy" width="1280" height="720"></div>
+      <div>
+        <p>The same starting conditions, flown by checkpoints from different generations. Early pilots
+          fall or spin away. Later ones hover, then steer toward the pad and land.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="learned">
+  <div class="wrap">
+    <h2><span class="num">7</span>What it learned</h2>
+    <div class="split">
+      <div class="shot"><img src="img/weights.jpg" alt="The learned 8×4 weight matrix and biases" loading="lazy" width="1280" height="720"></div>
+      <div>
+        <p>A linear pilot can be read directly. For example, <strong>vertical velocity → main engine</strong>
+          has a large negative weight. The faster the lander falls (negative velocity), the higher the
+          main-engine score, so it brakes harder the faster it drops.</p>
+        <p>Try it yourself:</p>
+        <pre>python play_ga.py --model ga_models/ga_best.npy --describe</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="run">
+  <div class="wrap">
+    <h2><span class="num">8</span>Run it yourself</h2>
+    <pre><span class="c"># setup</span>
+git clone https://github.com/JCA374/Moonlander-Genetic && cd Moonlander-Genetic
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+
+<span class="c"># evolve a pilot (a few minutes on a multi-core CPU)</span>
+python train_ga.py --parallel 4
+
+<span class="c"># watch it, evaluate it, plot it</span>
+python play_ga.py --model ga_models/ga_best.npy --episodes 5
+python play_ga.py --model ga_models/ga_best.npy --evaluate 100 --no-render
+python plot_ga_training.py --history ga_models/training_history.json
+
+<span class="c"># regenerate this page's video from your own run</span>
+python video_tools/make_explainer.py</pre>
+  </div>
+</section>
+
+<div class="wrap">
+  <footer>
+    <a href="https://github.com/JCA374/Moonlander-Genetic">github.com/JCA374/Moonlander-Genetic</a> ·
+    Built with <a href="https://gymnasium.farama.org/">Gymnasium</a> and
+    <a href="https://github.com/CMA-ES/pycma">pycma</a> ·
+    Further reading: N. Hansen, <a href="https://arxiv.org/abs/1604.00772"><em>The CMA Evolution Strategy: A Tutorial</em></a>
+  </footer>
+</div>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    try {
+      var saved = localStorage.getItem('theme');
+      if (saved) root.setAttribute('data-theme', saved);
+    } catch (e) {}
+    document.getElementById('themeBtn').addEventListener('click', function () {
+      var dark = root.getAttribute('data-theme') === 'dark' ||
+        (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+      var next = dark ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+  })();
+</script>
+</body>
+</html>

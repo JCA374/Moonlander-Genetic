@@ -88,8 +88,8 @@ class CMAESOptimizer:
             List of parameter arrays to evaluate
         """
         if self.use_cma:
-            solutions = self.es.ask()
-            return [np.array(s) for s in solutions]
+            self._last_solutions = self.es.ask()
+            return [np.array(s) for s in self._last_solutions]
         else:
             # Return current population (already generated in tell())
             if self.generation == 0:
@@ -106,7 +106,7 @@ class CMAESOptimizer:
         """
         if self.use_cma:
             # CMA-ES minimizes by default, so negate fitness
-            self.es.tell(self.es.population, [-f for f in fitness_list])
+            self.es.tell(self._last_solutions, [-f for f in fitness_list])
         else:
             # Simple GA: selection, crossover, mutation
             self._simple_ga_step(fitness_list)

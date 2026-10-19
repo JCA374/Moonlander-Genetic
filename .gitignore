@@ -82,3 +82,8 @@ videos/
 notes.md
 
 old/
+# Local Claude notes
+CLAUDE.local.md
+
+# Allow GitHub Pages assets
+!docs/**

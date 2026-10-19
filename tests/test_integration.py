@@ -5,7 +5,11 @@ Tests the complete GA training pipeline end-to-end with a very short training ru
 """
 
 import os
+import sys
 import numpy as np
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from linear_controller import LinearController
 from cma_es_optimizer import CMAESOptimizer
 from test_ga_components import MockLunarLanderEnv
