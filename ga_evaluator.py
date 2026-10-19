@@ -183,6 +183,14 @@ class GAEvaluator:
         self.env.close()
 
 
+def _evaluate_single(params, controller_class, num_episodes, fitness_mode):
+    """Evaluate one parameter set (module-level so multiprocessing can pickle it)."""
+    evaluator = GAEvaluator(num_episodes=num_episodes, render=False, fitness_mode=fitness_mode)
+    fitness, metrics = evaluator.evaluate_parameters(params, controller_class, verbose=False)
+    evaluator.close()
+    return fitness, metrics
+
+
 def parallel_evaluate(parameters_list, controller_class, num_episodes=10, num_workers=4, fitness_mode='balanced'):
     """
     Evaluate multiple parameter sets in parallel.
@@ -201,11 +209,12 @@ def parallel_evaluate(parameters_list, controller_class, num_episodes=10, num_wo
     from multiprocessing import Pool
     import functools
 
-    def evaluate_single(params):
-        evaluator = GAEvaluator(num_episodes=num_episodes, render=False, fitness_mode=fitness_mode)
-        fitness, metrics = evaluator.evaluate_parameters(params, controller_class, verbose=False)
-        evaluator.close()
-        return fitness, metrics
+    evaluate_single = functools.partial(
+        _evaluate_single,
+        controller_class=controller_class,
+        num_episodes=num_episodes,
+        fitness_mode=fitness_mode,
+    )
 
     # Use multiprocessing pool for parallel evaluation
     with Pool(num_workers) as pool:

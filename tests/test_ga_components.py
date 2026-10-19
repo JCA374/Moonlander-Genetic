@@ -5,7 +5,12 @@ Since Box2D is not available in this environment, we'll test the evaluator
 with a mock environment to verify the logic works correctly.
 """
 
+import os
+import sys
 import numpy as np
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from linear_controller import LinearController
 
 

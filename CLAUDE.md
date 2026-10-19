@@ -56,10 +56,10 @@ python plot_ga_training.py --history ga_models/training_history.json
 
 ```bash
 # Test GA components (works without Box2D)
-python test_ga_components.py
+python tests/test_ga_components.py
 
 # Integration test for full GA pipeline
-python test_integration.py
+python tests/test_integration.py
 ```
 
 ## Architecture
@@ -151,18 +151,17 @@ Training saves:
 # Core requirements
 pip install -r requirements.txt
 
-# Optional: For optimal CMA-ES performance
-pip install cma
-# If not installed, simple GA fallback is used automatically
+# `cma` is in requirements.txt; if missing, a simple GA fallback is used automatically
 ```
 
 ## Directory Structure
 
 - `ga_models/`: Saved GA models and training history (gitignored)
-- `videos/`: Generated episode videos (gitignored)
-- `old/`: Archived code (gitignored)
-- `tests/`: Test files (test_ga_components.py works without Box2D)
-- `publish/`: Published visualizations
+- `tests/`: Unit + integration tests (mock env, work without Box2D)
+- `video_tools/`: `ga_progress_video.py` (checkpoint gameplay), `make_explainer.py` (explainer video → `docs/explainer.mp4`)
+- `videos/`: Generated videos (gitignored)
+- `docs/`: GitHub Pages site (`index.html`, explainer video, images)
+- `README.md`: User-facing documentation
 
 ## Development Notes
 
