@@ -1,0 +1,1 @@
+The game keeps score while it flies. Moving toward the pad, slowing down, and staying level all earn a little. Drifting away, speeding up, and tilting all cost a little.

@@ -1,0 +1,60 @@
+title: 'Lesson 2: The controller'
+kind: voiceover
+author: ''
+narrator: Kokoro TTS (af_heart)
+narration:
+  narrator: af_heart
+  speed: 1.05
+  paragraph_pause: 0.6
+chapters:
+  ch01: l2_title
+  ch02: controller
+  ch03: controller.2
+  ch04: controller.3
+  ch05: w_anatomy
+  ch06: w_anatomy.2
+  ch07: w_anatomy.3
+  ch08: w_anatomy.4
+  ch09: w_anatomy.5
+  ch10: w_worked
+sources:
+  ch01:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-02.md
+    sha1: 0f4e8adfcb3a3ec6d15ac1c5ebdb2f2bec407690
+    section: l2_title
+  ch02:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-02.md
+    sha1: 0f4e8adfcb3a3ec6d15ac1c5ebdb2f2bec407690
+    section: controller
+  ch03:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-02.md
+    sha1: 0f4e8adfcb3a3ec6d15ac1c5ebdb2f2bec407690
+    section: controller.2
+  ch04:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-02.md
+    sha1: 0f4e8adfcb3a3ec6d15ac1c5ebdb2f2bec407690
+    section: controller.3
+  ch05:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-02.md
+    sha1: 0f4e8adfcb3a3ec6d15ac1c5ebdb2f2bec407690
+    section: w_anatomy
+  ch06:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-02.md
+    sha1: 0f4e8adfcb3a3ec6d15ac1c5ebdb2f2bec407690
+    section: w_anatomy.2
+  ch07:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-02.md
+    sha1: 0f4e8adfcb3a3ec6d15ac1c5ebdb2f2bec407690
+    section: w_anatomy.3
+  ch08:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-02.md
+    sha1: 0f4e8adfcb3a3ec6d15ac1c5ebdb2f2bec407690
+    section: w_anatomy.4
+  ch09:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-02.md
+    sha1: 0f4e8adfcb3a3ec6d15ac1c5ebdb2f2bec407690
+    section: w_anatomy.5
+  ch10:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-02.md
+    sha1: 0f4e8adfcb3a3ec6d15ac1c5ebdb2f2bec407690
+    section: w_worked

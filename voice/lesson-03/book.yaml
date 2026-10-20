@@ -1,0 +1,50 @@
+title: 'Lesson 3: Population and fitness'
+kind: voiceover
+author: ''
+narrator: Kokoro TTS (af_heart)
+narration:
+  narrator: af_heart
+  speed: 1.05
+  paragraph_pause: 0.6
+chapters:
+  ch01: l3_title
+  ch02: population
+  ch03: population.2
+  ch04: population.3
+  ch05: fitness
+  ch06: fitness.2
+  ch07: fitness.3
+  ch08: fitness.4
+sources:
+  ch01:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-03.md
+    sha1: 992828a67f6b5e1caadb11b5a2b5de1f81d443bc
+    section: l3_title
+  ch02:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-03.md
+    sha1: 992828a67f6b5e1caadb11b5a2b5de1f81d443bc
+    section: population
+  ch03:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-03.md
+    sha1: 992828a67f6b5e1caadb11b5a2b5de1f81d443bc
+    section: population.2
+  ch04:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-03.md
+    sha1: 992828a67f6b5e1caadb11b5a2b5de1f81d443bc
+    section: population.3
+  ch05:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-03.md
+    sha1: 992828a67f6b5e1caadb11b5a2b5de1f81d443bc
+    section: fitness
+  ch06:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-03.md
+    sha1: 992828a67f6b5e1caadb11b5a2b5de1f81d443bc
+    section: fitness.2
+  ch07:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-03.md
+    sha1: 992828a67f6b5e1caadb11b5a2b5de1f81d443bc
+    section: fitness.3
+  ch08:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-03.md
+    sha1: 992828a67f6b5e1caadb11b5a2b5de1f81d443bc
+    section: fitness.4

@@ -1,0 +1,1 @@
+What also matters is how much each input actually changes in flight. Altitude moves a lot. Spin barely moves at all, so its large weights are multiplied by small numbers. The legs are always zero in the air.

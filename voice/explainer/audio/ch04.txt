@@ -1,0 +1,1 @@
+And at every step, it chooses one of four actions. Do nothing, fire the left engine, fire the main engine, or fire the right engine.

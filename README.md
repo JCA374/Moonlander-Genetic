@@ -5,7 +5,7 @@ Gymnasium's [LunarLander](https://gymnasium.farama.org/environments/box2d/lunar_
 **CMA-ES**, an evolution strategy. There are no neural networks and no gradients, only a
 population of candidate controllers that gets better every generation.
 
-▶ **Explainer video and project page:** https://jca374.github.io/Moonlander-Genetic/
+▶ **Narrated explainer, 7 short video lessons, and project page:** https://jca374.github.io/Moonlander-Genetic/
 
 ## Quick start
 
@@ -13,7 +13,7 @@ population of candidate controllers that gets better every generation.
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt          # gymnasium[box2d], numpy, matplotlib, opencv, cma
 
-python train_ga.py --parallel 4          # 200 generations; a few minutes on a multi-core CPU
+python train_ga.py --parallel 4          # 200 generations; ~10–20 minutes on a multi-core CPU
 python play_ga.py --model ga_models/ga_best.npy --episodes 5        # watch it fly
 python play_ga.py --model ga_models/ga_best.npy --describe          # what did it learn?
 python play_ga.py --model ga_models/ga_best.npy --evaluate 100 --no-render
@@ -90,7 +90,9 @@ favours landings that come quickly but only counts when the lander lands.
 If training stalls, raise `--sigma` (1.0), `--population` (100) or `--episodes` (20).
 For faster runs, lower `--episodes` and use `--parallel`.
 
-Outputs go to `ga_models/`: `ga_best.npy`, `ga_checkpoint_XXXX.npy`, and `training_history.json`.
+Outputs go to `ga_models/`: `ga_best.npy`, `ga_checkpoint_XXXX.npy`, `training_history.json`, and
+`population_log.npz` (every candidate, its fitness and landing rate, and the CMA-ES mean and σ for each
+generation, used by the generation visualizations; turn it off with `--no-log-population`).
 
 ## Repository layout
 
@@ -102,8 +104,9 @@ train_ga.py              training loop, checkpoints, history
 play_ga.py               watch / evaluate / describe a controller
 plot_ga_training.py      training curves
 tests/                   unit + integration tests (mock env, no Box2D needed)
-video_tools/             progression video + explainer video generators
-docs/                    GitHub Pages site (index.html + explainer video)
+video_tools/             explainer + lesson video generators, progression video
+voice/                   narration work dirs (voice-text pipeline; WAVs are gitignored)
+docs/                    GitHub Pages site (index.html, explainer, lessons/)
 ```
 
 ## Tests
@@ -117,8 +120,29 @@ python tests/test_integration.py
 
 ```bash
 python video_tools/ga_progress_video.py   # gameplay from each checkpoint → videos/ga_progress/
-python video_tools/make_explainer.py      # the captioned explainer → docs/explainer.mp4
+python video_tools/make_explainer.py      # narrated explainer → docs/explainer.mp4 (+ .vtt, stills in docs/img/)
+python video_tools/make_lessons.py        # lessons → docs/lessons/lesson-NN.mp4 (+ .vtt, .jpg, lessons.json)
 ```
+
+Scenes live in `video_tools/scenes.py`, and the scene list of each video is in `video_tools/videos_def.py`.
+The narration scripts are `video_tools/narration/*.md`. Each `## <scene>` or `## <scene>.<n>` section is one
+*beat* of a scene, and the video stretches each beat to the length of its narration (`video_tools/timeline.py`).
+
+Narration is voiced locally with Kokoro TTS through the
+`voice-text` pipeline from [fantasy-audiobook-studio](https://github.com/JCA374/fantasy-audiobook-studio):
+
+```bash
+V=~/.claude/skills/voice-text/scripts/voice.sh
+$V new video_tools/narration/explainer.md --kind voiceover --slug explainer   # → voice/explainer/
+$V scan voice/explainer      # speech-flow check
+$V prep voice/explainer && $V narrate voice/explainer
+$V listen voice/explainer    # Whisper listens back for skipped or garbled words
+$V export voice/explainer    # per-beat MP3s + timings.json used by the renderer
+$V status voice/explainer    # exit 0 = every audio stage passed
+```
+
+After editing a script, rebuild its work dir with `$V new ... --force`, then repeat the steps. Without
+narration the videos render silent with default timings, which is handy for previews.
 
 ## References
 

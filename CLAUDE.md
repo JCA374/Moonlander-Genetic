@@ -144,6 +144,7 @@ Training saves:
 - `ga_best.npy`: Best controller found (updated whenever fitness improves)
 - `ga_checkpoint_{generation:04d}.npy`: Checkpoints every 20 generations (configurable)
 - `training_history.json`: Complete training history for plotting
+- `population_log.npz`: every candidate + fitness + CMA mean/σ per generation (for the generation visuals)
 
 ## Dependencies
 
@@ -158,9 +159,10 @@ pip install -r requirements.txt
 
 - `ga_models/`: Saved GA models and training history (gitignored)
 - `tests/`: Unit + integration tests (mock env, work without Box2D)
-- `video_tools/`: `ga_progress_video.py` (checkpoint gameplay), `make_explainer.py` (explainer video → `docs/explainer.mp4`)
+- `video_tools/`: `scenes.py` (all video scenes), `timeline.py` (beats ↔ narration, audio + VTT), `videos_def.py` (scene lists), `make_explainer.py` / `make_lessons.py` (→ `docs/`), `narration/*.md` (voice-over scripts, `## scene[.n]` = one beat), `ga_progress_video.py`
+- `voice/`: voice-text work dirs (Kokoro narration; WAVs gitignored). Pipeline: `~/.claude/skills/voice-text` (see README "Videos")
 - `videos/`: Generated videos (gitignored)
-- `docs/`: GitHub Pages site (`index.html`, explainer video, images)
+- `docs/`: GitHub Pages site (`index.html` with Overview + Lessons tabs, `explainer.mp4/.vtt`, `lessons/`, `img/`)
 - `README.md`: User-facing documentation
 
 ## Development Notes

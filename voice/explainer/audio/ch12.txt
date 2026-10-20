@@ -1,0 +1,1 @@
+The algorithm we use is called [CMA-ES](//sˌiːˌɛmˈAiːˌɛs//). Here it is on a toy problem with only two numbers, so we can watch it work. Dark means good, and bright means bad.

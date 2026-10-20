@@ -1,0 +1,1 @@
+With those eight numbers, it picks one of four actions. Do nothing. Fire the left engine. Fire the main engine underneath. Or fire the right engine. The side engines push the lander sideways and spin it, and the main engine pushes it up.

@@ -1,0 +1,1 @@
+Multiply the two, and you get the influence of each weight. The three that matter most are drift on the left engine, and falling speed on do nothing and on the main engine.

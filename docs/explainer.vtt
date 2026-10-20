@@ -1,0 +1,295 @@
+WEBVTT
+
+00:00:00.350 --> 00:00:05.658
+What if you could teach a spacecraft to land on the Moon with just thirty-six numbers?
+
+00:00:05.658 --> 00:00:08.142
+No neural network, and no gradients.
+
+00:00:08.142 --> 00:00:09.741
+Only evolution.
+
+00:00:10.341 --> 00:00:12.117
+This is Lunar Lander.
+
+00:00:12.117 --> 00:00:15.977
+The goal is to touch down softly between the two flags.
+
+00:00:15.977 --> 00:00:21.116
+Gravity pulls the lander down, and every burst of an engine costs fuel.
+
+00:00:21.716 --> 00:00:25.122
+At every step, the lander senses eight numbers.
+
+00:00:25.122 --> 00:00:32.543
+Where it is, how fast it is moving, how it is tilted and spinning, and whether each leg touches the ground.
+
+00:00:33.143 --> 00:00:36.823
+And at every step, it chooses one of four actions.
+
+00:00:36.823 --> 00:00:42.769
+Do nothing, fire the left engine, fire the main engine, or fire the right engine.
+
+00:00:43.369 --> 00:00:46.343
+The pilot is one small table of numbers.
+
+00:00:46.343 --> 00:00:52.290
+Each of the eight inputs is multiplied by a weight for each action, and a bias is added.
+
+00:00:52.290 --> 00:00:54.510
+That gives four scores.
+
+00:00:55.110 --> 00:00:57.993
+The action with the highest score fires.
+
+00:00:57.993 --> 00:01:01.836
+Watch the scores rise and fall as the lander flies.
+
+00:01:02.436 --> 00:01:07.250
+Eight times four weights, plus four biases, makes thirty-six numbers.
+
+00:01:07.250 --> 00:01:12.114
+Finding good values for them is the job of the genetic algorithm.
+
+00:01:12.714 --> 00:01:16.024
+We start with a population of random pilots.
+
+00:01:16.024 --> 00:01:19.571
+Each one is just thirty-six random numbers.
+
+00:01:20.171 --> 00:01:23.210
+Every pilot flies, and gets a fitness score.
+
+00:01:23.210 --> 00:01:24.847
+Random pilots crash.
+
+00:01:24.847 --> 00:01:28.595
+Some of them crash a little less badly than others.
+
+00:01:29.195 --> 00:01:30.943
+The best half are kept.
+
+00:01:30.943 --> 00:01:34.458
+They decide where the next generation comes from.
+
+00:01:35.058 --> 00:01:36.773
+That's the whole loop.
+
+00:01:36.773 --> 00:01:41.634
+Sample a population, fly every pilot, rank them, and move toward the winners.
+
+00:01:41.634 --> 00:01:42.777
+Then repeat.
+
+00:01:42.777 --> 00:01:44.721
+Nothing is differentiated.
+
+00:01:44.721 --> 00:01:47.766
+The algorithm only ever sees the scores.
+
+00:01:48.366 --> 00:01:51.161
+The algorithm we use is called CMA-ES.
+
+00:01:51.161 --> 00:01:56.203
+Here it is on a toy problem with only two numbers, so we can watch it work.
+
+00:01:56.203 --> 00:01:59.298
+Dark means good, and bright means bad.
+
+00:01:59.898 --> 00:02:04.239
+It keeps a cloud of candidates, shaped like a stretched bell curve.
+
+00:02:04.239 --> 00:02:10.386
+Each generation it samples new points, keeps the best half, and moves the centre toward them.
+
+00:02:10.986 --> 00:02:13.851
+It also learns the shape of the problem.
+
+00:02:13.851 --> 00:02:20.298
+The cloud stretches along the valley, races down it, and shrinks as it closes in on the answer.
+
+00:02:20.898 --> 00:02:22.780
+How do we score a pilot?
+
+00:02:22.780 --> 00:02:27.485
+It flies ten episodes, and we start from its average reward in the game.
+
+00:02:27.485 --> 00:02:31.020
+That already punishes crashing and wasted fuel.
+
+00:02:31.620 --> 00:02:37.092
+Then we add a big bonus for landing, and a small one for landing quickly.
+
+00:02:37.692 --> 00:02:39.825
+Now let's watch it learn.
+
+00:02:39.825 --> 00:02:45.359
+Each dot is one pilot, and each column is one generation of fifty pilots.
+
+00:02:45.959 --> 00:02:50.403
+In the first thirty generations, nearly every pilot still crashes.
+
+00:02:50.403 --> 00:02:57.309
+But the dots keep creeping upward, because each generation is sampled around the best of the last one.
+
+00:02:57.909 --> 00:03:00.434
+Then the whole population lifts.
+
+00:03:00.434 --> 00:03:03.780
+By generation seventy-five, most pilots land.
+
+00:03:03.780 --> 00:03:13.360
+The orange line is the best pilot, the blue line is the average, and the gap between them closes as the population settles on one strategy.
+
+00:03:13.960 --> 00:03:16.535
+Here is the same story in flight.
+
+00:03:16.535 --> 00:03:23.742
+All fifty pilots of one generation start from exactly the same spot, and we draw the path of each one.
+
+00:03:24.342 --> 00:03:26.410
+Generation zero is chaos.
+
+00:03:26.410 --> 00:03:29.981
+Pilots fall straight down, or fly off the screen.
+
+00:03:29.981 --> 00:03:33.915
+Five generations later, not one of them lands yet.
+
+00:03:34.515 --> 00:03:38.252
+By generation ten, a few paths bend toward the pad.
+
+00:03:38.252 --> 00:03:40.659
+By forty, more of them arrive.
+
+00:03:40.659 --> 00:03:44.506
+And by fifty, nineteen of the fifty pilots land.
+
+00:03:45.515 --> 00:03:49.266
+By generation one hundred, forty-eight of them land.
+
+00:03:49.266 --> 00:03:55.506
+The whole population flies almost the same path, a smooth curve down between the flags.
+
+00:03:56.106 --> 00:03:58.748
+This is the population as points.
+
+00:03:58.748 --> 00:04:05.105
+Each pilot is thirty-six numbers, flattened down to two, so each dot is a whole pilot.
+
+00:04:05.705 --> 00:04:12.007
+The centre of the cloud travels a long way from where it started, toward the region where pilots land.
+
+00:04:12.007 --> 00:04:14.312
+The white line is its path.
+
+00:04:14.912 --> 00:04:17.074
+And there's a neat trick here.
+
+00:04:17.074 --> 00:04:22.651
+Only the highest score matters, so making every weight bigger doesn't change any decision.
+
+00:04:22.651 --> 00:04:29.893
+As the weights grow, the same step size becomes a smaller and smaller step, and the search turns into fine-tuning.
+
+00:04:30.493 --> 00:04:34.971
+Here is the centre of the cloud, drawn as the weight matrix itself.
+
+00:04:34.971 --> 00:04:37.300
+At generation zero it is noise.
+
+00:04:37.300 --> 00:04:39.570
+Watch the pattern appear.
+
+00:04:40.170 --> 00:04:42.728
+The strongest rules are about speed.
+
+00:04:42.728 --> 00:04:45.577
+Drifting sideways, falling, and spinning.
+
+00:04:45.577 --> 00:04:49.482
+They are exactly the things a human pilot would watch.
+
+00:04:50.082 --> 00:04:55.998
+Here are the best pilots from different points in training, all facing the same start.
+
+00:04:56.598 --> 00:05:00.946
+The random pilot flies away, and the early champion crashes.
+
+00:05:00.946 --> 00:05:06.616
+By generation thirty the best pilot lands, and later ones land more cleanly.
+
+00:05:09.223 --> 00:05:13.311
+Because the pilot is so simple, we can follow every decision.
+
+00:05:13.311 --> 00:05:15.681
+Here the lander is falling fast.
+
+00:05:15.681 --> 00:05:18.940
+Each input times its weight adds to each score.
+
+00:05:18.940 --> 00:05:24.987
+The falling speed pushes the main engine up and do nothing down, so the main engine wins.
+
+00:05:25.587 --> 00:05:28.772
+A moment earlier, it was tilted to the right.
+
+00:05:28.772 --> 00:05:35.082
+Now the left engine collects just enough votes to win, and it turns the lander back upright.
+
+00:05:35.682 --> 00:05:38.005
+We can draw a whole rule at once.
+
+00:05:38.005 --> 00:05:41.178
+Across is the tilt, and up and down is the spin.
+
+00:05:41.178 --> 00:05:44.707
+Each colour is the action the pilot would choose.
+
+00:05:45.307 --> 00:05:47.666
+The white line is a real flight.
+
+00:05:47.666 --> 00:05:53.391
+The pilot stays near the middle, hopping between the engines to keep itself upright.
+
+00:05:53.991 --> 00:05:56.096
+So what did evolution find?
+
+00:05:56.096 --> 00:05:59.523
+The main engine fires when the lander is falling.
+
+00:05:59.523 --> 00:06:04.453
+Its bias is negative, so it stays off unless the fall is fast enough.
+
+00:06:05.053 --> 00:06:12.130
+Do nothing gets a strong vote when the lander is rising, and a strong vote against it when the left leg is down.
+
+00:06:12.130 --> 00:06:14.966
+This pilot almost never just waits.
+
+00:06:15.566 --> 00:06:18.434
+The left engine fixes drift and spin.
+
+00:06:18.434 --> 00:06:24.852
+It fires when the lander drifts right or spins clockwise, and it pushes the lander back.
+
+00:06:25.452 --> 00:06:28.127
+And the right engine is the default.
+
+00:06:28.127 --> 00:06:33.722
+It fires almost half the time, with small, cheap pulses whenever no other rule wins.
+
+00:06:33.722 --> 00:06:40.224
+When the lander drifts left, the left engine loses its votes, and the right engine takes over.
+
+00:06:40.824 --> 00:06:48.020
+Tested on one hundred new landings it never saw in training, this pilot lands ninety-six times.
+
+00:06:48.620 --> 00:06:52.946
+All of it from thirty-six numbers and a loop of trial and error.
+
+00:06:52.946 --> 00:06:54.748
+The code is on GitHub.
+
+00:06:54.748 --> 00:06:57.932
+Run it, and watch your own pilot evolve.

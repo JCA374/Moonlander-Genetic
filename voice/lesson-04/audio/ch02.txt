@@ -1,0 +1,1 @@
+Every generation runs the same loop. Sample new pilots. Fly them. Rank them. Then update, and repeat. The algorithm never looks inside the pilot. It only sees the scores.

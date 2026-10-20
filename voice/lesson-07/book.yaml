@@ -1,0 +1,95 @@
+title: 'Lesson 7: Reading the weights'
+kind: voiceover
+author: ''
+narrator: Kokoro TTS (af_heart)
+narration:
+  narrator: af_heart
+  speed: 1.05
+  paragraph_pause: 0.6
+chapters:
+  ch01: l7_title
+  ch02: w_worked
+  ch03: w_worked.2
+  ch04: w_worked.3
+  ch05: w_scale
+  ch06: w_scale.2
+  ch07: w_scale.3
+  ch08: w_policy_tilt
+  ch09: w_policy_tilt.2
+  ch10: w_policy_fall
+  ch11: w_policy_fall.2
+  ch12: w_story
+  ch13: w_story.2
+  ch14: w_story.3
+  ch15: w_story.4
+  ch16: w_ablation
+  ch17: w_ablation.2
+sources:
+  ch01:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
+    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
+    section: l7_title
+  ch02:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
+    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
+    section: w_worked
+  ch03:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
+    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
+    section: w_worked.2
+  ch04:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
+    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
+    section: w_worked.3
+  ch05:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
+    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
+    section: w_scale
+  ch06:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
+    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
+    section: w_scale.2
+  ch07:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
+    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
+    section: w_scale.3
+  ch08:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
+    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
+    section: w_policy_tilt
+  ch09:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
+    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
+    section: w_policy_tilt.2
+  ch10:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
+    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
+    section: w_policy_fall
+  ch11:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
+    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
+    section: w_policy_fall.2
+  ch12:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
+    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
+    section: w_story
+  ch13:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
+    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
+    section: w_story.2
+  ch14:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
+    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
+    section: w_story.3
+  ch15:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
+    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
+    section: w_story.4
+  ch16:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
+    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
+    section: w_ablation
+  ch17:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
+    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
+    section: w_ablation.2

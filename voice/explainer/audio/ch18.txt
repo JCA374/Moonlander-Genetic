@@ -1,0 +1,1 @@
+In the first thirty generations, nearly every pilot still crashes. But the dots keep creeping upward, because each generation is sampled around the best of the last one.

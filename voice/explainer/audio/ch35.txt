@@ -1,0 +1,1 @@
+So what did evolution find? The main engine fires when the lander is falling. Its bias is negative, so it stays off unless the fall is fast enough.

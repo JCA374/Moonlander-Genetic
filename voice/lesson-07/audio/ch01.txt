@@ -1,0 +1,1 @@
+Lesson seven. Reading the weights. Because the pilot is linear, we can understand exactly what it learned. Let's take it apart.

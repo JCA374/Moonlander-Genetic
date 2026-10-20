@@ -185,7 +185,56 @@
     color: var(--muted); font-size: 14px;
   }
 
+  .tabs {
+    display: flex; gap: 6px; border-bottom: 1px solid var(--line); margin: 4px 0 0;
+  }
+  .tabs a {
+    padding: 10px 16px; text-decoration: none; color: var(--muted); font-weight: 600;
+    border-bottom: 3px solid transparent; margin-bottom: -1px;
+  }
+  .tabs a[aria-current="page"] { color: var(--text); border-bottom-color: var(--accent); }
+  [hidden] { display: none !important; }
+
+  .lessons { display: grid; grid-template-columns: 270px 1fr; gap: 28px; padding: 28px 0 10px; }
+  .lesson-list { list-style: none; margin: 0; padding: 0; position: sticky; top: 12px; align-self: start; }
+  .lesson-list a {
+    display: grid; grid-template-columns: 30px 1fr; gap: 2px 10px; align-items: baseline;
+    padding: 10px 12px; border-radius: 10px; text-decoration: none; color: var(--text);
+  }
+  .lesson-list a:hover { background: var(--surface-2); }
+  .lesson-list a[aria-current="true"] { background: var(--accent-bg); }
+  .lesson-list .n {
+    grid-row: span 2; display: inline-grid; place-items: center; width: 28px; height: 28px;
+    border-radius: 50%; background: var(--surface-2); color: var(--accent); font-weight: 700; font-size: 14px;
+  }
+  .lesson-list a[aria-current="true"] .n { background: var(--accent); color: var(--bg); }
+  .lesson-list .t { font-weight: 600; line-height: 1.3; }
+  .lesson-list .d { color: var(--muted); font-size: 13.5px; }
+  .lesson h2 { font-size: clamp(25px, 3.4vw, 32px); letter-spacing: -.015em; margin: 0 0 4px; }
+  .lesson h2 .num { color: var(--accent); margin-right: 8px; }
+  .lesson .sub { color: var(--muted); margin: 0 0 16px; }
+  .lesson .points { margin: 20px 0 8px; padding-left: 20px; }
+  .lesson .points li { margin-bottom: 8px; }
+  .lesson details {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+    padding: 10px 16px; margin: 16px 0;
+  }
+  .lesson summary { cursor: pointer; font-weight: 600; }
+  .lesson details p { color: var(--muted); margin: 10px 0; }
+  .pager { display: flex; justify-content: space-between; gap: 12px; margin: 20px 0 0; }
+  .pager a {
+    flex: 1; border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px;
+    text-decoration: none; color: var(--text); background: var(--surface);
+  }
+  .pager a span { display: block; color: var(--muted); font-size: 13px; }
+  .pager a.next { text-align: right; }
+  .pager a[aria-disabled="true"] { visibility: hidden; }
+
   @media (max-width: 760px) {
+    .lessons { grid-template-columns: 1fr; }
+    .lesson-list { position: static; display: flex; overflow-x: auto; gap: 6px; padding-bottom: 6px; }
+    .lesson-list a { grid-template-columns: 28px; white-space: nowrap; }
+    .lesson-list .t, .lesson-list .d { display: none; }
     .split, .split.flip { grid-template-columns: 1fr; }
     .split.flip > :first-child { order: 0; }
     .stats { grid-template-columns: repeat(2, 1fr); }
@@ -198,16 +247,22 @@
 
 <div class="wrap">
   <header class="top">
-    <a class="brand" href="#">Moonlander<span>-Genetic</span></a>
+    <a class="brand" href="#overview">Moonlander<span>-Genetic</span></a>
     <nav>
-      <a class="hide-sm" href="#controller">Controller</a>
-      <a class="hide-sm" href="#cmaes">CMA-ES</a>
-      <a class="hide-sm" href="#results">Results</a>
+      <a class="hide-sm" href="#generations">Generations</a>
+      <a class="hide-sm" href="#learned">Weights</a>
       <a href="https://github.com/JCA374/Moonlander-Genetic">GitHub</a>
       <button class="theme-btn" id="themeBtn" type="button" aria-label="Toggle color theme"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.5a6.5 6.5 0 0 1 0 13z" fill="currentColor"/></svg></button>
     </nav>
   </header>
+  <nav class="tabs" aria-label="Page">
+    <a href="#overview" id="tab-overview">Overview</a>
+    <a href="#lessons" id="tab-lessons">Lessons</a>
+  </nav>
+</div>
 
+<main id="overview">
+<div class="wrap">
   <div class="hero">
     <h1>Landing on the Moon with <em>36 numbers</em></h1>
     <p class="lede">A genetic algorithm (CMA-ES) evolves a tiny linear controller that lands Gymnasium's
@@ -217,16 +272,18 @@
     <div class="video-card">
       <video controls preload="metadata" poster="img/poster.jpg" playsinline>
         <source src="explainer.mp4" type="video/mp4">
+        <track kind="captions" src="explainer.vtt" srclang="en" label="English">
         Your browser can't play this video. <a href="explainer.mp4">Download it instead</a>.
       </video>
     </div>
-    <p class="video-note">2:45 explainer with on-screen captions. Every frame was rendered from this
-      repository's code and the trained model.</p>
+    <p class="video-note">7-minute narrated explainer (captions in the player menu). Every frame was rendered
+      from this repository's code and the trained model. Want it step by step?
+      <a href="#lessons">Take the 7 short lessons →</a></p>
 
     <div class="stats">
-      <div class="stat"><b>99%</b><span>landing rate on 100 unseen episodes</span></div>
-      <div class="stat"><b>275</b><span>average episode reward (≥ 200 counts as solved)</span></div>
-      <div class="stat"><b>232</b><span>steps per landing, about 4.6 s of flight</span></div>
+      <div class="stat"><b>96%</b><span>landing rate on 100 unseen episodes</span></div>
+      <div class="stat"><b>244</b><span>average episode reward (≥ 200 counts as solved)</span></div>
+      <div class="stat"><b>339</b><span>steps per episode, about 6.8 s of flight</span></div>
       <div class="stat"><b>36</b><span>parameters in the whole pilot</span></div>
     </div>
   </div>
@@ -322,23 +379,45 @@
   </div>
 </section>
 
-<section id="results">
+<section id="generations">
   <div class="wrap">
-    <h2><span class="num">6</span>Results</h2>
+    <h2><span class="num">6</span>Generations: watching it learn</h2>
+    <p class="intro">Training logs every one of the 50 pilots in each of the 200 generations
+      (<code>ga_models/population_log.npz</code>), so we can watch the whole population improve, not
+      only the best pilot. 200 generations × 50 pilots × 10 episodes took about 11 minutes on 8 cores.</p>
     <div class="split">
-      <div class="shot"><img src="img/training.jpg" alt="Training curves: best fitness, population mean fitness and landing rate over 200 generations" loading="lazy" width="1280" height="720"></div>
+      <div class="shot"><img src="img/training.jpg" alt="Fitness of every pilot in every generation as dots, with best and average lines" loading="lazy" width="1280" height="720"></div>
       <div>
-        <p>200 generations × 50 pilots × 10 episodes (100,000 episodes in total) took about
-          <strong>6 minutes</strong> on an 8-core CPU (<code>--parallel 8</code>).</p>
-        <p>Within roughly 40 generations the best pilots go from crashing to landing. By the end, the
-          population average (blue) is close to the best, so nearly every sampled pilot can land.</p>
+        <p><strong>Every pilot, every generation.</strong> Each dot is one pilot, coloured from red (crashes)
+          to green (lands). For about 30 generations almost everyone crashes, but the cloud keeps creeping up.
+          The best pilot lands half its episodes by generation 32. By generation 75, most of the population lands.</p>
       </div>
     </div>
     <div class="split flip">
-      <div class="shot"><img src="img/evolution.jpg" alt="The same landing scenario flown by controllers from generation 0, 10, 30, 60, 100 and the final best" loading="lazy" width="1280" height="720"></div>
+      <div class="shot"><img src="img/ghosts.jpg" alt="Flight paths of all 50 pilots of one generation from the same start" loading="lazy" width="1280" height="720"></div>
       <div>
-        <p>The same starting conditions, flown by checkpoints from different generations. Early pilots
-          fall or spin away. Later ones hover, then steer toward the pad and land.</p>
+        <p><strong>Fifty flights, one start.</strong> All pilots of a generation fly the same scenario, and their
+          paths are drawn on top of each other. On this start: 0 of 50 land in generation 5, 19 in
+          generation 50, and 48 in generation 100. The trails bundle into one curve as the population agrees on a
+          strategy.</p>
+      </div>
+    </div>
+    <div class="split">
+      <div class="shot"><img src="img/cloud.jpg" alt="The population projected to 2-D with PCA, with the path of the CMA-ES mean" loading="lazy" width="1280" height="720"></div>
+      <div>
+        <p><strong>The cloud in parameter space.</strong> The population is projected from 36 dimensions to 2
+          (PCA). The mean travels far from its random start toward the region where pilots land.</p>
+        <p>CMA-ES also found a trick. <code>argmax</code> ignores the overall scale of the scores, so making every
+          weight bigger changes no decision. The weights grew from size 0.5 to 43 while σ stayed near 0.5–0.9,
+          so the <em>relative</em> step shrank from 0.96 to 0.013, and the search turned into fine-tuning by itself.</p>
+      </div>
+    </div>
+    <div class="split flip">
+      <div class="shot"><img src="img/evolution.jpg" alt="The same landing scenario flown by the best pilot at different generations" loading="lazy" width="1280" height="720"></div>
+      <div>
+        <p><strong>The champion over time.</strong> The same start, flown by the best pilot so far. The random
+          pilot fires its main engine non-stop and flies away. Generation 10 crashes. From generation 30 on, the
+          champion lands.</p>
       </div>
     </div>
   </div>
@@ -346,15 +425,36 @@
 
 <section id="learned">
   <div class="wrap">
-    <h2><span class="num">7</span>What it learned</h2>
+    <h2><span class="num">7</span>Reading the weights</h2>
     <div class="split">
-      <div class="shot"><img src="img/weights.jpg" alt="The learned 8×4 weight matrix and biases" loading="lazy" width="1280" height="720"></div>
+      <div class="shot"><img src="img/worked.jpg" alt="One decision worked out: each input times its weight, summed per action" loading="lazy" width="1280" height="720"></div>
       <div>
-        <p>A linear pilot can be read directly. For example, <strong>vertical velocity → main engine</strong>
-          has a large negative weight. The faster the lander falls (negative velocity), the higher the
-          main-engine score, so it brakes harder the faster it drops.</p>
-        <p>Try it yourself:</p>
-        <pre>python play_ga.py --model ga_models/ga_best.npy --describe</pre>
+        <p><strong>One decision, by hand.</strong> Multiply each input by its weight, add up each action's column
+          plus its bias, and the highest total wins. Here the lander is falling fast. Vertical velocity × its
+          main-engine weight (−15.1) is a big positive vote, so the main engine fires.</p>
+      </div>
+    </div>
+    <div class="split flip">
+      <div class="shot"><img src="img/policy.jpg" alt="Map of the chosen action over tilt and spin, with a real flight traced on top" loading="lazy" width="1280" height="720"></div>
+      <div>
+        <p><strong>The rule as a map.</strong> Vary two inputs, hold the rest at typical in-flight values, and
+          colour each point by the chosen action. The real flight (white) stays near the borders, where small
+          changes flip between engines.</p>
+      </div>
+    </div>
+    <div class="split">
+      <div class="shot"><img src="img/weights.jpg" alt="The learned weight matrix with the left-engine rules highlighted" loading="lazy" width="1280" height="720"></div>
+      <div>
+        <p><strong>What evolution found:</strong></p>
+        <ul>
+          <li><strong>Main engine</strong> when falling (vertical velocity −15.1), held back by a negative bias.</li>
+          <li><strong>Left engine</strong> when drifting right (+13.4) or spinning clockwise (−17.6). It pushes the
+            lander left and spins it back.</li>
+          <li><strong>Right engine</strong> is the default: cheap pulses about half the time. There's no
+            "drifting left" rule. The left engine simply loses its votes.</li>
+          <li><strong>Do nothing</strong> almost never. It is voted down hard when falling or when a leg is down.</li>
+        </ul>
+        <p>Lesson 7 goes through all of it, including which weights the pilot can't live without.</p>
       </div>
     </div>
   </div>
@@ -376,13 +476,38 @@ python play_ga.py --model ga_models/ga_best.npy --episodes 5
 python play_ga.py --model ga_models/ga_best.npy --evaluate 100 --no-render
 python plot_ga_training.py --history ga_models/training_history.json
 
-<span class="c"># regenerate this page's video from your own run</span>
-python video_tools/make_explainer.py</pre>
+<span class="c"># regenerate this page's videos from your own run (narration: see README)</span>
+python video_tools/make_explainer.py
+python video_tools/make_lessons.py</pre>
   </div>
 </section>
+</main>
+
+<main id="lessons" hidden>
+  <div class="wrap">
+    <div class="lessons">
+      <ol class="lesson-list" id="lessonList"></ol>
+      <article class="lesson" id="lesson">
+        <h2><span class="num" id="lNum">1</span><span id="lTitle"></span></h2>
+        <p class="sub" id="lSub"></p>
+        <div class="video-card">
+          <video id="lVideo" controls preload="metadata" playsinline></video>
+        </div>
+        <ul class="points" id="lPoints"></ul>
+        <details id="lTranscript"><summary>Transcript</summary><div id="lText"></div></details>
+        <div class="pager">
+          <a id="lPrev" href="#"><span>← Previous</span><b></b></a>
+          <a id="lNext" class="next" href="#"><span>Next →</span><b></b></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</main>
 
 <div class="wrap">
   <footer>
+    Narration: <a href="https://huggingface.co/hexgrad/Kokoro-82M">Kokoro TTS</a> (voice af_heart), rendered
+    locally and checked with Whisper. ·
     <a href="https://github.com/JCA374/Moonlander-Genetic">github.com/JCA374/Moonlander-Genetic</a> ·
     Built with <a href="https://gymnasium.farama.org/">Gymnasium</a> and
     <a href="https://github.com/CMA-ES/pycma">pycma</a> ·
@@ -404,6 +529,99 @@ python video_tools/make_explainer.py</pre>
       root.setAttribute('data-theme', next);
       try { localStorage.setItem('theme', next); } catch (e) {}
     });
+  })();
+
+  // Tabs + lessons (hash routes: #overview, #<section>, #lessons, #lessons/3)
+  (function () {
+    var POINTS = {
+      1: ['The lander senses 8 numbers: position, velocity, tilt, spin and two leg-contact switches.',
+          'It picks one of 4 actions: nothing, left engine, main engine, right engine.',
+          'The game rewards approaching the pad and landing (+100). It punishes crashing (−100) and fuel use. 200 points counts as solved.'],
+      2: ['scores = state × W + b, and the highest score fires (argmax).',
+          'Rows are inputs, columns are actions. Orange is positive, blue is negative.',
+          'A positive weight means "the bigger this input, the more I want this action".'],
+      3: ['A generation is 50 pilots, each a vector of 36 numbers.',
+          'Fitness = average reward + 100 × landing rate + a speed bonus that only counts when landing.',
+          'Ranking is all that matters: the best half shapes the next generation.'],
+      4: ['CMA-ES samples pilots from a Gaussian with a mean, a step size σ and a covariance C.',
+          'Each generation the mean moves toward the winners and C stretches along directions that worked.',
+          'On a 2-D toy you can watch the cloud find a valley, race down it and settle.'],
+      5: ['Nearly every pilot crashes for 30 generations, but the population keeps creeping up.',
+          'On one fixed start: 0 of 50 land at generation 5, 19 at generation 50, and 48 at generation 100.',
+          'The weights grow while σ doesn\'t, so the relative step shrinks and the search fine-tunes itself.'],
+      6: ['The champion of each checkpoint flies the same start: it lands from generation 30 on.',
+          'The mean of the population, drawn as a weight matrix, turns from noise into a clear pattern.',
+          'The strongest rules are about speed: drift, falling and spin.'],
+      7: ['Work a decision by hand: input × weight, summed per action, then argmax.',
+          'A big weight on an input that barely changes does little. Influence = |weight| × spread.',
+          'Zeroing the "falling → main engine" weight drops landings from 93% to 0%.']
+    };
+    var lessons = [], current = 0;
+    var $ = function (id) { return document.getElementById(id); };
+    function fmt(sec) { var m = Math.floor(sec / 60), s = Math.round(sec % 60); return m + ':' + (s < 10 ? '0' : '') + s; }
+
+    function showLesson(n) {
+      var L = lessons[n - 1];
+      if (!L) return;
+      current = n;
+      $('lNum').textContent = n;
+      $('lTitle').textContent = L.title;
+      $('lSub').textContent = L.subtitle + ' · ' + fmt(L.seconds);
+      var v = $('lVideo');
+      v.pause();
+      v.innerHTML = '<source src="lessons/' + L.slug + '.mp4" type="video/mp4">' +
+        '<track kind="captions" src="lessons/' + L.slug + '.vtt" srclang="en" label="English">';
+      v.poster = 'lessons/' + L.slug + '.jpg';
+      v.load();
+      $('lPoints').innerHTML = (POINTS[n] || []).map(function (p) { return '<li>' + p + '</li>'; }).join('');
+      $('lText').innerHTML = L.transcript.map(function (t) {
+        return '<p>' + t.text.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</p>';
+      }).join('');
+      $('lTranscript').open = false;
+      var prev = lessons[n - 2], next = lessons[n];
+      $('lPrev').setAttribute('aria-disabled', prev ? 'false' : 'true');
+      $('lNext').setAttribute('aria-disabled', next ? 'false' : 'true');
+      if (prev) { $('lPrev').href = '#lessons/' + (n - 1); $('lPrev').querySelector('b').textContent = prev.title; }
+      if (next) { $('lNext').href = '#lessons/' + (n + 1); $('lNext').querySelector('b').textContent = next.title; }
+      var list = $('lessonList');
+      Array.prototype.forEach.call(list.querySelectorAll('a'), function (a, i) {
+        a.setAttribute('aria-current', i === n - 1 ? 'true' : 'false');
+        if (i === n - 1 && list.scrollWidth > list.clientWidth) list.scrollLeft = a.parentNode.offsetLeft - 40;
+      });
+    }
+
+    function route() {
+      var h = location.hash.replace(/^#/, '') || 'overview';
+      var m = h.match(/^lessons(?:\/(\d+))?$/);
+      var onLessons = !!m;
+      $('overview').hidden = onLessons;
+      $('lessons').hidden = !onLessons;
+      $('tab-overview').setAttribute('aria-current', onLessons ? 'false' : 'page');
+      $('tab-lessons').setAttribute('aria-current', onLessons ? 'page' : 'false');
+      document.querySelectorAll('video').forEach(function (v) { if (v.closest('[hidden]')) v.pause(); });
+      if (onLessons) {
+        var n = m[1] ? parseInt(m[1], 10) : (current || 1);
+        if (lessons.length) showLesson(Math.min(Math.max(n, 1), lessons.length));
+        else current = n;
+        window.scrollTo(0, 0);
+      } else if (h !== 'overview') {
+        var el = document.getElementById(h);
+        if (el) el.scrollIntoView();
+      } else {
+        window.scrollTo(0, 0);
+      }
+    }
+
+    fetch('lessons/lessons.json').then(function (r) { return r.json(); }).then(function (data) {
+      lessons = data;
+      $('lessonList').innerHTML = data.map(function (L) {
+        return '<li><a href="#lessons/' + L.n + '"><span class="n">' + L.n + '</span><span class="t">' +
+          L.title + '</span><span class="d">' + fmt(L.seconds) + ' · ' + L.subtitle + '</span></a></li>';
+      }).join('');
+      route();
+    });
+    window.addEventListener('hashchange', route);
+    route();
   })();
 </script>
 </body>

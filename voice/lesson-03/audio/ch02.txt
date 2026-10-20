@@ -1,0 +1,1 @@
+We start with a population of pilots. Each one is thirty-six random numbers. In training there are fifty of them. Here are eighteen.

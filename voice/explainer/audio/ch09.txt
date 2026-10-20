@@ -1,0 +1,1 @@
+Every pilot flies, and gets a fitness score. Random pilots crash. Some of them crash a little less badly than others.

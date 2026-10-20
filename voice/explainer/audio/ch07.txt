@@ -1,0 +1,1 @@
+Eight times four weights, plus four biases, makes thirty-six numbers. Finding good values for them is the job of the genetic algorithm.
