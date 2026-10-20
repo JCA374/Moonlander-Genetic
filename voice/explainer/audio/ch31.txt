@@ -1,0 +1,1 @@
+Because the pilot is so simple, we can follow every decision. Here the lander is falling fast. Each input times its weight adds to each score. The falling speed pushes the main engine up and do nothing down, so the main engine wins.

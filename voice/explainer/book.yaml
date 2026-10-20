@@ -1,0 +1,210 @@
+title: Moonlander-Genetic explainer
+kind: voiceover
+author: ''
+narrator: Kokoro TTS (af_heart)
+narration:
+  narrator: af_heart
+  speed: 1.05
+  paragraph_pause: 0.6
+chapters:
+  ch01: title
+  ch02: task
+  ch03: task.2
+  ch04: task.3
+  ch05: controller
+  ch06: controller.2
+  ch07: controller.3
+  ch08: population
+  ch09: population.2
+  ch10: population.3
+  ch11: loop
+  ch12: cmaes
+  ch13: cmaes.2
+  ch14: cmaes.3
+  ch15: fitness
+  ch16: fitness.2
+  ch17: gen_fitness
+  ch18: gen_fitness.2
+  ch19: gen_fitness.3
+  ch20: gen_ghosts
+  ch21: gen_ghosts.2
+  ch22: gen_ghosts.3
+  ch23: gen_ghosts.4
+  ch24: gen_cloud
+  ch25: gen_cloud.2
+  ch26: gen_cloud.3
+  ch27: gen_weights
+  ch28: gen_weights.2
+  ch29: evolution
+  ch30: evolution.2
+  ch31: w_worked
+  ch32: w_worked.2
+  ch33: w_policy_map
+  ch34: w_policy_map.2
+  ch35: w_story
+  ch36: w_story.2
+  ch37: w_story.3
+  ch38: w_story.4
+  ch39: outro
+  ch40: outro.2
+sources:
+  ch01:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: title
+  ch02:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: task
+  ch03:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: task.2
+  ch04:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: task.3
+  ch05:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: controller
+  ch06:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: controller.2
+  ch07:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: controller.3
+  ch08:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: population
+  ch09:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: population.2
+  ch10:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: population.3
+  ch11:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: loop
+  ch12:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: cmaes
+  ch13:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: cmaes.2
+  ch14:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: cmaes.3
+  ch15:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: fitness
+  ch16:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: fitness.2
+  ch17:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: gen_fitness
+  ch18:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: gen_fitness.2
+  ch19:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: gen_fitness.3
+  ch20:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: gen_ghosts
+  ch21:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: gen_ghosts.2
+  ch22:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: gen_ghosts.3
+  ch23:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: gen_ghosts.4
+  ch24:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: gen_cloud
+  ch25:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: gen_cloud.2
+  ch26:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: gen_cloud.3
+  ch27:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: gen_weights
+  ch28:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: gen_weights.2
+  ch29:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: evolution
+  ch30:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: evolution.2
+  ch31:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: w_worked
+  ch32:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: w_worked.2
+  ch33:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: w_policy_map
+  ch34:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: w_policy_map.2
+  ch35:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: w_story
+  ch36:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: w_story.2
+  ch37:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: w_story.3
+  ch38:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: w_story.4
+  ch39:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: outro
+  ch40:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/explainer.md
+    sha1: 295d5849d46df7b5b3b4f89b7bd723f981037a9e
+    section: outro.2

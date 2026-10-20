@@ -1,0 +1,1 @@
+A few frames earlier, the lander was tilted to the right. Now it's close. The tilt and the height add votes to the left engine, and it wins by a small margin. Firing it turns the lander back upright.

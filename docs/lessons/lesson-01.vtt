@@ -1,0 +1,85 @@
+WEBVTT
+
+00:00:00.350 --> 00:00:01.478
+Lesson one.
+
+00:00:01.478 --> 00:00:02.488
+The task.
+
+00:00:02.488 --> 00:00:08.252
+Before we evolve anything, let's look closely at the problem our pilot has to solve.
+
+00:00:08.852 --> 00:00:13.559
+This is Lunar Lander, a small physics game from the Gymnasium library.
+
+00:00:13.559 --> 00:00:22.187
+The lander starts near the top of the screen with a random push, and it has to touch down softly on the pad between the two flags.
+
+00:00:22.787 --> 00:00:26.353
+Many times a second, the lander senses eight numbers.
+
+00:00:26.353 --> 00:00:28.457
+Its position, across and up.
+
+00:00:28.457 --> 00:00:30.386
+Its speed, across and up.
+
+00:00:30.386 --> 00:00:33.075
+Its tilt, and how fast it is spinning.
+
+00:00:33.075 --> 00:00:37.350
+And two switches that turn on when a leg touches the ground.
+
+00:00:37.950 --> 00:00:41.441
+With those eight numbers, it picks one of four actions.
+
+00:00:41.441 --> 00:00:42.494
+Do nothing.
+
+00:00:42.494 --> 00:00:44.101
+Fire the left engine.
+
+00:00:44.101 --> 00:00:46.318
+Fire the main engine underneath.
+
+00:00:46.318 --> 00:00:48.147
+Or fire the right engine.
+
+00:00:48.147 --> 00:00:53.767
+The side engines push the lander sideways and spin it, and the main engine pushes it up.
+
+00:00:54.367 --> 00:00:56.858
+The game keeps score while it flies.
+
+00:00:56.858 --> 00:01:01.445
+Moving toward the pad, slowing down, and staying level all earn a little.
+
+00:01:01.445 --> 00:01:05.482
+Drifting away, speeding up, and tilting all cost a little.
+
+00:01:06.082 --> 00:01:08.121
+There are bigger events too.
+
+00:01:08.121 --> 00:01:11.407
+Each leg that touches the ground earns ten points.
+
+00:01:11.407 --> 00:01:13.617
+Coming to rest earns a hundred.
+
+00:01:13.617 --> 00:01:15.786
+Crashing costs a hundred.
+
+00:01:16.386 --> 00:01:18.108
+And fuel isn't free.
+
+00:01:18.108 --> 00:01:22.230
+Every frame the main engine fires costs a third of a point.
+
+00:01:22.230 --> 00:01:25.359
+The side engines cost a tenth as much.
+
+00:01:25.959 --> 00:01:28.198
+Add it all up over one flight.
+
+00:01:28.198 --> 00:01:31.797
+A score of two hundred or more counts as solved.

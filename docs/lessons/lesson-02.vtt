@@ -1,0 +1,91 @@
+WEBVTT
+
+00:00:00.350 --> 00:00:01.506
+Lesson two.
+
+00:00:01.506 --> 00:00:02.906
+The controller.
+
+00:00:02.906 --> 00:00:06.371
+How can thirty-six numbers fly a spacecraft?
+
+00:00:06.971 --> 00:00:10.977
+Our pilot is one small table of numbers, called a matrix.
+
+00:00:10.977 --> 00:00:16.154
+Each of the eight inputs is multiplied by four weights, one for each action.
+
+00:00:16.154 --> 00:00:19.104
+Then a bias is added to each total.
+
+00:00:19.704 --> 00:00:21.476
+That gives four scores.
+
+00:00:21.476 --> 00:00:24.563
+Whichever score is highest, that action fires.
+
+00:00:24.563 --> 00:00:30.923
+Watch the scores on the right change as the lander flies, and the winning action change with them.
+
+00:00:31.523 --> 00:00:35.305
+Eight inputs times four actions is thirty-two weights.
+
+00:00:35.305 --> 00:00:38.783
+Add four biases, and you have thirty-six numbers.
+
+00:00:38.783 --> 00:00:41.096
+That is the entire pilot.
+
+00:00:41.696 --> 00:00:43.859
+Let's learn to read the table.
+
+00:00:43.859 --> 00:00:47.332
+Each row is one input, and each column is one action.
+
+00:00:47.332 --> 00:00:51.375
+Orange cells are positive weights, and blue cells are negative.
+
+00:00:51.375 --> 00:00:54.692
+The brighter the cell, the bigger the number.
+
+00:00:55.292 --> 00:00:58.991
+Read across a row, and you see how one input votes.
+
+00:00:58.991 --> 00:01:04.683
+Horizontal speed pushes some actions up and others down, all at the same time.
+
+00:01:05.283 --> 00:01:10.094
+Read down a column, and you see everything that argues for one action.
+
+00:01:10.094 --> 00:01:12.923
+This is the left engine's column.
+
+00:01:13.523 --> 00:01:15.766
+A single cell is a single rule.
+
+00:01:15.766 --> 00:01:20.540
+A positive weight means the bigger this input, the more I want this action.
+
+00:01:20.540 --> 00:01:23.128
+A negative weight means the opposite.
+
+00:01:23.128 --> 00:01:27.224
+Here: drifting right is a strong vote for the left engine.
+
+00:01:27.824 --> 00:01:29.776
+The last row is the bias.
+
+00:01:29.776 --> 00:01:35.046
+It's a head start, or a handicap, that each action gets, whatever the state.
+
+00:01:35.646 --> 00:01:38.160
+Now let's watch one real decision.
+
+00:01:38.160 --> 00:01:43.726
+Each input is multiplied by its weight, and the products are added up in each column.
+
+00:01:43.726 --> 00:01:49.173
+The lander is falling fast, so the falling speed pushes the main engine's score up.
+
+00:01:49.173 --> 00:01:53.004
+It has the highest total, so the main engine fires.

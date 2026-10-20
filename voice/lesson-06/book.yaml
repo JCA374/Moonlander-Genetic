@@ -1,0 +1,35 @@
+title: 'Lesson 6: Evolution in flight'
+kind: voiceover
+author: ''
+narrator: Kokoro TTS (af_heart)
+narration:
+  narrator: af_heart
+  speed: 1.05
+  paragraph_pause: 0.6
+chapters:
+  ch01: l6_title
+  ch02: evolution
+  ch03: evolution.2
+  ch04: gen_weights
+  ch05: gen_weights.2
+sources:
+  ch01:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-06.md
+    sha1: 6217b0e765390ad2b8737720ba8fa02c40c0fa4a
+    section: l6_title
+  ch02:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-06.md
+    sha1: 6217b0e765390ad2b8737720ba8fa02c40c0fa4a
+    section: evolution
+  ch03:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-06.md
+    sha1: 6217b0e765390ad2b8737720ba8fa02c40c0fa4a
+    section: evolution.2
+  ch04:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-06.md
+    sha1: 6217b0e765390ad2b8737720ba8fa02c40c0fa4a
+    section: gen_weights
+  ch05:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-06.md
+    sha1: 6217b0e765390ad2b8737720ba8fa02c40c0fa4a
+    section: gen_weights.2

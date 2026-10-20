@@ -1,0 +1,1 @@
+Do nothing gets a strong vote when the lander is rising, and a strong vote against it when the left leg is down. This pilot almost never just waits.

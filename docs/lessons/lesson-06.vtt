@@ -1,0 +1,49 @@
+WEBVTT
+
+00:00:00.350 --> 00:00:01.467
+Lesson six.
+
+00:00:01.467 --> 00:00:03.113
+Evolution in flight.
+
+00:00:03.113 --> 00:00:06.763
+What does the best pilot look like along the way?
+
+00:00:07.363 --> 00:00:13.002
+Here is the best pilot from different points in training, all facing the same start.
+
+00:00:13.002 --> 00:00:20.228
+A random pilot, then the champions of generations ten, thirty, sixty and one hundred, and the final best.
+
+00:00:20.828 --> 00:00:25.580
+The random pilot fires its main engine without a break, and flies away.
+
+00:00:25.580 --> 00:00:30.151
+The champion of generation ten fires its engines, but still crashes.
+
+00:00:30.151 --> 00:00:33.218
+By generation thirty, the best pilot lands.
+
+00:00:33.218 --> 00:00:38.029
+Later champions land too, with steadier and more efficient flights.
+
+00:00:38.629 --> 00:00:43.401
+Here is the centre of the population, drawn as the weight matrix itself.
+
+00:00:43.401 --> 00:00:50.200
+The colours are scaled to the biggest weight in each generation, so we can see the pattern while it forms.
+
+00:00:50.200 --> 00:00:52.826
+At generation zero it is noise.
+
+00:00:53.426 --> 00:00:56.920
+The strongest rules in the end are all about speed.
+
+00:00:56.920 --> 00:00:59.585
+Drifting right fires the left engine.
+
+00:00:59.585 --> 00:01:04.263
+Falling fires the main engine, and stops the lander from doing nothing.
+
+00:01:04.263 --> 00:01:07.702
+Spinning clockwise fires the left engine too.

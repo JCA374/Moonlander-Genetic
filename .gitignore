@@ -87,3 +87,8 @@ CLAUDE.local.md
 
 # Allow GitHub Pages assets
 !docs/**
+
+# voice-text narration: keep the text, ignore rendered audio (rebuild with voice.sh)
+voice/*/audio/*.mp3
+voice/*/audio/*.m4b
+voice/*/audio/voiceover/

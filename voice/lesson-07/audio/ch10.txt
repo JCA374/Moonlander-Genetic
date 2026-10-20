@@ -1,0 +1,1 @@
+Here's a second map. Across is the height, and up and down is the falling speed.

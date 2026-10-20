@@ -1,0 +1,1 @@
+Now let's watch it learn. Each dot is one pilot, and each column is one generation of fifty pilots.

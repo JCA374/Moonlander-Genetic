@@ -1,0 +1,60 @@
+title: 'Lesson 4: Inside CMA-ES'
+kind: voiceover
+author: ''
+narrator: Kokoro TTS (af_heart)
+narration:
+  narrator: af_heart
+  speed: 1.05
+  paragraph_pause: 0.6
+chapters:
+  ch01: l4_title
+  ch02: loop
+  ch03: cmaes_cov
+  ch04: cmaes_cov.2
+  ch05: cmaes_cov.3
+  ch06: cmaes_cov.4
+  ch07: cmaes_cov.5
+  ch08: cmaes
+  ch09: cmaes.2
+  ch10: cmaes.3
+sources:
+  ch01:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-04.md
+    sha1: b13c362461eed9b1b0975c1d76608b6886061ead
+    section: l4_title
+  ch02:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-04.md
+    sha1: b13c362461eed9b1b0975c1d76608b6886061ead
+    section: loop
+  ch03:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-04.md
+    sha1: b13c362461eed9b1b0975c1d76608b6886061ead
+    section: cmaes_cov
+  ch04:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-04.md
+    sha1: b13c362461eed9b1b0975c1d76608b6886061ead
+    section: cmaes_cov.2
+  ch05:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-04.md
+    sha1: b13c362461eed9b1b0975c1d76608b6886061ead
+    section: cmaes_cov.3
+  ch06:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-04.md
+    sha1: b13c362461eed9b1b0975c1d76608b6886061ead
+    section: cmaes_cov.4
+  ch07:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-04.md
+    sha1: b13c362461eed9b1b0975c1d76608b6886061ead
+    section: cmaes_cov.5
+  ch08:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-04.md
+    sha1: b13c362461eed9b1b0975c1d76608b6886061ead
+    section: cmaes
+  ch09:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-04.md
+    sha1: b13c362461eed9b1b0975c1d76608b6886061ead
+    section: cmaes.2
+  ch10:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-04.md
+    sha1: b13c362461eed9b1b0975c1d76608b6886061ead
+    section: cmaes.3

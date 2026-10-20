@@ -1,0 +1,1 @@
+Lesson three. Population and fitness. Evolution needs two things. Many candidates, and a way to tell the good ones from the bad.

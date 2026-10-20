@@ -1,0 +1,1 @@
+Here is the centre of the population, drawn as the weight matrix itself. The colours are scaled to the biggest weight in each generation, so we can see the pattern while it forms. At generation zero it is noise.

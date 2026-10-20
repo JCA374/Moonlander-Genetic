@@ -1,0 +1,50 @@
+title: 'Lesson 1: The task'
+kind: voiceover
+author: ''
+narrator: Kokoro TTS (af_heart)
+narration:
+  narrator: af_heart
+  speed: 1.05
+  paragraph_pause: 0.6
+chapters:
+  ch01: l1_title
+  ch02: task
+  ch03: task.2
+  ch04: task.3
+  ch05: reward
+  ch06: reward.2
+  ch07: reward.3
+  ch08: reward.4
+sources:
+  ch01:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-01.md
+    sha1: f3e4002f56fee752e4d22947583c28f9c96c0bbf
+    section: l1_title
+  ch02:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-01.md
+    sha1: f3e4002f56fee752e4d22947583c28f9c96c0bbf
+    section: task
+  ch03:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-01.md
+    sha1: f3e4002f56fee752e4d22947583c28f9c96c0bbf
+    section: task.2
+  ch04:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-01.md
+    sha1: f3e4002f56fee752e4d22947583c28f9c96c0bbf
+    section: task.3
+  ch05:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-01.md
+    sha1: f3e4002f56fee752e4d22947583c28f9c96c0bbf
+    section: reward
+  ch06:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-01.md
+    sha1: f3e4002f56fee752e4d22947583c28f9c96c0bbf
+    section: reward.2
+  ch07:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-01.md
+    sha1: f3e4002f56fee752e4d22947583c28f9c96c0bbf
+    section: reward.3
+  ch08:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-01.md
+    sha1: f3e4002f56fee752e4d22947583c28f9c96c0bbf
+    section: reward.4

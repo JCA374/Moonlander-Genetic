@@ -1,0 +1,88 @@
+WEBVTT
+
+00:00:00.350 --> 00:00:01.611
+Lesson four.
+
+00:00:01.611 --> 00:00:02.999
+Inside CMA-ES.
+
+00:00:02.999 --> 00:00:06.893
+How does the algorithm decide where to look next?
+
+00:00:07.493 --> 00:00:09.985
+Every generation runs the same loop.
+
+00:00:09.985 --> 00:00:11.458
+Sample new pilots.
+
+00:00:11.458 --> 00:00:12.420
+Fly them.
+
+00:00:12.420 --> 00:00:13.440
+Rank them.
+
+00:00:13.440 --> 00:00:15.252
+Then update, and repeat.
+
+00:00:15.252 --> 00:00:18.141
+The algorithm never looks inside the pilot.
+
+00:00:18.141 --> 00:00:20.253
+It only sees the scores.
+
+00:00:20.853 --> 00:00:27.194
+The new pilots are drawn from a cloud, a bell-shaped distribution over all thirty-six numbers.
+
+00:00:27.194 --> 00:00:29.173
+It has three parts.
+
+00:00:29.773 --> 00:00:32.325
+The mean is the centre of the cloud.
+
+00:00:32.325 --> 00:00:36.395
+It's the algorithm's current best guess for a good pilot.
+
+00:00:36.995 --> 00:00:41.607
+The step size, sigma, sets how far from the mean new candidates land.
+
+00:00:41.607 --> 00:00:43.165
+Big steps explore.
+
+00:00:43.165 --> 00:00:45.262
+Small steps fine-tune.
+
+00:00:45.862 --> 00:00:48.218
+And the covariance sets the shape.
+
+00:00:48.218 --> 00:00:54.913
+It lets the cloud stretch in the directions where good pilots were found, and stay narrow everywhere else.
+
+00:00:55.513 --> 00:00:59.993
+In our problem the cloud has thirty-six dimensions, one per weight.
+
+00:00:59.993 --> 00:01:03.519
+To watch it work, let's shrink it down to two.
+
+00:01:04.119 --> 00:01:06.892
+Here is a toy problem with two numbers.
+
+00:01:06.892 --> 00:01:11.081
+Dark means low cost, which is good, and bright means high cost.
+
+00:01:11.081 --> 00:01:16.514
+The green cross is the best answer, but the algorithm doesn't know where it is.
+
+00:01:17.114 --> 00:01:22.451
+Each generation, it samples twelve points and keeps the best six, shown in orange.
+
+00:01:22.451 --> 00:01:29.274
+It moves the mean toward them, and reshapes the ellipse to follow the direction the winners came from.
+
+00:01:29.874 --> 00:01:33.772
+Watch the cloud stretch along the valley and race down it.
+
+00:01:33.772 --> 00:01:38.439
+As it closes in, the step size shrinks, until it settles on the answer.
+
+00:01:38.439 --> 00:01:43.523
+Learning that shape is what the name means: covariance matrix adaptation.

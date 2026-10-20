@@ -34,7 +34,8 @@ class GATrainer:
         log_interval=1,
         eval_interval=10,
         checkpoint_interval=20,
-        fitness_mode='balanced'
+        fitness_mode='balanced',
+        log_population=True
     ):
         """
         Initialize GA trainer.
@@ -51,6 +52,7 @@ class GATrainer:
             eval_interval: Generations between detailed evaluation
             checkpoint_interval: Generations between checkpoints
             fitness_mode: Fitness function mode (standard/balanced/speed/fuel)
+            log_population: Save every candidate and its fitness to population_log.npz
         """
         self.controller_class = controller_class
         self.num_generations = num_generations
@@ -63,6 +65,7 @@ class GATrainer:
         self.eval_interval = eval_interval
         self.checkpoint_interval = checkpoint_interval
         self.fitness_mode = fitness_mode
+        self.log_population = log_population
 
         # Create save directory
         os.makedirs(save_dir, exist_ok=True)
@@ -82,6 +85,9 @@ class GATrainer:
         self.best_fitness_ever = -np.inf
         self.best_params_ever = None
         self.best_metrics_ever = None
+
+        # Per-generation population log (for the generation visualizations)
+        self.pop_log = {'candidates': [], 'fitness': [], 'landing_rate': [], 'mean': [], 'sigma': []}
 
     def train(self):
         """Run the genetic algorithm training."""
@@ -120,6 +126,10 @@ class GATrainer:
 
             # Get candidate solutions
             candidates = self.optimizer.ask()
+            if self.optimizer.use_cma:
+                dist_mean, dist_sigma = np.array(self.optimizer.es.mean), float(self.optimizer.es.sigma)
+            else:
+                dist_mean, dist_sigma = np.mean(candidates, axis=0), float(np.mean(np.std(candidates, axis=0)))
 
             # Evaluate candidates
             if self.parallel_workers > 1:
@@ -135,6 +145,13 @@ class GATrainer:
 
             # Update optimizer
             self.optimizer.tell(fitness_list)
+
+            if self.log_population:
+                self.pop_log['candidates'].append(np.array(candidates))
+                self.pop_log['fitness'].append(np.array(fitness_list))
+                self.pop_log['landing_rate'].append(np.array([m['landing_rate'] for m in metrics_list]))
+                self.pop_log['mean'].append(dist_mean)
+                self.pop_log['sigma'].append(dist_sigma)
 
             # Track best
             gen_best_idx = np.argmax(fitness_list)
@@ -185,6 +202,8 @@ class GATrainer:
         print("="*70)
         self._final_evaluation()
         self._save_training_history()
+        if self.log_population:
+            self._save_population_log()
 
     def _sequential_evaluate(self, candidates):
         """Evaluate candidates sequentially."""
@@ -302,6 +321,13 @@ class GATrainer:
         print(f"Training history saved to {filepath}")
 
 
+    def _save_population_log(self):
+        """Save every generation's candidates, fitness, landing rates and CMA mean/sigma."""
+        filepath = os.path.join(self.save_dir, "population_log.npz")
+        np.savez_compressed(filepath, **{k: np.array(v) for k, v in self.pop_log.items()})
+        print(f"Population log saved to {filepath}")
+
+
 def main():
     parser = argparse.ArgumentParser(description="Train Lunar Lander with Genetic Algorithm")
     parser.add_argument('--generations', type=int, default=200, help='Number of generations')
@@ -316,6 +342,8 @@ def main():
     parser.add_argument('--fitness-mode', type=str, default='balanced',
                         choices=['standard', 'balanced', 'speed', 'fuel'],
                         help='Fitness function: standard (original), balanced (speed+fuel), speed (fast), fuel (efficient)')
+    parser.add_argument('--no-log-population', action='store_true',
+                        help="Don't save population_log.npz (every candidate of every generation)")
 
     args = parser.parse_args()
 
@@ -331,7 +359,8 @@ def main():
         log_interval=args.log_interval,
         eval_interval=args.eval_interval,
         checkpoint_interval=args.checkpoint_interval,
-        fitness_mode=args.fitness_mode
+        fitness_mode=args.fitness_mode,
+        log_population=not args.no_log_population
     )
 
     # Run training

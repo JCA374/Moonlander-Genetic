@@ -1,0 +1,67 @@
+WEBVTT
+
+00:00:00.350 --> 00:00:01.524
+Lesson three.
+
+00:00:01.524 --> 00:00:03.257
+Population and fitness.
+
+00:00:03.257 --> 00:00:05.214
+Evolution needs two things.
+
+00:00:05.214 --> 00:00:09.427
+Many candidates, and a way to tell the good ones from the bad.
+
+00:00:10.027 --> 00:00:12.407
+We start with a population of pilots.
+
+00:00:12.407 --> 00:00:14.840
+Each one is thirty-six random numbers.
+
+00:00:14.840 --> 00:00:17.168
+In training there are fifty of them.
+
+00:00:17.168 --> 00:00:18.843
+Here are eighteen.
+
+00:00:19.443 --> 00:00:21.980
+Each pilot flies, and we score it.
+
+00:00:21.980 --> 00:00:25.302
+With random numbers, every one of them crashes.
+
+00:00:25.302 --> 00:00:31.341
+But some crash later, or closer to the pad, and that difference is all evolution needs.
+
+00:00:31.941 --> 00:00:35.459
+We keep the best half, and the rest are thrown away.
+
+00:00:35.459 --> 00:00:39.921
+The survivors decide where the next generation will be sampled.
+
+00:00:40.521 --> 00:00:42.208
+So what is the score?
+
+00:00:42.208 --> 00:00:47.616
+Each pilot flies ten different episodes, each with its own terrain and starting push.
+
+00:00:47.616 --> 00:00:50.068
+Then we combine three things.
+
+00:00:50.668 --> 00:00:54.024
+First, the average reward from the game itself.
+
+00:00:54.024 --> 00:00:59.876
+That already rewards approaching the pad, and it punishes crashing and wasted fuel.
+
+00:01:00.476 --> 00:01:06.368
+Second, a bonus of a hundred points, times the share of episodes that end in a landing.
+
+00:01:06.368 --> 00:01:10.389
+Landing is what we really want, so it's worth a lot.
+
+00:01:10.989 --> 00:01:15.780
+Third, a small speed bonus, up to thirty points, for landing quickly.
+
+00:01:15.780 --> 00:01:21.555
+It is multiplied by the landing rate, so a pilot can't earn it by crashing fast.

@@ -1,0 +1,1 @@
+Each dot is one pilot. Each column is one generation of fifty pilots, and the height of a dot is its fitness. Red pilots mostly crash, and green ones mostly land.

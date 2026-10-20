@@ -1,0 +1,1 @@
+Here is a neat trick. Only the highest score matters, so if you double every weight, every decision stays the same. As the weights grow, the same step size becomes a smaller and smaller step relative to them. The search turns into fine-tuning on its own.
