@@ -383,6 +383,12 @@
       touchdown (about 48 frames per episode); with it, the median is 2. This is the default
       <code>balanced</code> mode. <code>--fitness-mode</code> also offers <code>standard</code>,
       <code>speed</code> and <code>fuel</code>.</p>
+    <div class="callout"><strong>Next step: a centre reward.</strong> Landing in the middle is only rewarded
+      indirectly today. The game's reward pays for getting closer to the pad centre, but "landed" means
+      "came to rest anywhere", so our landing bonus also counts a touchdown beside the pad. The current pilot
+      lands between the flags 94 times out of 95 anyway (median distance from the centre 0.035, with the flags at
+      ±0.2). The next version will only count landings between the flags, so evolution is pushed to the
+      middle directly.</div>
   </div>
 </section>
 
