@@ -21,45 +21,45 @@ chapters:
 sources:
   ch01:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-05.md
-    sha1: 36633979a53f6e158dea03541de9686f23065fba
+    sha1: 2e09f432add25782bd1b2f1cbf41ead7ded5f112
     section: l5_title
   ch02:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-05.md
-    sha1: 36633979a53f6e158dea03541de9686f23065fba
+    sha1: 2e09f432add25782bd1b2f1cbf41ead7ded5f112
     section: gen_fitness
   ch03:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-05.md
-    sha1: 36633979a53f6e158dea03541de9686f23065fba
+    sha1: 2e09f432add25782bd1b2f1cbf41ead7ded5f112
     section: gen_fitness.2
   ch04:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-05.md
-    sha1: 36633979a53f6e158dea03541de9686f23065fba
+    sha1: 2e09f432add25782bd1b2f1cbf41ead7ded5f112
     section: gen_fitness.3
   ch05:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-05.md
-    sha1: 36633979a53f6e158dea03541de9686f23065fba
+    sha1: 2e09f432add25782bd1b2f1cbf41ead7ded5f112
     section: gen_ghosts
   ch06:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-05.md
-    sha1: 36633979a53f6e158dea03541de9686f23065fba
+    sha1: 2e09f432add25782bd1b2f1cbf41ead7ded5f112
     section: gen_ghosts.2
   ch07:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-05.md
-    sha1: 36633979a53f6e158dea03541de9686f23065fba
+    sha1: 2e09f432add25782bd1b2f1cbf41ead7ded5f112
     section: gen_ghosts.3
   ch08:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-05.md
-    sha1: 36633979a53f6e158dea03541de9686f23065fba
+    sha1: 2e09f432add25782bd1b2f1cbf41ead7ded5f112
     section: gen_ghosts.4
   ch09:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-05.md
-    sha1: 36633979a53f6e158dea03541de9686f23065fba
+    sha1: 2e09f432add25782bd1b2f1cbf41ead7ded5f112
     section: gen_cloud
   ch10:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-05.md
-    sha1: 36633979a53f6e158dea03541de9686f23065fba
+    sha1: 2e09f432add25782bd1b2f1cbf41ead7ded5f112
     section: gen_cloud.2
   ch11:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-05.md
-    sha1: 36633979a53f6e158dea03541de9686f23065fba
+    sha1: 2e09f432add25782bd1b2f1cbf41ead7ded5f112
     section: gen_cloud.3

@@ -11,40 +11,50 @@ chapters:
   ch02: task
   ch03: task.2
   ch04: task.3
-  ch05: reward
-  ch06: reward.2
-  ch07: reward.3
-  ch08: reward.4
+  ch05: sites
+  ch06: sites.2
+  ch07: reward
+  ch08: reward.2
+  ch09: reward.3
+  ch10: reward.4
 sources:
   ch01:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-01.md
-    sha1: f3e4002f56fee752e4d22947583c28f9c96c0bbf
+    sha1: 6b79ef38fdd933ef964a4624f5281c5ef39792e2
     section: l1_title
   ch02:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-01.md
-    sha1: f3e4002f56fee752e4d22947583c28f9c96c0bbf
+    sha1: 6b79ef38fdd933ef964a4624f5281c5ef39792e2
     section: task
   ch03:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-01.md
-    sha1: f3e4002f56fee752e4d22947583c28f9c96c0bbf
+    sha1: 6b79ef38fdd933ef964a4624f5281c5ef39792e2
     section: task.2
   ch04:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-01.md
-    sha1: f3e4002f56fee752e4d22947583c28f9c96c0bbf
+    sha1: 6b79ef38fdd933ef964a4624f5281c5ef39792e2
     section: task.3
   ch05:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-01.md
-    sha1: f3e4002f56fee752e4d22947583c28f9c96c0bbf
-    section: reward
+    sha1: 6b79ef38fdd933ef964a4624f5281c5ef39792e2
+    section: sites
   ch06:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-01.md
-    sha1: f3e4002f56fee752e4d22947583c28f9c96c0bbf
-    section: reward.2
+    sha1: 6b79ef38fdd933ef964a4624f5281c5ef39792e2
+    section: sites.2
   ch07:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-01.md
-    sha1: f3e4002f56fee752e4d22947583c28f9c96c0bbf
-    section: reward.3
+    sha1: 6b79ef38fdd933ef964a4624f5281c5ef39792e2
+    section: reward
   ch08:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-01.md
-    sha1: f3e4002f56fee752e4d22947583c28f9c96c0bbf
+    sha1: 6b79ef38fdd933ef964a4624f5281c5ef39792e2
+    section: reward.2
+  ch09:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-01.md
+    sha1: 6b79ef38fdd933ef964a4624f5281c5ef39792e2
+    section: reward.3
+  ch10:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-01.md
+    sha1: 6b79ef38fdd933ef964a4624f5281c5ef39792e2
     section: reward.4

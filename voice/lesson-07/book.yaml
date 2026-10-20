@@ -11,85 +11,90 @@ chapters:
   ch02: w_worked
   ch03: w_worked.2
   ch04: w_worked.3
-  ch05: w_scale
-  ch06: w_scale.2
-  ch07: w_scale.3
-  ch08: w_policy_tilt
-  ch09: w_policy_tilt.2
-  ch10: w_policy_fall
-  ch11: w_policy_fall.2
-  ch12: w_story
-  ch13: w_story.2
-  ch14: w_story.3
-  ch15: w_story.4
-  ch16: w_ablation
-  ch17: w_ablation.2
+  ch05: w_worked.4
+  ch06: w_scale
+  ch07: w_scale.2
+  ch08: w_scale.3
+  ch09: w_policy_tilt
+  ch10: w_policy_tilt.2
+  ch11: w_policy_fall
+  ch12: w_policy_fall.2
+  ch13: w_story
+  ch14: w_story.2
+  ch15: w_story.3
+  ch16: w_story.4
+  ch17: w_ablation
+  ch18: w_ablation.2
 sources:
   ch01:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
-    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
+    sha1: 5a725b31f75ec50e972603efcc6d940c64ebfda6
     section: l7_title
   ch02:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
-    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
+    sha1: 5a725b31f75ec50e972603efcc6d940c64ebfda6
     section: w_worked
   ch03:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
-    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
+    sha1: 5a725b31f75ec50e972603efcc6d940c64ebfda6
     section: w_worked.2
   ch04:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
-    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
+    sha1: 5a725b31f75ec50e972603efcc6d940c64ebfda6
     section: w_worked.3
   ch05:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
-    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
-    section: w_scale
+    sha1: 5a725b31f75ec50e972603efcc6d940c64ebfda6
+    section: w_worked.4
   ch06:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
-    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
-    section: w_scale.2
+    sha1: 5a725b31f75ec50e972603efcc6d940c64ebfda6
+    section: w_scale
   ch07:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
-    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
-    section: w_scale.3
+    sha1: 5a725b31f75ec50e972603efcc6d940c64ebfda6
+    section: w_scale.2
   ch08:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
-    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
-    section: w_policy_tilt
+    sha1: 5a725b31f75ec50e972603efcc6d940c64ebfda6
+    section: w_scale.3
   ch09:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
-    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
-    section: w_policy_tilt.2
+    sha1: 5a725b31f75ec50e972603efcc6d940c64ebfda6
+    section: w_policy_tilt
   ch10:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
-    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
-    section: w_policy_fall
+    sha1: 5a725b31f75ec50e972603efcc6d940c64ebfda6
+    section: w_policy_tilt.2
   ch11:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
-    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
-    section: w_policy_fall.2
+    sha1: 5a725b31f75ec50e972603efcc6d940c64ebfda6
+    section: w_policy_fall
   ch12:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
-    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
-    section: w_story
+    sha1: 5a725b31f75ec50e972603efcc6d940c64ebfda6
+    section: w_policy_fall.2
   ch13:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
-    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
-    section: w_story.2
+    sha1: 5a725b31f75ec50e972603efcc6d940c64ebfda6
+    section: w_story
   ch14:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
-    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
-    section: w_story.3
+    sha1: 5a725b31f75ec50e972603efcc6d940c64ebfda6
+    section: w_story.2
   ch15:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
-    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
-    section: w_story.4
+    sha1: 5a725b31f75ec50e972603efcc6d940c64ebfda6
+    section: w_story.3
   ch16:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
-    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
-    section: w_ablation
+    sha1: 5a725b31f75ec50e972603efcc6d940c64ebfda6
+    section: w_story.4
   ch17:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
-    sha1: d1907316cd3610538c2c6517b48b8b082e77b13c
+    sha1: 5a725b31f75ec50e972603efcc6d940c64ebfda6
+    section: w_ablation
+  ch18:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-07.md
+    sha1: 5a725b31f75ec50e972603efcc6d940c64ebfda6
     section: w_ablation.2

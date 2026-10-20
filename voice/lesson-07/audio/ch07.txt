@@ -1,1 +1,1 @@
-Multiply the two, and you get the influence of each weight. The three that matter most are drift on the left engine, and falling speed on do nothing and on the main engine.
+What also matters is how much each input actually changes in flight. Altitude and drift move a lot. Spin moves less, so its large weights are multiplied by smaller numbers. The legs are always zero in the air.

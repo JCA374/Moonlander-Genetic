@@ -15,35 +15,32 @@ Here is the best pilot from different points in training, all facing the same st
 00:00:13.002 --> 00:00:20.228
 A random pilot, then the champions of generations ten, thirty, sixty and one hundred, and the final best.
 
-00:00:20.828 --> 00:00:25.580
+00:00:20.828 --> 00:00:25.816
 The random pilot fires its main engine without a break, and flies away.
 
-00:00:25.580 --> 00:00:30.151
+00:00:25.816 --> 00:00:30.614
 The champion of generation ten fires its engines, but still crashes.
 
-00:00:30.151 --> 00:00:33.218
-By generation thirty, the best pilot lands.
+00:00:30.614 --> 00:00:34.450
+From generation thirty on, every champion lands.
 
-00:00:33.218 --> 00:00:38.029
-Later champions land too, with steadier and more efficient flights.
-
-00:00:38.629 --> 00:00:43.401
+00:00:35.050 --> 00:00:39.822
 Here is the centre of the population, drawn as the weight matrix itself.
 
-00:00:43.401 --> 00:00:50.200
+00:00:39.822 --> 00:00:46.621
 The colours are scaled to the biggest weight in each generation, so we can see the pattern while it forms.
 
-00:00:50.200 --> 00:00:52.826
+00:00:46.621 --> 00:00:49.247
 At generation zero it is noise.
 
-00:00:53.426 --> 00:00:56.920
-The strongest rules in the end are all about speed.
+00:00:49.847 --> 00:00:53.917
+The strongest rules in the end are about tilt, spin and drift.
 
-00:00:56.920 --> 00:00:59.585
+00:00:53.917 --> 00:00:57.465
+Tilting left or spinning left fires the right engine.
+
+00:00:57.465 --> 00:01:00.081
 Drifting right fires the left engine.
 
-00:00:59.585 --> 00:01:04.263
-Falling fires the main engine, and stops the lander from doing nothing.
-
-00:01:04.263 --> 00:01:07.702
-Spinning clockwise fires the left engine too.
+00:01:00.081 --> 00:01:05.324
+And the leg switches, which only matter at the very end, tell it to go quiet.

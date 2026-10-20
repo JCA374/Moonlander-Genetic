@@ -1,1 +1,1 @@
-And there's a neat trick here. Only the highest score matters, so making every weight bigger doesn't change any decision. As the weights grow, the same step size becomes a smaller and smaller step, and the search turns into fine-tuning.
+This is the population as points. Each pilot is thirty-six numbers, flattened down to two, so each dot is a whole pilot.

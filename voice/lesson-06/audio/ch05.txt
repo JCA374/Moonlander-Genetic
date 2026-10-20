@@ -1,1 +1,1 @@
-The strongest rules in the end are all about speed. Drifting right fires the left engine. Falling fires the main engine, and stops the lander from doing nothing. Spinning clockwise fires the left engine too.
+The strongest rules in the end are about tilt, spin and drift. Tilting left or spinning left fires the right engine. Drifting right fires the left engine. And the leg switches, which only matter at the very end, tell it to go quiet.

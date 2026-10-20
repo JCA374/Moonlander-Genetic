@@ -1,1 +1,1 @@
-The best half are kept. They decide where the next generation comes from.
+We start with a population of random pilots. Each one is just thirty-six random numbers.

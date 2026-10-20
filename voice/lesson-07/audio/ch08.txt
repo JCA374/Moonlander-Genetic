@@ -1,1 +1,1 @@
-We can also draw a rule as a map. Across is the tilt, and up and down is the spin, with every other input held at a typical value. Each colour is the action the pilot would choose there.
+Multiply the two, and you get the influence of each weight. The ones that matter most are tilt and spin on the right engine, and drift on the left engine.

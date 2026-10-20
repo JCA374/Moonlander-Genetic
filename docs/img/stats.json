@@ -1,7 +1,7 @@
 {
-  "landing_rate": 96.0,
-  "avg_reward": 243.94123117847113,
-  "avg_steps": 338.69,
+  "landing_rate": 95.0,
+  "avg_reward": 270.22947941452543,
+  "avg_steps": 205.29,
   "generations": 200,
-  "best_fitness": 390.3550102227951
+  "best_fitness": 425.5377336875488
 }

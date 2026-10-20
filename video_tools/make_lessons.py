@@ -21,7 +21,7 @@ import timeline as T  # noqa: E402
 import videos_def as V  # noqa: E402
 
 # poster frame per lesson: (scene index, beat, fraction of the beat); default (1, 0, 0.7)
-POSTERS = {1: (1, 2, 0.9), 3: (1, 1, 0.95), 4: (3, 2, 0.5), 5: (2, 2, 0.97), 6: (1, 1, 0.97),
+POSTERS = {1: (2, 1, 0.95), 3: (1, 1, 0.95), 4: (3, 2, 0.5), 5: (2, 2, 0.97), 6: (1, 1, 0.97),
            7: (1, 0, 0.95)}
 
 

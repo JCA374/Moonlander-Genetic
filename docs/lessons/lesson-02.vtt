@@ -48,44 +48,44 @@ Orange cells are positive weights, and blue cells are negative.
 00:00:51.375 --> 00:00:54.692
 The brighter the cell, the bigger the number.
 
-00:00:55.292 --> 00:00:58.991
+00:00:55.292 --> 00:00:58.903
 Read across a row, and you see how one input votes.
 
-00:00:58.991 --> 00:01:04.683
-Horizontal speed pushes some actions up and others down, all at the same time.
+00:00:58.903 --> 00:01:03.977
+The tilt pushes some actions up and others down, all at the same time.
 
-00:01:05.283 --> 00:01:10.094
+00:01:04.577 --> 00:01:09.314
 Read down a column, and you see everything that argues for one action.
 
-00:01:10.094 --> 00:01:12.923
-This is the left engine's column.
+00:01:09.314 --> 00:01:12.165
+This is the right engine's column.
 
-00:01:13.523 --> 00:01:15.766
+00:01:12.765 --> 00:01:15.030
 A single cell is a single rule.
 
-00:01:15.766 --> 00:01:20.540
+00:01:15.030 --> 00:01:19.850
 A positive weight means the bigger this input, the more I want this action.
 
-00:01:20.540 --> 00:01:23.128
+00:01:19.850 --> 00:01:22.463
 A negative weight means the opposite.
 
-00:01:23.128 --> 00:01:27.224
-Here: drifting right is a strong vote for the left engine.
+00:01:22.463 --> 00:01:28.686
+Here: tilting left is a strong vote for the right engine, which turns the lander back upright.
 
-00:01:27.824 --> 00:01:29.776
+00:01:29.286 --> 00:01:31.238
 The last row is the bias.
 
-00:01:29.776 --> 00:01:35.046
+00:01:31.238 --> 00:01:36.508
 It's a head start, or a handicap, that each action gets, whatever the state.
 
-00:01:35.646 --> 00:01:38.160
+00:01:37.108 --> 00:01:39.615
 Now let's watch one real decision.
 
-00:01:38.160 --> 00:01:43.726
+00:01:39.615 --> 00:01:45.167
 Each input is multiplied by its weight, and the products are added up in each column.
 
-00:01:43.726 --> 00:01:49.173
+00:01:45.167 --> 00:01:50.599
 The lander is falling fast, so the falling speed pushes the main engine's score up.
 
-00:01:49.173 --> 00:01:53.004
-It has the highest total, so the main engine fires.
+00:01:50.599 --> 00:01:55.197
+It has the highest total, just barely, so the main engine fires.

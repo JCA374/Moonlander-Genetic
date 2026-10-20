@@ -12,155 +12,176 @@ Because the pilot is linear, we can understand exactly what it learned.
 00:00:07.380 --> 00:00:09.218
 Let's take it apart.
 
-00:00:09.818 --> 00:00:11.665
+00:00:09.818 --> 00:00:11.673
 Start with one decision.
 
-00:00:11.665 --> 00:00:14.379
+00:00:11.673 --> 00:00:14.398
 The lander is high up and falling fast.
 
-00:00:14.379 --> 00:00:19.517
+00:00:14.398 --> 00:00:19.558
 Each input is multiplied by its weight, and the products are added up per action.
 
-00:00:19.517 --> 00:00:25.463
-The falling speed alone gives the main engine a big push, and takes a lot away from do nothing.
+00:00:19.558 --> 00:00:25.181
+The falling speed gives the main engine a big push, and takes a lot away from do nothing.
 
-00:00:25.463 --> 00:00:27.437
-The main engine wins.
+00:00:25.181 --> 00:00:28.090
+It's close, but the main engine wins.
 
-00:00:28.037 --> 00:00:31.805
-A few frames earlier, the lander was tilted to the right.
+00:00:28.690 --> 00:00:32.040
+A moment later, the lander is tilted to the right.
 
-00:00:31.805 --> 00:00:33.139
-Now it's close.
+00:00:32.040 --> 00:00:36.775
+The tilt now adds votes to the left engine and takes them from the others.
 
-00:00:33.139 --> 00:00:38.472
-The tilt and the height add votes to the left engine, and it wins by a small margin.
+00:00:36.775 --> 00:00:40.771
+The left engine wins, and turns the lander back upright.
 
-00:00:38.472 --> 00:00:41.555
-Firing it turns the lander back upright.
+00:00:41.371 --> 00:00:44.560
+Further down, the lander is spinning to the left.
 
-00:00:42.155 --> 00:00:45.564
-Near the ground, the lander is spinning to the left.
+00:00:44.560 --> 00:00:49.650
+Spin has the biggest weight of all, on the right engine, and here it counts for it.
 
-00:00:45.564 --> 00:00:50.905
-Spin has the biggest weight of all, on the left engine, and here it counts against it.
+00:00:49.650 --> 00:00:53.139
+The right engine wins, and spins the lander back.
 
-00:00:50.905 --> 00:00:54.768
-The left engine drops far behind, and the right engine wins.
+00:00:53.739 --> 00:00:56.348
+And on the ground, with both legs down.
 
-00:00:54.768 --> 00:00:57.057
-That spins the lander back.
+00:00:56.348 --> 00:00:59.901
+The two leg switches each add a big vote for do nothing.
 
-00:00:57.657 --> 00:00:58.859
+00:00:59.901 --> 00:01:02.787
+Do nothing wins, and the lander stays still.
+
+00:01:02.787 --> 00:01:06.029
+That's the rule the settle penalty taught it.
+
+00:01:06.629 --> 00:01:07.831
 But be careful.
 
-00:00:58.859 --> 00:01:01.680
+00:01:07.831 --> 00:01:10.652
 A big weight doesn't always mean a big effect.
 
-00:01:01.680 --> 00:01:04.383
+00:01:10.652 --> 00:01:13.355
 Here are the sizes of all the weights.
 
-00:01:04.983 --> 00:01:09.551
+00:01:13.955 --> 00:01:18.643
 What also matters is how much each input actually changes in flight.
 
-00:01:09.551 --> 00:01:11.294
-Altitude moves a lot.
+00:01:18.643 --> 00:01:20.987
+Altitude and drift move a lot.
 
-00:01:11.294 --> 00:01:16.523
-Spin barely moves at all, so its large weights are multiplied by small numbers.
+00:01:20.987 --> 00:01:25.922
+Spin moves less, so its large weights are multiplied by smaller numbers.
 
-00:01:16.523 --> 00:01:19.467
+00:01:25.922 --> 00:01:28.936
 The legs are always zero in the air.
 
-00:01:20.067 --> 00:01:24.007
+00:01:29.536 --> 00:01:33.472
 Multiply the two, and you get the influence of each weight.
 
-00:01:24.007 --> 00:01:31.365
-The three that matter most are drift on the left engine, and falling speed on do nothing and on the main engine.
+00:01:33.472 --> 00:01:39.763
+The ones that matter most are tilt and spin on the right engine, and drift on the left engine.
 
-00:01:31.965 --> 00:01:34.390
+00:01:40.363 --> 00:01:42.788
 We can also draw a rule as a map.
 
-00:01:34.390 --> 00:01:40.542
+00:01:42.788 --> 00:01:48.940
 Across is the tilt, and up and down is the spin, with every other input held at a typical value.
 
-00:01:40.542 --> 00:01:44.569
+00:01:48.940 --> 00:01:52.967
 Each colour is the action the pilot would choose there.
 
-00:01:45.169 --> 00:01:47.547
+00:01:53.567 --> 00:01:55.933
 The white line is a real flight.
 
-00:01:47.547 --> 00:01:54.742
-It stays near the middle, where the colours meet, so the pilot hops between engines with every small change.
+00:01:55.933 --> 00:02:00.547
+The border between the two engines runs diagonally through the middle.
 
-00:01:55.342 --> 00:01:56.974
+00:02:00.547 --> 00:02:08.182
+Tilt or spin one way, and the pilot fires the engine that turns it back, so it stays upright with small corrections.
+
+00:02:08.782 --> 00:02:10.414
 Here's a second map.
 
-00:01:56.974 --> 00:02:01.180
+00:02:10.414 --> 00:02:14.620
 Across is the height, and up and down is the falling speed.
 
-00:02:01.780 --> 00:02:04.492
-Falling fast, it fires the main engine.
+00:02:15.220 --> 00:02:18.376
+Falling fast and low, it fires the main engine.
 
-00:02:04.492 --> 00:02:08.473
-Falling slowly while still high up, it uses the side engines.
+00:02:18.376 --> 00:02:22.049
+Falling slowly, it steers with the side engines instead.
 
-00:02:08.473 --> 00:02:12.165
-And close to the ground, moving slowly, it does nothing.
+00:02:22.049 --> 00:02:24.460
+And high up, it doesn't brake yet.
 
-00:02:12.165 --> 00:02:15.050
-The real flight zig-zags along the border.
+00:02:24.460 --> 00:02:26.928
+It saves the main engine for later.
 
-00:02:15.050 --> 00:02:19.504
-The pilot brakes just enough, again and again, all the way down.
+00:02:26.928 --> 00:02:30.958
+The real flight rides along that border all the way down.
 
-00:02:20.104 --> 00:02:23.445
+00:02:31.558 --> 00:02:34.739
 Now let's put it together, one action at a time.
 
-00:02:23.445 --> 00:02:26.847
-The main engine fires when the lander is falling.
+00:02:34.739 --> 00:02:36.841
+The main engine is the brake.
 
-00:02:26.847 --> 00:02:31.741
-Its bias is negative, so it stays off unless the fall is fast enough.
+00:02:36.841 --> 00:02:43.561
+Falling speed has the biggest weight on it, so the faster the lander falls, the harder it wants to brake.
 
-00:02:32.341 --> 00:02:39.418
-Do nothing gets a strong vote when the lander is rising, and a strong vote against it when the left leg is down.
+00:02:44.161 --> 00:02:46.493
+Do nothing is the landing rule.
 
-00:02:39.418 --> 00:02:42.254
-This pilot almost never just waits.
+00:02:46.493 --> 00:02:50.321
+Each leg that touches the ground adds a big vote for it.
 
-00:02:42.854 --> 00:02:45.718
-The left engine fixes drift and spin.
+00:02:50.321 --> 00:02:54.388
+With both legs down, it wins, and the engines go quiet.
 
-00:02:45.718 --> 00:02:52.192
-It fires when the lander drifts right, or spins clockwise, and it pushes the lander back.
+00:02:54.988 --> 00:02:57.693
+The left engine fixes drift and tilt.
 
-00:02:52.792 --> 00:02:55.376
-And the right engine is the default.
+00:02:57.693 --> 00:03:03.826
+It fires when the lander drifts right, sits right of the pad, tilts right, or spins clockwise.
 
-00:02:55.376 --> 00:03:00.720
-It fires almost half the time, in small, cheap pulses, whenever no other rule wins.
+00:03:03.826 --> 00:03:07.252
+It pushes the lander back toward the middle.
 
-00:03:00.720 --> 00:03:03.187
-There's no rule for drifting left.
+00:03:07.852 --> 00:03:10.681
+And the right engine is its mirror image.
 
-00:03:03.187 --> 00:03:09.183
-When that happens, the left engine loses its votes, and the right engine wins by default.
+00:03:10.681 --> 00:03:16.282
+Drifting left, tilting left, or spinning the other way, and the right engine pushes back.
 
-00:03:09.783 --> 00:03:13.554
+00:03:16.282 --> 00:03:19.400
+Nobody told evolution the lander is symmetric.
+
+00:03:19.400 --> 00:03:21.605
+It found that on its own.
+
+00:03:22.205 --> 00:03:25.976
 Finally, let's test which weights the pilot really needs.
 
-00:03:13.554 --> 00:03:18.428
+00:03:25.976 --> 00:03:30.850
 We set one weight to zero, fly thirty episodes, and see how many still land.
 
-00:03:18.428 --> 00:03:21.629
+00:03:30.850 --> 00:03:34.051
 Then we put it back, and try the next one.
 
-00:03:22.229 --> 00:03:24.805
+00:03:34.651 --> 00:03:37.188
 Most weights can go with little harm.
 
-00:03:24.805 --> 00:03:30.701
+00:03:37.188 --> 00:03:42.994
 But remove the rule that links falling speed to the main engine, and not a single flight lands.
 
-00:03:30.701 --> 00:03:34.493
+00:03:42.994 --> 00:03:46.432
 Without it, the pilot never brakes, and simply falls.
+
+00:03:46.432 --> 00:03:48.912
+The leg rules matter almost as much.
+
+00:03:48.912 --> 00:03:52.087
+Remove one of them, and most landings fail.

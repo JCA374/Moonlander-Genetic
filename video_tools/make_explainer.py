@@ -25,7 +25,7 @@ STILLS = {'poster': ('title', 0, 0.5), 'controller': ('controller', 1, 0.6),
           'population': ('population', 2, 0.8), 'cmaes': ('cmaes', 2, 0.3),
           'training': ('gen_fitness', 2, 0.95), 'ghosts': ('gen_ghosts', 2, 0.97),
           'cloud': ('gen_cloud', 2, 0.9), 'evolution': ('evolution', 1, 0.97),
-          'worked': ('w_worked', 0, 0.9), 'policy': ('w_policy_map', 1, 0.95),
+          'worked': ('w_worked', 1, 0.95), 'policy': ('w_policy_map', 1, 0.95),
           'weights': ('w_story', 2, 0.9)}
 
 

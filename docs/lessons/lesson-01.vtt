@@ -48,38 +48,56 @@ Or fire the right engine.
 00:00:48.147 --> 00:00:53.767
 The side engines push the lander sideways and spin it, and the main engine pushes it up.
 
-00:00:54.367 --> 00:00:56.858
+00:00:54.367 --> 00:00:56.775
+Every episode builds a new moon.
+
+00:00:56.775 --> 00:01:03.575
+The mountains are random, and the lander starts with a random shove, so no two flights are the same.
+
+00:01:04.175 --> 00:01:06.696
+The landing pad never moves, though.
+
+00:01:06.696 --> 00:01:13.227
+It's always in the middle, at the same height, and the lander's position inputs are measured from the pad.
+
+00:01:13.227 --> 00:01:15.576
+Zero, zero means right on target.
+
+00:01:15.576 --> 00:01:24.642
+During training, every pilot is tested on ten random moons, so evolution has to find a rule that works on all of them, instead of memorising one.
+
+00:01:25.242 --> 00:01:27.733
 The game keeps score while it flies.
 
-00:00:56.858 --> 00:01:01.445
+00:01:27.733 --> 00:01:32.320
 Moving toward the pad, slowing down, and staying level all earn a little.
 
-00:01:01.445 --> 00:01:05.482
+00:01:32.320 --> 00:01:36.357
 Drifting away, speeding up, and tilting all cost a little.
 
-00:01:06.082 --> 00:01:08.121
+00:01:36.957 --> 00:01:38.996
 There are bigger events too.
 
-00:01:08.121 --> 00:01:11.407
+00:01:38.996 --> 00:01:42.282
 Each leg that touches the ground earns ten points.
 
-00:01:11.407 --> 00:01:13.617
+00:01:42.282 --> 00:01:44.492
 Coming to rest earns a hundred.
 
-00:01:13.617 --> 00:01:15.786
+00:01:44.492 --> 00:01:46.661
 Crashing costs a hundred.
 
-00:01:16.386 --> 00:01:18.108
+00:01:47.261 --> 00:01:48.983
 And fuel isn't free.
 
-00:01:18.108 --> 00:01:22.230
+00:01:48.983 --> 00:01:53.105
 Every frame the main engine fires costs a third of a point.
 
-00:01:22.230 --> 00:01:25.359
+00:01:53.105 --> 00:01:56.234
 The side engines cost a tenth as much.
 
-00:01:25.959 --> 00:01:28.198
+00:01:56.834 --> 00:01:59.073
 Add it all up over one flight.
 
-00:01:28.198 --> 00:01:31.797
+00:01:59.073 --> 00:02:02.672
 A score of two hundred or more counts as solved.

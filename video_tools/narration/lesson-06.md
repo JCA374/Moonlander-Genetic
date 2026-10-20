@@ -10,7 +10,7 @@ Here is the best pilot from different points in training, all facing the same st
 
 ## evolution.2
 
-The random pilot fires its main engine without a break, and flies away. The champion of generation ten fires its engines, but still crashes. By generation thirty, the best pilot lands. Later champions land too, with steadier and more efficient flights.
+The random pilot fires its main engine without a break, and flies away. The champion of generation ten fires its engines, but still crashes. From generation thirty on, every champion lands.
 
 ## gen_weights
 
@@ -18,4 +18,4 @@ Here is the centre of the population, drawn as the weight matrix itself. The col
 
 ## gen_weights.2
 
-The strongest rules in the end are all about speed. Drifting right fires the left engine. Falling fires the main engine, and stops the lander from doing nothing. Spinning clockwise fires the left engine too.
+The strongest rules in the end are about tilt, spin and drift. Tilting left or spinning left fires the right engine. Drifting right fires the left engine. And the leg switches, which only matter at the very end, tell it to go quiet.

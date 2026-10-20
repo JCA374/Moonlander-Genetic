@@ -15,36 +15,41 @@ chapters:
   ch06: fitness.2
   ch07: fitness.3
   ch08: fitness.4
+  ch09: fitness.5
 sources:
   ch01:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-03.md
-    sha1: 992828a67f6b5e1caadb11b5a2b5de1f81d443bc
+    sha1: 844ed021bf335b925e8588cc13cd30b376e08d87
     section: l3_title
   ch02:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-03.md
-    sha1: 992828a67f6b5e1caadb11b5a2b5de1f81d443bc
+    sha1: 844ed021bf335b925e8588cc13cd30b376e08d87
     section: population
   ch03:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-03.md
-    sha1: 992828a67f6b5e1caadb11b5a2b5de1f81d443bc
+    sha1: 844ed021bf335b925e8588cc13cd30b376e08d87
     section: population.2
   ch04:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-03.md
-    sha1: 992828a67f6b5e1caadb11b5a2b5de1f81d443bc
+    sha1: 844ed021bf335b925e8588cc13cd30b376e08d87
     section: population.3
   ch05:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-03.md
-    sha1: 992828a67f6b5e1caadb11b5a2b5de1f81d443bc
+    sha1: 844ed021bf335b925e8588cc13cd30b376e08d87
     section: fitness
   ch06:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-03.md
-    sha1: 992828a67f6b5e1caadb11b5a2b5de1f81d443bc
+    sha1: 844ed021bf335b925e8588cc13cd30b376e08d87
     section: fitness.2
   ch07:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-03.md
-    sha1: 992828a67f6b5e1caadb11b5a2b5de1f81d443bc
+    sha1: 844ed021bf335b925e8588cc13cd30b376e08d87
     section: fitness.3
   ch08:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-03.md
-    sha1: 992828a67f6b5e1caadb11b5a2b5de1f81d443bc
+    sha1: 844ed021bf335b925e8588cc13cd30b376e08d87
     section: fitness.4
+  ch09:
+    path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-03.md
+    sha1: 844ed021bf335b925e8588cc13cd30b376e08d87
+    section: fitness.5

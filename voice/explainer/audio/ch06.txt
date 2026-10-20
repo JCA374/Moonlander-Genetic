@@ -1,1 +1,1 @@
-The action with the highest score fires. Watch the scores rise and fall as the lander flies.
+But the landing pad is always in the middle, at the same height. The lander measures its position from the pad, so the goal is always the same: get to zero, zero. Each pilot is tested on ten random moons, so evolution has to find a rule that works everywhere.

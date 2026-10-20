@@ -1,1 +1,1 @@
-The white line is a real flight. It stays near the middle, where the colours meet, so the pilot hops between engines with every small change.
+We can also draw a rule as a map. Across is the tilt, and up and down is the spin, with every other input held at a typical value. Each colour is the action the pilot would choose there.

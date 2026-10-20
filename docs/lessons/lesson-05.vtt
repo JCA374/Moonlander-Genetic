@@ -18,89 +18,86 @@ Each column is one generation of fifty pilots, and the height of a dot is its fi
 00:00:16.279 --> 00:00:20.463
 Red pilots mostly crash, and green ones mostly land.
 
-00:00:21.063 --> 00:00:25.099
-In the first thirty generations, nearly every pilot crashes.
+00:00:21.063 --> 00:00:25.144
+In the first twenty generations, nearly every pilot crashes.
 
-00:00:25.099 --> 00:00:31.391
+00:00:25.144 --> 00:00:31.506
 But each generation is sampled around the best of the last one, so the whole column creeps upward.
 
-00:00:31.391 --> 00:00:35.965
-The best pilot lands half its episodes by generation thirty-two.
+00:00:31.506 --> 00:00:35.887
+The best pilot lands half its episodes by generation twenty.
 
-00:00:36.565 --> 00:00:38.967
+00:00:36.487 --> 00:00:38.884
 Then the whole population climbs.
 
-00:00:38.967 --> 00:00:42.247
-By generation fifty, a fifth of the pilots land.
+00:00:38.884 --> 00:00:42.391
+By generation fifty, more than half the pilots land.
 
-00:00:42.247 --> 00:00:44.649
-By seventy-five, most of them do.
+00:00:42.391 --> 00:00:47.360
+By seventy-five, almost all of them do, and by one hundred, every single one.
 
-00:00:44.649 --> 00:00:49.101
+00:00:47.360 --> 00:00:51.803
 The orange line is the best pilot, and the blue line is the average.
 
-00:00:49.101 --> 00:00:54.498
+00:00:51.803 --> 00:00:57.189
 As the population agrees on one strategy, the average catches up with the best.
 
-00:00:55.098 --> 00:00:58.822
+00:00:57.789 --> 00:01:01.513
 Fitness is just a number, so let's watch the flights.
 
-00:00:58.822 --> 00:01:06.631
+00:01:01.513 --> 00:01:09.322
 Every pilot of a generation starts from exactly the same spot, with the same push, and we draw where each one goes.
 
-00:01:07.231 --> 00:01:09.245
+00:01:09.922 --> 00:01:12.012
 Generation zero is chaos.
 
-00:01:09.245 --> 00:01:13.884
+00:01:12.012 --> 00:01:16.827
 Pilots fall straight down, or fire an engine and fly off the screen.
 
-00:01:13.884 --> 00:01:20.227
-One generation later, and then five, the paths change shape, but not one of them lands yet.
+00:01:16.827 --> 00:01:20.754
+One generation later, one pilot lands, almost by luck.
 
-00:01:20.827 --> 00:01:24.375
-By generation ten, a few paths bend toward the pad.
+00:01:20.754 --> 00:01:23.335
+By generation five, none do.
 
-00:01:24.375 --> 00:01:29.065
-Through twenty and thirty, the paths tighten, but only a handful land.
+00:01:23.935 --> 00:01:26.292
+At generation ten, still none.
 
-00:01:29.065 --> 00:01:30.809
-By forty, eight land.
+00:01:26.292 --> 00:01:27.904
+Then it takes off.
 
-00:01:30.809 --> 00:01:34.476
-And by fifty, nineteen of the fifty pilots land.
+00:01:27.904 --> 00:01:35.337
+Three pilots land at generation twenty, fourteen at thirty, twenty-seven at forty, and thirty-six at fifty.
 
-00:01:35.076 --> 00:01:37.220
-By seventy-five, forty land.
+00:01:35.937 --> 00:01:38.572
+By seventy-five, forty-eight land.
 
-00:01:37.220 --> 00:01:39.364
-By one hundred, forty-eight.
+00:01:38.572 --> 00:01:45.458
+By the end, all fifty, and the trails bundle into one smooth curve down to the middle of the pad.
 
-00:01:39.364 --> 00:01:44.310
-In the end, the trails bundle into one smooth curve between the flags.
-
-00:01:44.910 --> 00:01:48.151
+00:01:46.058 --> 00:01:49.299
 This is the same population, seen as points.
 
-00:01:48.151 --> 00:01:50.707
+00:01:49.299 --> 00:01:51.855
 Each pilot is thirty-six numbers.
 
-00:01:50.707 --> 00:01:57.801
+00:01:51.855 --> 00:01:58.949
 A method called principal component analysis flattens them down to two, so each dot is a whole pilot.
 
-00:01:58.401 --> 00:02:05.418
+00:01:59.549 --> 00:02:06.566
 The centre of the cloud, in blue, travels a long way from where it started, toward the region where pilots land.
 
-00:02:05.418 --> 00:02:07.765
+00:02:06.566 --> 00:02:08.913
 The white line is its path.
 
-00:02:08.365 --> 00:02:10.025
+00:02:09.513 --> 00:02:11.103
 Here is a neat trick.
 
-00:02:10.025 --> 00:02:15.805
+00:02:11.103 --> 00:02:16.640
 Only the highest score matters, so if you double every weight, every decision stays the same.
 
-00:02:15.805 --> 00:02:21.528
-As the weights grow, the same step size becomes a smaller and smaller step relative to them.
+00:02:16.640 --> 00:02:21.738
+The weights grew about a hundred times bigger, while the step size stayed around one.
 
-00:02:21.528 --> 00:02:24.861
-The search turns into fine-tuning on its own.
+00:02:21.738 --> 00:02:28.726
+So each step got smaller and smaller compared with the weights, and the search turned into fine-tuning on its own.

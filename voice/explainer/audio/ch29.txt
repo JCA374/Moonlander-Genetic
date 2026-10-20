@@ -1,1 +1,1 @@
-Here are the best pilots from different points in training, all facing the same start.
+Here is the centre of the cloud, drawn as the weight matrix itself. At generation zero it is noise. Watch the pattern appear.

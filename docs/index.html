@@ -281,9 +281,9 @@
       <a href="#lessons">Take the 7 short lessons →</a></p>
 
     <div class="stats">
-      <div class="stat"><b>96%</b><span>landing rate on 100 unseen episodes</span></div>
-      <div class="stat"><b>244</b><span>average episode reward (≥ 200 counts as solved)</span></div>
-      <div class="stat"><b>339</b><span>steps per episode, about 6.8 s of flight</span></div>
+      <div class="stat"><b>95%</b><span>landing rate on 100 unseen episodes</span></div>
+      <div class="stat"><b>270</b><span>average episode reward (≥ 200 counts as solved)</span></div>
+      <div class="stat"><b>205</b><span>steps per episode, about 4.1 s of flight</span></div>
       <div class="stat"><b>36</b><span>parameters in the whole pilot</span></div>
     </div>
   </div>
@@ -294,6 +294,10 @@
     <h2><span class="num">1</span>The problem</h2>
     <p class="intro">The lander starts high above the surface with a random push. It has to touch down
       softly between the two flags. Gravity pulls it down, and every engine burn costs fuel.</p>
+    <p class="intro"><strong>A new landing site every time.</strong> Each episode generates new random mountains
+      and a new random push. The pad itself never moves: it is always in the middle, at the same height, and
+      the lander's x and y inputs are measured from it, so "get to (0, 0)" is the goal on every moon. Every
+      pilot is scored on 10 random moons, so evolution has to find a rule that works everywhere.</p>
     <div class="table-scroll">
       <table>
         <tr><th>The lander observes 8 numbers…</th><th>…and picks one of 4 actions</th></tr>
@@ -371,9 +375,12 @@
     <h2><span class="num">5</span>Fitness: what "good" means</h2>
     <pre><span class="k">fitness</span> = <span class="b">average_reward</span>
         + <span class="g">100 × landing_rate</span>
-        + <span class="k">30 × (1 − avg_steps / 1000) × landing_rate</span>   <span class="c"># speed bonus, only when landing</span></pre>
+        + <span class="k">30 × (1 − avg_steps / 1000) × landing_rate</span>   <span class="c"># speed bonus, only when landing</span>
+        − <span class="b">0.5 × settle_frames</span>                        <span class="c"># engine frames with both legs down</span></pre>
     <p>The environment's reward already penalises fuel and crashes and rewards soft touchdowns. The extra terms
-      make landing the overriding goal and then favour quick landings. This is the default
+      make landing the overriding goal and then favour quick landings. The settle penalty teaches the pilot to
+      stay still once it is down. Without it, evolution kept pulsing the nearly free side engines after
+      touchdown (about 48 frames per episode); with it, the median is 2. This is the default
       <code>balanced</code> mode. <code>--fitness-mode</code> also offers <code>standard</code>,
       <code>speed</code> and <code>fuel</code>.</p>
   </div>
@@ -384,21 +391,22 @@
     <h2><span class="num">6</span>Generations: watching it learn</h2>
     <p class="intro">Training logs every one of the 50 pilots in each of the 200 generations
       (<code>ga_models/population_log.npz</code>), so we can watch the whole population improve, not
-      only the best pilot. 200 generations × 50 pilots × 10 episodes took about 11 minutes on 8 cores.</p>
+      only the best pilot. 200 generations × 50 pilots × 10 episodes took about 12 minutes on 8 cores.</p>
     <div class="split">
       <div class="shot"><img src="img/training.jpg" alt="Fitness of every pilot in every generation as dots, with best and average lines" loading="lazy" width="1280" height="720"></div>
       <div>
         <p><strong>Every pilot, every generation.</strong> Each dot is one pilot, coloured from red (crashes)
-          to green (lands). For about 30 generations almost everyone crashes, but the cloud keeps creeping up.
-          The best pilot lands half its episodes by generation 32. By generation 75, most of the population lands.</p>
+          to green (lands). For about 20 generations almost everyone crashes, but the cloud keeps creeping up.
+          The best pilot lands half its episodes by generation 20. By generation 75, 96% of the population
+          lands, and by generation 100, all of it.</p>
       </div>
     </div>
     <div class="split flip">
       <div class="shot"><img src="img/ghosts.jpg" alt="Flight paths of all 50 pilots of one generation from the same start" loading="lazy" width="1280" height="720"></div>
       <div>
         <p><strong>Fifty flights, one start.</strong> All pilots of a generation fly the same scenario, and their
-          paths are drawn on top of each other. On this start: 0 of 50 land in generation 5, 19 in
-          generation 50, and 48 in generation 100. The trails bundle into one curve as the population agrees on a
+          paths are drawn on top of each other. On this start: 0 of 50 land in generation 10, 14 in
+          generation 30, 36 in generation 50, and all 50 at the end. The trails bundle into one curve as the population agrees on a
           strategy.</p>
       </div>
     </div>
@@ -408,8 +416,8 @@
         <p><strong>The cloud in parameter space.</strong> The population is projected from 36 dimensions to 2
           (PCA). The mean travels far from its random start toward the region where pilots land.</p>
         <p>CMA-ES also found a trick. <code>argmax</code> ignores the overall scale of the scores, so making every
-          weight bigger changes no decision. The weights grew from size 0.5 to 43 while σ stayed near 0.5–0.9,
-          so the <em>relative</em> step shrank from 0.96 to 0.013, and the search turned into fine-tuning by itself.</p>
+          weight bigger changes no decision. The weights grew from size 0.5 to 83 while σ stayed around 1,
+          so the <em>relative</em> step shrank from 0.98 to 0.015, and the search turned into fine-tuning by itself.</p>
       </div>
     </div>
     <div class="split flip">
@@ -417,7 +425,7 @@
       <div>
         <p><strong>The champion over time.</strong> The same start, flown by the best pilot so far. The random
           pilot fires its main engine non-stop and flies away. Generation 10 crashes. From generation 30 on, the
-          champion lands.</p>
+          champion lands, in the middle of the pad, and then stays still.</p>
       </div>
     </div>
   </div>
@@ -430,8 +438,8 @@
       <div class="shot"><img src="img/worked.jpg" alt="One decision worked out: each input times its weight, summed per action" loading="lazy" width="1280" height="720"></div>
       <div>
         <p><strong>One decision, by hand.</strong> Multiply each input by its weight, add up each action's column
-          plus its bias, and the highest total wins. Here the lander is falling fast. Vertical velocity × its
-          main-engine weight (−15.1) is a big positive vote, so the main engine fires.</p>
+          plus its bias, and the highest total wins. Here the lander has just landed: both leg switches vote for
+          "do nothing" (+20.3 and +17.7), so it wins and the engines stay quiet.</p>
       </div>
     </div>
     <div class="split flip">
@@ -447,12 +455,13 @@
       <div>
         <p><strong>What evolution found:</strong></p>
         <ul>
-          <li><strong>Main engine</strong> when falling (vertical velocity −15.1), held back by a negative bias.</li>
-          <li><strong>Left engine</strong> when drifting right (+13.4) or spinning clockwise (−17.6). It pushes the
-            lander left and spins it back.</li>
-          <li><strong>Right engine</strong> is the default: cheap pulses about half the time. There's no
-            "drifting left" rule. The left engine simply loses its votes.</li>
-          <li><strong>Do nothing</strong> almost never. It is voted down hard when falling or when a leg is down.</li>
+          <li><strong>Main engine</strong> is the brake: falling speed has its biggest weight (−26.8).</li>
+          <li><strong>Do nothing</strong> is the landing rule: each leg on the ground votes for it (+20.3, +17.7),
+            so with both legs down the engines go quiet.</li>
+          <li><strong>Left engine</strong> fires when drifting right (+15.0), right of the pad (+14.0), tilted right
+            (−14.9) or spinning clockwise (−12.6), and pushes the lander back.</li>
+          <li><strong>Right engine</strong> is its mirror image (−14.1, −9.5, +25.1, +31.1). Evolution found the
+            symmetry on its own.</li>
         </ul>
         <p>Lesson 7 goes through all of it, including which weights the pilot can't live without.</p>
       </div>
@@ -536,25 +545,26 @@ python video_tools/make_lessons.py</pre>
     var POINTS = {
       1: ['The lander senses 8 numbers: position, velocity, tilt, spin and two leg-contact switches.',
           'It picks one of 4 actions: nothing, left engine, main engine, right engine.',
+          'Every episode is a new moon with random mountains and a random push, but the pad is always in the middle.',
           'The game rewards approaching the pad and landing (+100). It punishes crashing (−100) and fuel use. 200 points counts as solved.'],
       2: ['scores = state × W + b, and the highest score fires (argmax).',
           'Rows are inputs, columns are actions. Orange is positive, blue is negative.',
           'A positive weight means "the bigger this input, the more I want this action".'],
       3: ['A generation is 50 pilots, each a vector of 36 numbers.',
-          'Fitness = average reward + 100 × landing rate + a speed bonus that only counts when landing.',
+          'Fitness = average reward + 100 × landing rate + a speed bonus − a penalty for engine bursts after touchdown.',
           'Ranking is all that matters: the best half shapes the next generation.'],
       4: ['CMA-ES samples pilots from a Gaussian with a mean, a step size σ and a covariance C.',
           'Each generation the mean moves toward the winners and C stretches along directions that worked.',
           'On a 2-D toy you can watch the cloud find a valley, race down it and settle.'],
-      5: ['Nearly every pilot crashes for 30 generations, but the population keeps creeping up.',
-          'On one fixed start: 0 of 50 land at generation 5, 19 at generation 50, and 48 at generation 100.',
+      5: ['Nearly every pilot crashes for 20 generations, but the population keeps creeping up.',
+          'On one fixed start: 0 of 50 land at generation 10, 36 at generation 50, and all 50 at the end.',
           'The weights grow while σ doesn\'t, so the relative step shrinks and the search fine-tunes itself.'],
       6: ['The champion of each checkpoint flies the same start: it lands from generation 30 on.',
           'The mean of the population, drawn as a weight matrix, turns from noise into a clear pattern.',
-          'The strongest rules are about speed: drift, falling and spin.'],
+          'The strongest rules are about tilt, spin and drift, and the leg switches make it go quiet.'],
       7: ['Work a decision by hand: input × weight, summed per action, then argmax.',
           'A big weight on an input that barely changes does little. Influence = |weight| × spread.',
-          'Zeroing the "falling → main engine" weight drops landings from 93% to 0%.']
+          'Zeroing the "falling → main engine" weight drops landings from 93% to 0%. The leg rules make it stay still.']
     };
     var lessons = [], current = 0;
     var $ = function (id) { return document.getElementById(id); };

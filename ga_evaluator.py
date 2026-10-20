@@ -15,6 +15,9 @@ class GAEvaluator:
     Evaluates controller fitness in the Lunar Lander environment.
     """
 
+    # Fitness penalty per frame an engine fires while both legs are on the ground (balanced mode)
+    SETTLE_PENALTY = 0.5
+
     def __init__(self, num_episodes=10, max_steps=1000, render=False, fitness_mode='balanced'):
         """
         Initialize evaluator.
@@ -25,7 +28,8 @@ class GAEvaluator:
             render: Whether to render the environment (for visualization)
             fitness_mode: Fitness function mode:
                 - 'standard': reward + landing_rate*100 (original)
-                - 'balanced': Optimize for speed and fuel efficiency while landing
+                - 'balanced': Optimize for speed and fuel efficiency while landing, and for
+                  staying still once both legs are down (no engine bursts after touchdown)
                 - 'speed': Prioritize fast landings
                 - 'fuel': Prioritize fuel efficiency
         """
@@ -58,15 +62,19 @@ class GAEvaluator:
         timeout_count = 0
         episode_rewards = []
         episode_lengths = []
+        episode_settle = []   # engine frames fired while both legs touch the ground
 
         for episode in range(self.num_episodes):
             state, _ = self.env.reset()
             episode_reward = 0.0
             episode_length = 0
+            settle = 0
 
             for step in range(self.max_steps):
                 # Get action from controller
                 action = controller.get_action(state)
+                if state[6] > 0.5 and state[7] > 0.5 and action != 0:
+                    settle += 1
 
                 # Take step in environment
                 next_state, reward, terminated, truncated, info = self.env.step(action)
@@ -89,6 +97,7 @@ class GAEvaluator:
             total_reward += episode_reward
             episode_rewards.append(episode_reward)
             episode_lengths.append(episode_length)
+            episode_settle.append(settle)
 
             if verbose:
                 outcome = "LANDED" if (terminated and reward > 0) else "CRASHED" if (terminated and reward < 0) else "TIMEOUT"
@@ -113,7 +122,8 @@ class GAEvaluator:
             'std_reward': np.std(episode_rewards),
             'min_reward': np.min(episode_rewards),
             'max_reward': np.max(episode_rewards),
-            'avg_length': np.mean(episode_lengths)
+            'avg_length': np.mean(episode_lengths),
+            'avg_settle_frames': np.mean(episode_settle)
         }
 
         # Compute composite fitness based on mode
@@ -131,7 +141,8 @@ class GAEvaluator:
             speed_bonus = max(0, (1.0 - avg_length / self.max_steps) * 30)
             # Only give speed bonus if actually landing successfully
             speed_component = speed_bonus * landing_rate
-            fitness = avg_reward + (landing_rate * 100) + speed_component
+            settle_component = self.SETTLE_PENALTY * metrics['avg_settle_frames']
+            fitness = avg_reward + (landing_rate * 100) + speed_component - settle_component
 
         elif self.fitness_mode == 'speed':
             # Prioritize fast successful landings
