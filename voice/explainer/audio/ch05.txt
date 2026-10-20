@@ -1,1 +1,1 @@
-The pilot is one small table of numbers. Each of the eight inputs is multiplied by a weight for each action, and a bias is added. That gives four scores.
+Every flight happens on a new moon. The mountains are random, and the lander gets a random shove at the start. So the pilot can't memorise one flight.

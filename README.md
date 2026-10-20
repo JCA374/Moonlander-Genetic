@@ -55,14 +55,25 @@ fitness landscape, which makes it very efficient on small continuous problems li
 If the `cma` package is not installed, `cma_es_optimizer.py` falls back to a simple
 elitist GA (selection, crossover, Gaussian mutation).
 
-### 3. Fitness
+### 3. Landing sites
+
+Every episode generates a new moon: the mountains are random and the lander gets a random push at the
+start. The pad itself is always in the middle at the same height, and the lander's x and y inputs are
+measured from the pad, so "go to (0, 0)" is the same goal everywhere. Each pilot is scored on 10 random
+sites, so evolution has to find a general rule, not memorise one flight.
+
+### 4. Fitness
 
 The default `balanced` mode:
 
 ```
-fitness = avg_reward + 100 × landing_rate + speed_bonus × landing_rate
+fitness = avg_reward + 100 × landing_rate + speed_bonus × landing_rate − 0.5 × settle_frames
 speed_bonus = 30 × (1 − avg_episode_length / 1000)
 ```
+
+`settle_frames` is the average number of frames per episode in which an engine fires while both legs are
+already on the ground. Without it, evolution happily keeps pulsing the (nearly free) side engines after
+touchdown. With it, the pilot learns to land and then stay still.
 
 `avg_reward` is the environment's own reward. It already penalises fuel use, crashes, and
 drifting away from the pad. The landing term rewards actually touching down, and the speed bonus
@@ -71,7 +82,7 @@ favours landings that come quickly but only counts when the lander lands.
 | `--fitness-mode` | Formula | Favours |
 |---|---|---|
 | `standard` | `reward + 100·landing` | the original objective |
-| `balanced` (default) | `reward + 100·landing + 30·speed·landing` | safe, quick, efficient landings |
+| `balanced` (default) | `reward + 100·landing + 30·speed·landing − 0.5·settle` | safe, quick landings that stay still |
 | `speed` | `reward + 150·landing + 50·speed·landing` | fastest landings |
 | `fuel` | `1.5·reward + 100·landing` | fuel efficiency |
 

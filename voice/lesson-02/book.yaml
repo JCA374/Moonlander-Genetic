@@ -20,41 +20,41 @@ chapters:
 sources:
   ch01:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-02.md
-    sha1: 0f4e8adfcb3a3ec6d15ac1c5ebdb2f2bec407690
+    sha1: 1a81b9cc0094473838c112f60e08db4308279012
     section: l2_title
   ch02:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-02.md
-    sha1: 0f4e8adfcb3a3ec6d15ac1c5ebdb2f2bec407690
+    sha1: 1a81b9cc0094473838c112f60e08db4308279012
     section: controller
   ch03:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-02.md
-    sha1: 0f4e8adfcb3a3ec6d15ac1c5ebdb2f2bec407690
+    sha1: 1a81b9cc0094473838c112f60e08db4308279012
     section: controller.2
   ch04:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-02.md
-    sha1: 0f4e8adfcb3a3ec6d15ac1c5ebdb2f2bec407690
+    sha1: 1a81b9cc0094473838c112f60e08db4308279012
     section: controller.3
   ch05:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-02.md
-    sha1: 0f4e8adfcb3a3ec6d15ac1c5ebdb2f2bec407690
+    sha1: 1a81b9cc0094473838c112f60e08db4308279012
     section: w_anatomy
   ch06:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-02.md
-    sha1: 0f4e8adfcb3a3ec6d15ac1c5ebdb2f2bec407690
+    sha1: 1a81b9cc0094473838c112f60e08db4308279012
     section: w_anatomy.2
   ch07:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-02.md
-    sha1: 0f4e8adfcb3a3ec6d15ac1c5ebdb2f2bec407690
+    sha1: 1a81b9cc0094473838c112f60e08db4308279012
     section: w_anatomy.3
   ch08:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-02.md
-    sha1: 0f4e8adfcb3a3ec6d15ac1c5ebdb2f2bec407690
+    sha1: 1a81b9cc0094473838c112f60e08db4308279012
     section: w_anatomy.4
   ch09:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-02.md
-    sha1: 0f4e8adfcb3a3ec6d15ac1c5ebdb2f2bec407690
+    sha1: 1a81b9cc0094473838c112f60e08db4308279012
     section: w_anatomy.5
   ch10:
     path: /home/jonas/code/games/lunarlander/Moonlander-Genetic/video_tools/narration/lesson-02.md
-    sha1: 0f4e8adfcb3a3ec6d15ac1c5ebdb2f2bec407690
+    sha1: 1a81b9cc0094473838c112f60e08db4308279012
     section: w_worked

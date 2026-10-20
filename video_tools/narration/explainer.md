@@ -16,6 +16,14 @@ At every step, the lander senses eight numbers. Where it is, how fast it is movi
 
 And at every step, it chooses one of four actions. Do nothing, fire the left engine, fire the main engine, or fire the right engine.
 
+## sites
+
+Every flight happens on a new moon. The mountains are random, and the lander gets a random shove at the start. So the pilot can't memorise one flight.
+
+## sites.2
+
+But the landing pad is always in the middle, at the same height. The lander measures its position from the pad, so the goal is always the same: get to zero, zero. Each pilot is tested on ten random moons, so evolution has to find a rule that works everywhere.
+
 ## controller
 
 The pilot is one small table of numbers. Each of the eight inputs is multiplied by a weight for each action, and a bias is added. That gives four scores.
@@ -62,7 +70,7 @@ How do we score a pilot? It flies ten episodes, and we start from its average re
 
 ## fitness.2
 
-Then we add a big bonus for landing, and a small one for landing quickly.
+Then we add a big bonus for landing, and a small one for landing quickly. And one penalty: every engine burst after both legs are down costs half a point. A good pilot lands, and then stays still.
 
 ## gen_fitness
 
@@ -70,11 +78,11 @@ Now let's watch it learn. Each dot is one pilot, and each column is one generati
 
 ## gen_fitness.2
 
-In the first thirty generations, nearly every pilot still crashes. But the dots keep creeping upward, because each generation is sampled around the best of the last one.
+In the first twenty generations, nearly every pilot still crashes. But the dots keep creeping upward, because each generation is sampled around the best of the last one.
 
 ## gen_fitness.3
 
-Then the whole population lifts. By generation seventy-five, most pilots land. The orange line is the best pilot, the blue line is the average, and the gap between them closes as the population settles on one strategy.
+Then the whole population lifts. By generation fifty, more than half the pilots land. By seventy-five, almost all of them do. The orange line is the best pilot, the blue line is the average, and the gap closes as the population settles on one strategy.
 
 ## gen_ghosts
 
@@ -82,15 +90,15 @@ Here is the same story in flight. All fifty pilots of one generation start from 
 
 ## gen_ghosts.2
 
-Generation zero is chaos. Pilots fall straight down, or fly off the screen. Five generations later, not one of them lands yet.
+Generation zero is chaos. Pilots fall straight down, or fly off the screen. Five generations later, not one of them lands.
 
 ## gen_ghosts.3
 
-By generation ten, a few paths bend toward the pad. By forty, more of them arrive. And by fifty, nineteen of the fifty pilots land.
+By generation twenty, three pilots make it. By thirty, fourteen. By forty, twenty-seven. And by fifty, thirty-six of the fifty pilots land.
 
 ## gen_ghosts.4
 
-By generation one hundred, forty-eight of them land. The whole population flies almost the same path, a smooth curve down between the flags.
+By the end, all fifty land. The whole population flies almost the same path, a smooth curve down to the middle of the pad.
 
 ## gen_cloud
 
@@ -102,7 +110,7 @@ The centre of the cloud travels a long way from where it started, toward the reg
 
 ## gen_cloud.3
 
-And there's a neat trick here. Only the highest score matters, so making every weight bigger doesn't change any decision. As the weights grow, the same step size becomes a smaller and smaller step, and the search turns into fine-tuning.
+And there's a neat trick here. Only the highest score matters, so making every weight bigger doesn't change any decision. The weights grow about a hundred times bigger, while the step size stays around one. So each step gets smaller and smaller compared with the weights, and the search turns into fine-tuning.
 
 ## gen_weights
 
@@ -110,7 +118,7 @@ Here is the centre of the cloud, drawn as the weight matrix itself. At generatio
 
 ## gen_weights.2
 
-The strongest rules are about speed. Drifting sideways, falling, and spinning. They are exactly the things a human pilot would watch.
+The strongest rules are about tilt, spin and drift. Exactly the things a human pilot would watch.
 
 ## evolution
 
@@ -118,15 +126,15 @@ Here are the best pilots from different points in training, all facing the same 
 
 ## evolution.2
 
-The random pilot flies away, and the early champion crashes. By generation thirty the best pilot lands, and later ones land more cleanly.
+The random pilot flies away, and the champion of generation ten crashes. From generation thirty on, the best pilot lands, and each one lands a little more cleanly.
 
 ## w_worked
 
-Because the pilot is so simple, we can follow every decision. Here the lander is falling fast. Each input times its weight adds to each score. The falling speed pushes the main engine up and do nothing down, so the main engine wins.
+Because the pilot is so simple, we can follow every decision. Here the lander is falling fast. Each input times its weight adds to each score. The falling speed pushes the main engine up and do nothing down, and the main engine wins by a nose.
 
 ## w_worked.2
 
-A moment earlier, it was tilted to the right. Now the left engine collects just enough votes to win, and it turns the lander back upright.
+And here it has just landed, with both legs on the ground. The leg switches add big votes to do nothing, so do nothing wins, and the lander stays still. That's the rule the settle penalty taught it.
 
 ## w_policy_map
 
@@ -134,27 +142,27 @@ We can draw a whole rule at once. Across is the tilt, and up and down is the spi
 
 ## w_policy_map.2
 
-The white line is a real flight. The pilot stays near the middle, hopping between the engines to keep itself upright.
+The white line is a real flight. Tilt or spin one way, and it fires the engine that turns it back. The border between them runs right through the middle, so the pilot keeps itself upright with small corrections.
 
 ## w_story
 
-So what did evolution find? The main engine fires when the lander is falling. Its bias is negative, so it stays off unless the fall is fast enough.
+So what did evolution find? The main engine is the brake. Falling speed has the biggest weight on it, so the faster the lander falls, the harder it wants to brake.
 
 ## w_story.2
 
-Do nothing gets a strong vote when the lander is rising, and a strong vote against it when the left leg is down. This pilot almost never just waits.
+Do nothing is the landing rule. Each leg that touches the ground adds a big vote for it. With both legs down, it wins, and the engines go quiet.
 
 ## w_story.3
 
-The left engine fixes drift and spin. It fires when the lander drifts right or spins clockwise, and it pushes the lander back.
+The left engine fixes drift and tilt. It fires when the lander drifts right, sits right of the pad, tilts right, or spins clockwise. And it pushes the lander back.
 
 ## w_story.4
 
-And the right engine is the default. It fires almost half the time, with small, cheap pulses whenever no other rule wins. When the lander drifts left, the left engine loses its votes, and the right engine takes over.
+And the right engine is its mirror image. Drifting left, tilting left, or spinning the other way, and the right engine pushes back. Evolution found the symmetry on its own.
 
 ## outro
 
-Tested on one hundred new landings it never saw in training, this pilot lands ninety-six times.
+Tested on one hundred new landings it never saw in training, this pilot lands ninety-five times. And once it's down, it stays down.
 
 ## outro.2
 

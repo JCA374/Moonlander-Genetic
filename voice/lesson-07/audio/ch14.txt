@@ -1,1 +1,1 @@
-The left engine fixes drift and spin. It fires when the lander drifts right, or spins clockwise, and it pushes the lander back.
+Do nothing is the landing rule. Each leg that touches the ground adds a big vote for it. With both legs down, it wins, and the engines go quiet.

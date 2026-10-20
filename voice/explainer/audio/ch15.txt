@@ -1,1 +1,1 @@
-How do we score a pilot? It flies ten episodes, and we start from its average reward in the game. That already punishes crashing and wasted fuel.
+It keeps a cloud of candidates, shaped like a stretched bell curve. Each generation it samples new points, keeps the best half, and moves the centre toward them.

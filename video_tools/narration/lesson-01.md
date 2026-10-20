@@ -16,6 +16,14 @@ Many times a second, the lander senses eight numbers. Its position, across and u
 
 With those eight numbers, it picks one of four actions. Do nothing. Fire the left engine. Fire the main engine underneath. Or fire the right engine. The side engines push the lander sideways and spin it, and the main engine pushes it up.
 
+## sites
+
+Every episode builds a new moon. The mountains are random, and the lander starts with a random shove, so no two flights are the same.
+
+## sites.2
+
+The landing pad never moves, though. It's always in the middle, at the same height, and the lander's position inputs are measured from the pad. Zero, zero means right on target. During training, every pilot is tested on ten random moons, so evolution has to find a rule that works on all of them, instead of memorising one.
+
 ## reward
 
 The game keeps score while it flies. Moving toward the pad, slowing down, and staying level all earn a little. Drifting away, speeding up, and tilting all cost a little.

@@ -1,1 +1,1 @@
-And the right engine is the default. It fires almost half the time, with small, cheap pulses whenever no other rule wins. When the lander drifts left, the left engine loses its votes, and the right engine takes over.
+Do nothing is the landing rule. Each leg that touches the ground adds a big vote for it. With both legs down, it wins, and the engines go quiet.

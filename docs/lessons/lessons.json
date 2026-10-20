@@ -4,7 +4,7 @@
   "n": 1,
   "title": "The task",
   "subtitle": "what the lander senses, does, and is scored on",
-  "seconds": 92.0,
+  "seconds": 122.9,
   "transcript": [
    {
     "scene": "l1_title",
@@ -13,6 +13,10 @@
    {
     "scene": "task",
     "text": "This is Lunar Lander, a small physics game from the Gymnasium library. The lander starts near the top of the screen with a random push, and it has to touch down softly on the pad between the two flags. Many times a second, the lander senses eight numbers. Its position, across and up. Its speed, across and up. Its tilt, and how fast it is spinning. And two switches that turn on when a leg touches the ground. With those eight numbers, it picks one of four actions. Do nothing. Fire the left engine. Fire the main engine underneath. Or fire the right engine. The side engines push the lander sideways and spin it, and the main engine pushes it up."
+   },
+   {
+    "scene": "sites",
+    "text": "Every episode builds a new moon. The mountains are random, and the lander starts with a random shove, so no two flights are the same. The landing pad never moves, though. It's always in the middle, at the same height, and the lander's position inputs are measured from the pad. Zero, zero means right on target. During training, every pilot is tested on ten random moons, so evolution has to find a rule that works on all of them, instead of memorising one."
    },
    {
     "scene": "reward",
@@ -25,7 +29,7 @@
   "n": 2,
   "title": "The controller",
   "subtitle": "36 numbers that fly a spacecraft",
-  "seconds": 113.3,
+  "seconds": 115.4,
   "transcript": [
    {
     "scene": "l2_title",
@@ -37,11 +41,11 @@
    },
    {
     "scene": "w_anatomy",
-    "text": "Let's learn to read the table. Each row is one input, and each column is one action. Orange cells are positive weights, and blue cells are negative. The brighter the cell, the bigger the number. Read across a row, and you see how one input votes. Horizontal speed pushes some actions up and others down, all at the same time. Read down a column, and you see everything that argues for one action. This is the left engine's column. A single cell is a single rule. A positive weight means the bigger this input, the more I want this action. A negative weight means the opposite. Here: drifting right is a strong vote for the left engine. The last row is the bias. It's a head start, or a handicap, that each action gets, whatever the state."
+    "text": "Let's learn to read the table. Each row is one input, and each column is one action. Orange cells are positive weights, and blue cells are negative. The brighter the cell, the bigger the number. Read across a row, and you see how one input votes. The tilt pushes some actions up and others down, all at the same time. Read down a column, and you see everything that argues for one action. This is the right engine's column. A single cell is a single rule. A positive weight means the bigger this input, the more I want this action. A negative weight means the opposite. Here: tilting left is a strong vote for the right engine, which turns the lander back upright. The last row is the bias. It's a head start, or a handicap, that each action gets, whatever the state."
    },
    {
     "scene": "w_worked",
-    "text": "Now let's watch one real decision. Each input is multiplied by its weight, and the products are added up in each column. The lander is falling fast, so the falling speed pushes the main engine's score up. It has the highest total, so the main engine fires."
+    "text": "Now let's watch one real decision. Each input is multiplied by its weight, and the products are added up in each column. The lander is falling fast, so the falling speed pushes the main engine's score up. It has the highest total, just barely, so the main engine fires."
    }
   ]
  },
@@ -50,7 +54,7 @@
   "n": 3,
   "title": "Population and fitness",
   "subtitle": "many candidates, and a way to rank them",
-  "seconds": 81.8,
+  "seconds": 100.1,
   "transcript": [
    {
     "scene": "l3_title",
@@ -62,7 +66,7 @@
    },
    {
     "scene": "fitness",
-    "text": "So what is the score? Each pilot flies ten different episodes, each with its own terrain and starting push. Then we combine three things. First, the average reward from the game itself. That already rewards approaching the pad, and it punishes crashing and wasted fuel. Second, a bonus of a hundred points, times the share of episodes that end in a landing. Landing is what we really want, so it's worth a lot. Third, a small speed bonus, up to thirty points, for landing quickly. It is multiplied by the landing rate, so a pilot can't earn it by crashing fast."
+    "text": "So what is the score? Each pilot flies ten different episodes, each with its own terrain and starting push. Then we combine three things. First, the average reward from the game itself. That already rewards approaching the pad, and it punishes crashing and wasted fuel. Second, a bonus of a hundred points, times the share of episodes that end in a landing. Landing is what we really want, so it's worth a lot. Third, a small speed bonus, up to thirty points, for landing quickly. It is multiplied by the landing rate, so a pilot can't earn it by crashing fast. Fourth, a penalty. Every frame an engine fires after both legs are on the ground costs half a point. Without it, evolution happily kept pulsing the side engines after touchdown, because they are almost free. With it, the pilot learns to land, and then stay still."
    }
   ]
  },
@@ -96,7 +100,7 @@
   "n": 5,
   "title": "Generations",
   "subtitle": "watching a population improve",
-  "seconds": 145.1,
+  "seconds": 149.0,
   "transcript": [
    {
     "scene": "l5_title",
@@ -104,15 +108,15 @@
    },
    {
     "scene": "gen_fitness",
-    "text": "Each dot is one pilot. Each column is one generation of fifty pilots, and the height of a dot is its fitness. Red pilots mostly crash, and green ones mostly land. In the first thirty generations, nearly every pilot crashes. But each generation is sampled around the best of the last one, so the whole column creeps upward. The best pilot lands half its episodes by generation thirty-two. Then the whole population climbs. By generation fifty, a fifth of the pilots land. By seventy-five, most of them do. The orange line is the best pilot, and the blue line is the average. As the population agrees on one strategy, the average catches up with the best."
+    "text": "Each dot is one pilot. Each column is one generation of fifty pilots, and the height of a dot is its fitness. Red pilots mostly crash, and green ones mostly land. In the first twenty generations, nearly every pilot crashes. But each generation is sampled around the best of the last one, so the whole column creeps upward. The best pilot lands half its episodes by generation twenty. Then the whole population climbs. By generation fifty, more than half the pilots land. By seventy-five, almost all of them do, and by one hundred, every single one. The orange line is the best pilot, and the blue line is the average. As the population agrees on one strategy, the average catches up with the best."
    },
    {
     "scene": "gen_ghosts",
-    "text": "Fitness is just a number, so let's watch the flights. Every pilot of a generation starts from exactly the same spot, with the same push, and we draw where each one goes. Generation zero is chaos. Pilots fall straight down, or fire an engine and fly off the screen. One generation later, and then five, the paths change shape, but not one of them lands yet. By generation ten, a few paths bend toward the pad. Through twenty and thirty, the paths tighten, but only a handful land. By forty, eight land. And by fifty, nineteen of the fifty pilots land. By seventy-five, forty land. By one hundred, forty-eight. In the end, the trails bundle into one smooth curve between the flags."
+    "text": "Fitness is just a number, so let's watch the flights. Every pilot of a generation starts from exactly the same spot, with the same push, and we draw where each one goes. Generation zero is chaos. Pilots fall straight down, or fire an engine and fly off the screen. One generation later, one pilot lands, almost by luck. By generation five, none do. At generation ten, still none. Then it takes off. Three pilots land at generation twenty, fourteen at thirty, twenty-seven at forty, and thirty-six at fifty. By seventy-five, forty-eight land. By the end, all fifty, and the trails bundle into one smooth curve down to the middle of the pad."
    },
    {
     "scene": "gen_cloud",
-    "text": "This is the same population, seen as points. Each pilot is thirty-six numbers. A method called principal component analysis flattens them down to two, so each dot is a whole pilot. The centre of the cloud, in blue, travels a long way from where it started, toward the region where pilots land. The white line is its path. Here is a neat trick. Only the highest score matters, so if you double every weight, every decision stays the same. As the weights grow, the same step size becomes a smaller and smaller step relative to them. The search turns into fine-tuning on its own."
+    "text": "This is the same population, seen as points. Each pilot is thirty-six numbers. A method called principal component analysis flattens them down to two, so each dot is a whole pilot. The centre of the cloud, in blue, travels a long way from where it started, toward the region where pilots land. The white line is its path. Here is a neat trick. Only the highest score matters, so if you double every weight, every decision stays the same. The weights grew about a hundred times bigger, while the step size stayed around one. So each step got smaller and smaller compared with the weights, and the search turned into fine-tuning on its own."
    }
   ]
  },
@@ -121,7 +125,7 @@
   "n": 6,
   "title": "Evolution in flight",
   "subtitle": "the best pilot along the way",
-  "seconds": 68.0,
+  "seconds": 65.6,
   "transcript": [
    {
     "scene": "l6_title",
@@ -129,11 +133,11 @@
    },
    {
     "scene": "evolution",
-    "text": "Here is the best pilot from different points in training, all facing the same start. A random pilot, then the champions of generations ten, thirty, sixty and one hundred, and the final best. The random pilot fires its main engine without a break, and flies away. The champion of generation ten fires its engines, but still crashes. By generation thirty, the best pilot lands. Later champions land too, with steadier and more efficient flights."
+    "text": "Here is the best pilot from different points in training, all facing the same start. A random pilot, then the champions of generations ten, thirty, sixty and one hundred, and the final best. The random pilot fires its main engine without a break, and flies away. The champion of generation ten fires its engines, but still crashes. From generation thirty on, every champion lands."
    },
    {
     "scene": "gen_weights",
-    "text": "Here is the centre of the population, drawn as the weight matrix itself. The colours are scaled to the biggest weight in each generation, so we can see the pattern while it forms. At generation zero it is noise. The strongest rules in the end are all about speed. Drifting right fires the left engine. Falling fires the main engine, and stops the lander from doing nothing. Spinning clockwise fires the left engine too."
+    "text": "Here is the centre of the population, drawn as the weight matrix itself. The colours are scaled to the biggest weight in each generation, so we can see the pattern while it forms. At generation zero it is noise. The strongest rules in the end are about tilt, spin and drift. Tilting left or spinning left fires the right engine. Drifting right fires the left engine. And the leg switches, which only matter at the very end, tell it to go quiet."
    }
   ]
  },
@@ -142,7 +146,7 @@
   "n": 7,
   "title": "Reading the weights",
   "subtitle": "what evolution actually found",
-  "seconds": 214.7,
+  "seconds": 232.3,
   "transcript": [
    {
     "scene": "l7_title",
@@ -150,27 +154,27 @@
    },
    {
     "scene": "w_worked",
-    "text": "Start with one decision. The lander is high up and falling fast. Each input is multiplied by its weight, and the products are added up per action. The falling speed alone gives the main engine a big push, and takes a lot away from do nothing. The main engine wins. A few frames earlier, the lander was tilted to the right. Now it's close. The tilt and the height add votes to the left engine, and it wins by a small margin. Firing it turns the lander back upright. Near the ground, the lander is spinning to the left. Spin has the biggest weight of all, on the left engine, and here it counts against it. The left engine drops far behind, and the right engine wins. That spins the lander back."
+    "text": "Start with one decision. The lander is high up and falling fast. Each input is multiplied by its weight, and the products are added up per action. The falling speed gives the main engine a big push, and takes a lot away from do nothing. It's close, but the main engine wins. A moment later, the lander is tilted to the right. The tilt now adds votes to the left engine and takes them from the others. The left engine wins, and turns the lander back upright. Further down, the lander is spinning to the left. Spin has the biggest weight of all, on the right engine, and here it counts for it. The right engine wins, and spins the lander back. And on the ground, with both legs down. The two leg switches each add a big vote for do nothing. Do nothing wins, and the lander stays still. That's the rule the settle penalty taught it."
    },
    {
     "scene": "w_scale",
-    "text": "But be careful. A big weight doesn't always mean a big effect. Here are the sizes of all the weights. What also matters is how much each input actually changes in flight. Altitude moves a lot. Spin barely moves at all, so its large weights are multiplied by small numbers. The legs are always zero in the air. Multiply the two, and you get the influence of each weight. The three that matter most are drift on the left engine, and falling speed on do nothing and on the main engine."
+    "text": "But be careful. A big weight doesn't always mean a big effect. Here are the sizes of all the weights. What also matters is how much each input actually changes in flight. Altitude and drift move a lot. Spin moves less, so its large weights are multiplied by smaller numbers. The legs are always zero in the air. Multiply the two, and you get the influence of each weight. The ones that matter most are tilt and spin on the right engine, and drift on the left engine."
    },
    {
     "scene": "w_policy_tilt",
-    "text": "We can also draw a rule as a map. Across is the tilt, and up and down is the spin, with every other input held at a typical value. Each colour is the action the pilot would choose there. The white line is a real flight. It stays near the middle, where the colours meet, so the pilot hops between engines with every small change."
+    "text": "We can also draw a rule as a map. Across is the tilt, and up and down is the spin, with every other input held at a typical value. Each colour is the action the pilot would choose there. The white line is a real flight. The border between the two engines runs diagonally through the middle. Tilt or spin one way, and the pilot fires the engine that turns it back, so it stays upright with small corrections."
    },
    {
     "scene": "w_policy_fall",
-    "text": "Here's a second map. Across is the height, and up and down is the falling speed. Falling fast, it fires the main engine. Falling slowly while still high up, it uses the side engines. And close to the ground, moving slowly, it does nothing. The real flight zig-zags along the border. The pilot brakes just enough, again and again, all the way down."
+    "text": "Here's a second map. Across is the height, and up and down is the falling speed. Falling fast and low, it fires the main engine. Falling slowly, it steers with the side engines instead. And high up, it doesn't brake yet. It saves the main engine for later. The real flight rides along that border all the way down."
    },
    {
     "scene": "w_story",
-    "text": "Now let's put it together, one action at a time. The main engine fires when the lander is falling. Its bias is negative, so it stays off unless the fall is fast enough. Do nothing gets a strong vote when the lander is rising, and a strong vote against it when the left leg is down. This pilot almost never just waits. The left engine fixes drift and spin. It fires when the lander drifts right, or spins clockwise, and it pushes the lander back. And the right engine is the default. It fires almost half the time, in small, cheap pulses, whenever no other rule wins. There's no rule for drifting left. When that happens, the left engine loses its votes, and the right engine wins by default."
+    "text": "Now let's put it together, one action at a time. The main engine is the brake. Falling speed has the biggest weight on it, so the faster the lander falls, the harder it wants to brake. Do nothing is the landing rule. Each leg that touches the ground adds a big vote for it. With both legs down, it wins, and the engines go quiet. The left engine fixes drift and tilt. It fires when the lander drifts right, sits right of the pad, tilts right, or spins clockwise. It pushes the lander back toward the middle. And the right engine is its mirror image. Drifting left, tilting left, or spinning the other way, and the right engine pushes back. Nobody told evolution the lander is symmetric. It found that on its own."
    },
    {
     "scene": "w_ablation",
-    "text": "Finally, let's test which weights the pilot really needs. We set one weight to zero, fly thirty episodes, and see how many still land. Then we put it back, and try the next one. Most weights can go with little harm. But remove the rule that links falling speed to the main engine, and not a single flight lands. Without it, the pilot never brakes, and simply falls."
+    "text": "Finally, let's test which weights the pilot really needs. We set one weight to zero, fly thirty episodes, and see how many still land. Then we put it back, and try the next one. Most weights can go with little harm. But remove the rule that links falling speed to the main engine, and not a single flight lands. Without it, the pilot never brakes, and simply falls. The leg rules matter almost as much. Remove one of them, and most landings fail."
    }
   ]
  }

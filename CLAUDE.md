@@ -116,9 +116,10 @@ The system supports multiple fitness modes to optimize for different objectives 
 
 **2. Balanced Mode** (`balanced`) - **Default**:
 - Optimizes for landing success, speed, and fuel efficiency
-- Formula: `fitness = avg_reward + (landing_rate × 100) + (speed_bonus × landing_rate)`
+- Formula: `fitness = avg_reward + (landing_rate × 100) + (speed_bonus × landing_rate) − 0.5 × settle_frames`
 - Speed bonus: up to 30 points for fast landings (inversely proportional to episode length)
 - Only rewards speed when landing successfully
+- Settle penalty (`GAEvaluator.SETTLE_PENALTY`): per frame an engine fires while both legs are down, so the pilot stays still after touchdown
 
 **3. Speed Mode** (`speed`):
 - Prioritizes fastest possible landings

@@ -1,1 +1,1 @@
-Now let's put it together, one action at a time. The main engine fires when the lander is falling. Its bias is negative, so it stays off unless the fall is fast enough.
+Falling fast and low, it fires the main engine. Falling slowly, it steers with the side engines instead. And high up, it doesn't brake yet. It saves the main engine for later. The real flight rides along that border all the way down.

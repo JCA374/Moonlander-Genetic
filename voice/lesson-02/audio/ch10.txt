@@ -1,1 +1,1 @@
-Now let's watch one real decision. Each input is multiplied by its weight, and the products are added up in each column. The lander is falling fast, so the falling speed pushes the main engine's score up. It has the highest total, so the main engine fires.
+Now let's watch one real decision. Each input is multiplied by its weight, and the products are added up in each column. The lander is falling fast, so the falling speed pushes the main engine's score up. It has the highest total, just barely, so the main engine fires.

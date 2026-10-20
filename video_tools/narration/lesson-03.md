@@ -31,3 +31,7 @@ Second, a bonus of a hundred points, times the share of episodes that end in a l
 ## fitness.4
 
 Third, a small speed bonus, up to thirty points, for landing quickly. It is multiplied by the landing rate, so a pilot can't earn it by crashing fast.
+
+## fitness.5
+
+Fourth, a penalty. Every frame an engine fires after both legs are on the ground costs half a point. Without it, evolution happily kept pulsing the side engines after touchdown, because they are almost free. With it, the pilot learns to land, and then stay still.

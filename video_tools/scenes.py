@@ -57,8 +57,8 @@ STATE_MEANING = [
     ('rising', 'falling'),
     ('tilted left', 'tilted right'),
     ('rotating left', 'rotating right'),
-    ('touching down with the left leg', None),
-    ('touching down with the right leg', None),
+    ('the left leg is down', None),
+    ('the right leg is down', None),
 ]
 # LunarLander render geometry (600x400 frame, 30 px per metre)
 VIEW_W, VIEW_H, SCALE = 600, 400, 30.0
@@ -278,13 +278,20 @@ class Context:
             pickle.dump((self.key, value), fh)
         return value
 
-    def pick_showcase_seed(self, candidates=range(1, 60)):
-        """A seed where the best controller lands cleanly, for the gameplay scenes."""
+    def pick_showcase_seed(self, candidates=range(1, 200)):
+        """A seed where the best controller lands in the middle of the pad and then stays still
+        (fewest engine frames once both legs are down), for the gameplay scenes."""
+        best = None
         for s in candidates:
             ep = record(self.best, seed=s, frames=False)
-            if ep['landed'] and 180 < ep['steps'] < 450:
-                return s
-        return 1
+            if not (ep['landed'] and 180 < ep['steps'] < 450):
+                continue
+            st, a = np.asarray(ep['states']), np.asarray(ep['actions'])
+            settle = int(np.sum((st[:, 6] > 0.5) & (st[:, 7] > 0.5) & (a != 0)))
+            key = (settle, round(abs(float(st[-1, 0])), 2))
+            if best is None or key < best[0]:
+                best = (key, s)
+        return best[1] if best else 1
 
     def airborne_states(self, episodes=20):
         def states():
@@ -370,6 +377,50 @@ def scene_task(ctx, name='task'):
             text(d, (x0 + 10, 492 + 30 * i), f'{i}. {nm}', 21, FG, fade(t, t2 + 0.6 + 0.6 * i))
         return img
     return Scene(name, render, [5.5, 6.0, 5.0])
+
+
+def scene_sites(ctx, name='sites', seeds=None):
+    """Beats: six random landing sites flown by the best pilot; the pad is always in the middle."""
+    def pick():
+        out = []
+        for sd in range(500, 700):
+            if record(ctx.best, sd, frames=False)['landed']:
+                out.append(sd)
+            if len(out) == 6:
+                return out
+        return out
+    seeds = seeds or ctx.cached('site_seeds', pick)
+    tw, th, gx, gy = 360, 240, 26, 40
+    x0, y0 = (W - (3 * tw + 2 * gx)) // 2, 130
+    eps = []
+    for sd in seeds:
+        ep = record(ctx.best, sd)
+        ep['frames'] = [np.asarray(Image.fromarray(f).resize((tw, th), Image.BILINEAR)) for f in ep['frames']]
+        eps.append(ep)
+    # pad: between chunk 4 and 6 of 11 -> x 8..12 m of 20; at a quarter of the height
+    px1, px2, py = 8 / 20 * tw, 12 / 20 * tw, th - th / 4
+
+    def render(t, b):
+        img = blank()
+        d = ImageDraw.Draw(img)
+        heading(d, 'A new landing site every time', t, 'random mountains, random push')
+        step = int(t * FPS * 1.3)
+        hl = fade(t, b.at(1), 0.6)
+        for i, ep in enumerate(eps):
+            r, c = divmod(i, 3)
+            x, y = x0 + c * (tw + gx), y0 + r * (th + gy)
+            k = min(step, len(ep['frames']) - 1)
+            paste_frame(img, ep['frames'][k], (x, y, tw, th), border=PANEL)
+            if hl > 0:
+                col = mix(BG, AMBER, hl)
+                d.line([x + px1, y + py + 6, x + px2, y + py + 6], fill=col, width=4)
+                d.line([x + tw / 2, y + 4, x + tw / 2, y + py - 4], fill=mix(BG, AMBER, 0.5 * hl), width=1)
+        if hl > 0:
+            text(d, (W // 2, y0 + 2 * th + gy + 22), 'the pad is always in the middle, at the same height: '
+                 'x = 0, y = 0 in the lander\'s inputs', 21, AMBER, hl, anchor='ma')
+        return img
+    longest = max(len(e['frames']) for e in eps) / (FPS * 1.3)
+    return Scene(name, render, [7.0, 7.0], min_beats=[0, max(0.0, longest - 6.0)])
 
 
 def scene_reward(ctx, name='reward'):
@@ -779,14 +830,16 @@ def _wrap(s, width):
     return textwrap.wrap(s, width)
 
 
-def scene_fitness(ctx, name='fitness', reveal=((0, 0.1), (0, 0.45), (1, 0.0), (1, 0.45))):
-    """`reveal`: (beat, fraction of that beat) at which each of the 4 lines appears."""
+def scene_fitness(ctx, name='fitness', reveal=((0, 0.1), (0, 0.45), (1, 0.0), (1, 0.35), (1, 0.7))):
+    """`reveal`: (beat, fraction of that beat) at which each of the 5 lines appears."""
     lines = [('fitness =', FG, None),
              ('    average episode reward', BLUE,
               'the game\'s reward: + approaching the pad, + soft touchdown, − fuel, − crashing'),
              ('  + 100 × landing rate', GREEN, 'a large bonus for actually landing'),
              ('  + 30 × speed × landing rate', AMBER,
-              'a bonus for landing quickly; it only counts when the lander lands')]
+              'a bonus for landing quickly; it only counts when the lander lands'),
+             ('  − 0.5 × engine frames after touchdown', RED,
+              'once both legs are down, stay still: no more engine bursts')]
 
     def render(t, b):
         img = blank()
@@ -795,12 +848,12 @@ def scene_fitness(ctx, name='fitness', reveal=((0, 0.1), (0, 0.45), (1, 0.0), (1
         for i, (s, col, note) in enumerate(lines):
             bk, fr = reveal[i]
             a = fade(t, b.at(bk) + fr * b.durations[min(bk, len(b.durations) - 1)], 0.5)
-            y = 180 + i * 100
-            text(d, (110, y), s, 40, col, a, mono=True, bold=True)
+            y = 150 + i * 92
+            text(d, (110, y), s, 36, col, a, mono=True, bold=True)
             if note:
-                text(d, (140, y + 52), note, 20, MUTED, a)
+                text(d, (140, y + 46), note, 19, MUTED, a)
         bk, fr = reveal[3]
-        text(d, (110, 590), 'speed = 1 − average episode length / 1000 steps', 22, MUTED,
+        text(d, (110, 640), 'speed = 1 − average episode length / 1000 steps', 20, MUTED,
              fade(t, b.at(bk) + (fr + 0.3) * b.durations[min(bk, len(b.durations) - 1)]), mono=True)
         return img
     return Scene(name, render, [6.0] * (max(r[0] for r in reveal) + 1))
@@ -1356,7 +1409,7 @@ def scene_story(ctx, rules, name='w_story'):
                 s = f'{STATE_SHORT[i]} {w:+.1f}: votes for it when {STATE_MEANING[i][0 if w > 0 else 1]}'
             else:
                 s = f'{STATE_SHORT[i]} {w:+.1f}: votes against it when {STATE_MEANING[i][0]}'
-            text(d, (x, 486 + 28 * n), s, 16, FG, fade(t, b.at(k) + 0.6 + 0.4 * n))
+            text(d, (x, 486 + 28 * n), s, 15, FG, fade(t, b.at(k) + 0.6 + 0.4 * n))
         return img
     return Scene(name, render, [7.0] * len(rules))
 

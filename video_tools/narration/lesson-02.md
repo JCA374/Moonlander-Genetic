@@ -22,15 +22,15 @@ Let's learn to read the table. Each row is one input, and each column is one act
 
 ## w_anatomy.2
 
-Read across a row, and you see how one input votes. Horizontal speed pushes some actions up and others down, all at the same time.
+Read across a row, and you see how one input votes. The tilt pushes some actions up and others down, all at the same time.
 
 ## w_anatomy.3
 
-Read down a column, and you see everything that argues for one action. This is the left engine's column.
+Read down a column, and you see everything that argues for one action. This is the right engine's column.
 
 ## w_anatomy.4
 
-A single cell is a single rule. A positive weight means the bigger this input, the more I want this action. A negative weight means the opposite. Here: drifting right is a strong vote for the left engine.
+A single cell is a single rule. A positive weight means the bigger this input, the more I want this action. A negative weight means the opposite. Here: tilting left is a strong vote for the right engine, which turns the lander back upright.
 
 ## w_anatomy.5
 
@@ -38,4 +38,4 @@ The last row is the bias. It's a head start, or a handicap, that each action get
 
 ## w_worked
 
-Now let's watch one real decision. Each input is multiplied by its weight, and the products are added up in each column. The lander is falling fast, so the falling speed pushes the main engine's score up. It has the highest total, so the main engine fires.
+Now let's watch one real decision. Each input is multiplied by its weight, and the products are added up in each column. The lander is falling fast, so the falling speed pushes the main engine's score up. It has the highest total, just barely, so the main engine fires.
